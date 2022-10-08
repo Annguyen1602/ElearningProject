@@ -21,6 +21,11 @@ export interface DanhMucKhoaHoc {
   tenDanhMucKhoaHoc: string;
 }
 
+export interface DanhMuc {
+  maDanhMuc: string;
+  tenDanhMuc: string;
+}
+
 export interface NguoiTao {
   taiKhoan: string;
   hoTen: string;
@@ -28,8 +33,10 @@ export interface NguoiTao {
   tenLoaiNguoiDung: string;
 }
 
+
 const initialState: any = {
   arrayListCourses: [],
+  arrCourseDirectory:[]
 };
 
 const listCourses = createSlice({
@@ -39,10 +46,13 @@ const listCourses = createSlice({
     getAllCoursesAction: (state, action: PayloadAction<listCourses[]>) => {
       state.arrayListCourses = action.payload;
     },
+    getAllCoursesDirectory: (state, action: PayloadAction<DanhMucKhoaHoc[]>) => {
+      state.arrCourseDirectory = action.payload;
+    },
   },
 });
 
-export const { getAllCoursesAction } = listCourses.actions;
+export const { getAllCoursesAction ,getAllCoursesDirectory} = listCourses.actions;
 
 export default listCourses.reducer;
 
@@ -55,6 +65,19 @@ export const getListCoursesApi = () => {
       console.log(result.data);
       let arrCourses: listCourses[] = result.data;
       const action = getAllCoursesAction(arrCourses);
+      dispatch(action);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const getCourseDirectoryApi = () => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.get("/QuanLyKhoaHoc/LayDanhMucKhoaHoc");
+      console.log(result.data);
+      let arrCoursesDirectory: DanhMucKhoaHoc[] = result.data;
+      const action = getAllCoursesDirectory(arrCoursesDirectory);
       dispatch(action);
     } catch (error) {
       console.log(error);

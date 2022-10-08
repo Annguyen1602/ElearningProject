@@ -1,9 +1,10 @@
 import { configureStore, PayloadAction } from "@reduxjs/toolkit";
-import listCourses from "./reducers/listCourses";
+import listCoursesReducer from "./reducers/listCoursesReducer";
+import listCourses from "./reducers/listCoursesReducer";
 
 export const store = configureStore({
   reducer: {
-    listCourses,
+  listCoursesReducer,
   },
 });
 
