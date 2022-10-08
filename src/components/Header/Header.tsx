@@ -19,38 +19,7 @@ export default function Header() {
   const { arrCourseDirectory } = useSelector(
     (state: RootState) => state.listCoursesReducer
   );
-
-  type MenuItem = Required<MenuProps>["items"][number];
-
-  function getItem(
-    label: React.ReactNode,
-    key?: React.Key | null,
-    icon?: React.ReactNode,
-    children?: MenuItem[],
-    type?: "group"
-  ): MenuItem {
-    return {
-      key,
-      icon,
-      children,
-      label,
-      type,
-    } as MenuItem;
-  }
-
-  const arr: any = [
-    {
-      label: "Home",
-      key: "xin chào",
-      children: [
-        {
-          label: "Xin chào",
-          key: "chao",
-          children: [{ path: "/xinchao" }],
-        },
-      ],
-    },
-  ];
+  
   const [current, setCurrent] = useState("1");
   const dispatch: AppDispatch = useDispatch();
 
