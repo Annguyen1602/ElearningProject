@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import { history } from "..";
 
-import image from '../assets/img/image.png'
+import image from "../assets/img/image.png";
 
 type Props = {};
 
@@ -119,14 +119,13 @@ export default function Register({}: Props) {
   //   const handleRadioButtons = (e: any) => (frm.values.gender = e.target.value);
 
   return (
-    <div className="d-flex container">
-        <div className="col-6">
-            <img src={image} alt="..." className="w-100" height={1000}/>
-
-        </div>
+    <div className="d-flex ">
+      <div className="col-6">
+        <img src={image} alt="..." className="w-100" height={1200} />
+      </div>
       <section className="register col-6">
         <div className="contain">
-          <h2>ĐĂNG KÝ</h2>
+          <h2 className="title">ĐĂNG KÝ</h2>
           <hr />
           <form
             className="form d-flex flex-wrap justify-content-between"
@@ -167,11 +166,11 @@ export default function Register({}: Props) {
 
                 <span className="text-danger">{frm.errors.password} </span>
               </div>
-              <button type="button" onClick={togglePassword}>
+              <button type="button" style={{background:'transparent'}} onClick={togglePassword}>
                 {passwordType === "password" ? (
-                  <i className="bi bi-eye-slash"></i>
+                  <i className="bi bi-eye-slash" ></i>
                 ) : (
-                  <i className="bi bi-eye"></i>
+                  <i className="bi bi-eye" ></i>
                 )}
               </button>
             </div>
@@ -188,11 +187,11 @@ export default function Register({}: Props) {
                 />
                 <span className="text-danger">{frm.errors.passconfirm}</span>
               </div>
-              <button type="button" onClick={toggleRePassword}>
+              <button type="button" style={{background:'transparent'}} onClick={toggleRePassword}>
                 {passwordReType === "password" ? (
-                  <i className="bi bi-eye-slash"></i>
+                  <i className="bi bi-eye-slash" ></i>
                 ) : (
-                  <i className="bi bi-eye"></i>
+                  <i className="bi bi-eye" ></i>
                 )}
               </button>
             </div>
@@ -249,8 +248,15 @@ export default function Register({}: Props) {
               </div>
             </div>
 
-            <div className="form-group submit">
-              <button type="submit">Đăng ký</button>
+            <div className="d-flex justify-content-between w-100 mb-5  mt-5">
+            <div className="submit">
+              <button type="submit" className="btn">Đăng ký</button>
+            </div>
+            <div className="signIn">
+              <button type="button" className="btn">
+                Đăng nhập
+              </button>
+            </div>
             </div>
           </form>
         </div>

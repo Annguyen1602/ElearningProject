@@ -24,8 +24,11 @@ root.render(
     <HistoryRouter history={history}>
       <Routes>
         <Route path="" element={<HomeTeplate />}>
-          <Route path="dangky" element={<Register />}></Route>
+          
         </Route>
+      </Routes>
+      <Routes>
+      <Route path="dangky" element={<Register />}></Route>
       </Routes>
     </HistoryRouter>
   </Provider>
