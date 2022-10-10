@@ -11,6 +11,7 @@ import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import "antd/dist/antd.css";
 import './assets/scss/styles.scss'
+import Demo from "./pages/Register/demo";
 
 
 
@@ -24,6 +25,7 @@ root.render(
     <HistoryRouter history={history}>
       <Routes>
         <Route path="" element={<HomeTeplate />}>
+          <Route path="demo" element={<Demo/>}></Route>
           
         </Route>
       </Routes>

@@ -8,11 +8,13 @@ import axios from "axios";
 import { history } from "..";
 
 import image from "../assets/img/image.png";
+import { postSignInApi } from "../redux/reducers/userReducer";
+import { AppDispatch } from "../redux/configStore";
 
 type Props = {};
 
 export default function Register({}: Props) {
-  const dispatch = useDispatch();
+  const dispatch:AppDispatch = useDispatch();
   const [passwordType, setPassWordType] = useState("password");
   const [passwordReType, setPassWordReType] = useState("password");
 
@@ -36,15 +38,7 @@ export default function Register({}: Props) {
     setPassWordReType("password");
   };
 
-  //   interface formModel{
-  //     email: string,
-  //       name: string,
-  //       phone: number,
-  //       password: string,
-  //       passconfirm: string,
-  //       gender: true,
-
-  //   }
+  
   let regexName = new RegExp(
     "[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹs]+$"
   );
@@ -57,66 +51,48 @@ export default function Register({}: Props) {
   );
   const frm = useFormik({
     initialValues: {
-      account: "",
+      taiKhoan: "",
+      matKhau: "",
+      hoTen: "",
+      soDT: "",
+      maNhom: "GP01",
       email: "",
-      name: "",
-      phone: "",
-      password: "",
-      passconfirm: "",
+      passConfirm:''
     },
 
     validationSchema: Yup.object().shape({
-      account: Yup.string().required("Tên tài khoản không được bỏ trống"),
+      taiKhoan: Yup.string().required("Tên tài khoản không được bỏ trống"),
       email: Yup.string()
         .required("Email không được bỏ trống")
         .email("Email không đúng định dạng"),
-      name: Yup.string()
+      hoTen: Yup.string()
         .required("Tên không được để trống")
         .matches(regexName, "Tên không đúng định dạng"),
-      phone: Yup.string()
+      soDT: Yup.string()
         .required("Số điện thoại không được bỏ trống")
         .matches(regexPhone, "Số điện thoại không đúng định dạng"),
-      password: Yup.string()
+      matKhau: Yup.string()
         .required("Mật khẩu không được để trống")
         .min(6, "Mật khẩu phải từ 6-32 ký tự")
         .max(32, "Mật khẩu từ 6-32 ký tự")
         .matches(regexPass, "Mật khẩu không đúng định dạng"),
-      passconfirm: Yup.string().when("password", {
+      passConfirm: Yup.string().when("matKhau", {
         is: (val: string) => (val && val.length > 0 ? true : false),
         then: Yup.string().oneOf(
-          [Yup.ref("password")],
+          [Yup.ref("matKhau")],
           "Không trùng khớp mật khẩu đã nhập"
         ),
       }),
     }),
     onSubmit: (values) => {
-      //   let newAcc = new Account();
-      //   newAcc.email = values.email;
-      //   newAcc.password = values.password;
-      //   newAcc.name = values.name;
-      //   newAcc.gender = values.gender;
-      //   newAcc.phone = values.phone;
-      //   if (newAcc.gender === "true") {
-      //     newAcc.gender = true;
-      //   } else {
-      //     newAcc.gender = false;
-      //   }
-      //   (async () => {
-      //     try {
-      //       const result = await http.post("/Users/signup", newAcc);
-      //       console.log(newAcc);
-      //       alert(result.data.message);
-      //       if (window.confirm("Bạn có muốn chuyển đến trang Đăng nhập?")) {
-      //         history.push("/login");
-      //       }
-      //     } catch (error) {
-      //       alert(error.response.data.message);
-      //       return;
-      //     }
-      //   })();
+      console.log(values);
+      let action = postSignInApi(values)
+      dispatch(action)
+      
+     
     },
   });
-  //   const handleRadioButtons = (e: any) => (frm.values.gender = e.target.value);
+  
 
   return (
     <div className="d-flex ">
@@ -136,15 +112,15 @@ export default function Register({}: Props) {
                 <h2>Tài khoản</h2>
                 <input
                   type="text"
-                  name="account"
-                  id="account"
+                  name="taiKhoan"
+                  id="taiKhoan"
                   className="form-control input-sm w-100"
                   placeholder="Tài khoản"
                   onChange={frm.handleChange}
                   onBlur={frm.handleBlur}
                 />
-                {frm.errors.account ? (
-                  <span className="text-danger">{frm.errors.account} </span>
+                {frm.errors.taiKhoan ? (
+                  <span className="text-danger">{frm.errors.taiKhoan} </span>
                 ) : (
                   ""
                 )}
@@ -155,7 +131,7 @@ export default function Register({}: Props) {
                 <h2>Mật khẩu</h2>
                 <input
                   type={passwordType}
-                  name="password"
+                  name="matKhau"
                   className="form-control input-sm w-100"
                   placeholder="Password"
                   onChange={frm.handleChange}
@@ -164,7 +140,7 @@ export default function Register({}: Props) {
                   value={passwordInput}
                 />
 
-                <span className="text-danger">{frm.errors.password} </span>
+                <span className="text-danger">{frm.errors.matKhau} </span>
               </div>
               <button type="button" style={{background:'transparent'}} onClick={togglePassword}>
                 {passwordType === "password" ? (
@@ -179,13 +155,13 @@ export default function Register({}: Props) {
                 <h2>Nhập lại mật khẩu</h2>
                 <input
                   type={passwordReType}
-                  name="passconfirm"
+                  name="passConfirm"
                   className="form-control input-sm w-100"
                   placeholder="Password Confirm"
                   onChange={frm.handleChange}
                   onBlur={frm.handleBlur}
                 />
-                <span className="text-danger">{frm.errors.passconfirm}</span>
+                <span className="text-danger">{frm.errors.passConfirm}</span>
               </div>
               <button type="button" style={{background:'transparent'}} onClick={toggleRePassword}>
                 {passwordReType === "password" ? (
@@ -201,15 +177,15 @@ export default function Register({}: Props) {
                 <h2>Họ tên</h2>
                 <input
                   type="text"
-                  name="name"
-                  id="name"
+                  name="hoTen"
+                  id="hoTen"
                   className="form-control input-sm w-100"
                   placeholder="Name"
                   onChange={frm.handleChange}
                   onBlur={frm.handleBlur}
                 />
 
-                <span className="text-danger">{frm.errors.name} </span>
+                <span className="text-danger">{frm.errors.hoTen} </span>
               </div>
             </div>
             <div className="form-group col-md-10 mb-4">
@@ -237,14 +213,14 @@ export default function Register({}: Props) {
                 <h2>Số điện thoại</h2>
                 <input
                   type="text"
-                  name="phone"
-                  id="phone"
+                  name="soDT"
+                  id="soDT"
                   className="form-control input-sm w-100"
                   placeholder="Phone"
                   onChange={frm.handleChange}
                   onBlur={frm.handleBlur}
                 />
-                <span className="text-danger">{frm.errors.phone} </span>
+                <span className="text-danger">{frm.errors.soDT} </span>
               </div>
             </div>
 
