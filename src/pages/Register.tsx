@@ -8,8 +8,9 @@ import axios from "axios";
 import { history } from "..";
 
 import image from "../assets/img/image.png";
-import { postSignInApi } from "../redux/reducers/userReducer";
+import { postSignUpApi } from "../redux/reducers/userReducer";
 import { AppDispatch } from "../redux/configStore";
+import { NavLink } from "react-router-dom";
 
 type Props = {};
 
@@ -86,7 +87,7 @@ export default function Register({}: Props) {
     }),
     onSubmit: (values) => {
       console.log(values);
-      let action = postSignInApi(values)
+      let action = postSignUpApi(values)
       dispatch(action)
       
      
@@ -229,9 +230,11 @@ export default function Register({}: Props) {
               <button type="submit" className="btn">Đăng ký</button>
             </div>
             <div className="signIn">
+              <NavLink to='/dangnhap'>
               <button type="button" className="btn">
                 Đăng nhập
               </button>
+              </NavLink>
             </div>
             </div>
           </form>

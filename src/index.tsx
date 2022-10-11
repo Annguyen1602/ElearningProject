@@ -12,6 +12,7 @@ import { createBrowserHistory } from "history";
 import "antd/dist/antd.css";
 import './assets/scss/styles.scss'
 import Demo from "./pages/Register/demo";
+import LogIn from "./pages/LogIn/LogIn";
 
 
 
@@ -31,6 +32,7 @@ root.render(
       </Routes>
       <Routes>
       <Route path="dangky" element={<Register />}></Route>
+      <Route path="dangnhap" element={<LogIn />}></Route>
       </Routes>
     </HistoryRouter>
   </Provider>
