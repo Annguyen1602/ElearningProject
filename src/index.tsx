@@ -13,6 +13,7 @@ import "antd/dist/antd.css";
 import './assets/scss/styles.scss'
 import Demo from "./pages/Register/demo";
 import LogIn from "./pages/LogIn/LogIn";
+import Profile from "./pages/Profile/Profile";
 
 
 
@@ -27,6 +28,7 @@ root.render(
       <Routes>
         <Route path="" element={<HomeTeplate />}>
           <Route path="demo" element={<Demo/>}></Route>
+          <Route path="profile" element={<Profile/>}></Route>
           
         </Route>
       </Routes>

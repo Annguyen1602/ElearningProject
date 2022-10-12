@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { message } from "antd";
-
+import {history} from '../../index'
 import {
   ACCESS_TOKEN,
   getStoreJson,
@@ -93,11 +93,12 @@ export const LogInApi = (userLogin: userLogin) => {
     try {
       const result = await http.post("/QuanLyNguoiDung/DangNhap", userLogin);
       console.log(result);
-      setCookie(ACCESS_TOKEN, result.data.content.accessToken, 30);
-      setStore(ACCESS_TOKEN, result.data.content.accessToken);
+      setCookie(ACCESS_TOKEN, result.data.accessToken, 30);
+      setStore(ACCESS_TOKEN, result.data.accessToken);
+      history.push('/profile')  
       dispatch(getProfileApi());
-    } catch (error) {
-      console.log(error);
+    } catch (error:any) {
+      alert(error.response.data)
     }
   };
 };
@@ -110,9 +111,9 @@ export const getProfileApi = () => {
     try {
       const result = await http.post("/QuanLyNguoiDung/ThongTinNguoiDung");
       console.log(result);
-      const action = getProfileAction(result.data.content);
+      const action = getProfileAction(result.data);
       dispatch(action);
-      setStoreJson(USER_LOGIN, result.data.content);
+      setStoreJson(USER_LOGIN, result.data);
     } catch (error) {
       console.log(error);
     }
