@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { message } from "antd";
-import {history} from '../../index'
+import { useNavigate } from "react-router-dom";
+
+// import {history} from '../../index'
 import {
   ACCESS_TOKEN,
   getStoreJson,
@@ -89,13 +91,15 @@ export const postSignUpApi = (student: Student) => {
 // -----------------Login API --------------------
 
 export const LogInApi = (userLogin: userLogin) => {
+   
   return async (dispatch: AppDispatch) => {
+    
     try {
       const result = await http.post("/QuanLyNguoiDung/DangNhap", userLogin);
       console.log(result);
       setCookie(ACCESS_TOKEN, result.data.accessToken, 30);
       setStore(ACCESS_TOKEN, result.data.accessToken);
-      history.push('/profile')  
+    
       dispatch(getProfileApi());
     } catch (error:any) {
       alert(error.response.data)

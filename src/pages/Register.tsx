@@ -5,7 +5,7 @@ import eye from "../../assets/img/Color.png";
 import * as Yup from "yup";
 
 import axios from "axios";
-import { history } from "..";
+
 
 import image from "../assets/img/image.png";
 import { postSignUpApi } from "../redux/reducers/userReducer";

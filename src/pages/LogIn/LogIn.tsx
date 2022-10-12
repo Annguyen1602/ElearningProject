@@ -8,13 +8,16 @@ import axios from "axios";
 
 import image from "../../assets/img/image.png";
 
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../redux/configStore";
 import { LogInApi } from "../../redux/reducers/userReducer";
+import { ACCESS_TOKEN, getStore } from "../../util/setting";
 
 type Props = {};
 
+
 export default function LogIn({}: Props) {
+    const navigate = useNavigate()
   const dispatch: AppDispatch = useDispatch();
   const [passwordType, setPassWordType] = useState("password");
   const [passwordReType, setPassWordReType] = useState("password");
@@ -62,6 +65,13 @@ export default function LogIn({}: Props) {
       dispatch(LogInApi(values));
     },
   });
+
+  
+
+  if (getStore(ACCESS_TOKEN)) {
+
+    navigate('/profile')
+  }
 
   return (
     <div className="d-flex ">
@@ -126,7 +136,7 @@ export default function LogIn({}: Props) {
 
             <div className="d-flex justify-content-between w-100 mb-5  mt-5">
               <div className="submit">
-                <button type="submit" className="btn">
+                <button type="submit" className="btn"  >
                   Đăng Nhập
                 </button>
               </div>

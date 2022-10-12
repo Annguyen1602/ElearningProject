@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate, createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomeTeplate from "./templates/HomeTeplate/HomeTeplate";
 
 import { Provider } from "react-redux";
@@ -17,14 +17,14 @@ import Profile from "./pages/Profile/Profile";
 
 
 
-export const history = createBrowserHistory({ window });
+
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <Provider store={store}>
-    <HistoryRouter history={history}>
+    <BrowserRouter >
       <Routes>
         <Route path="" element={<HomeTeplate />}>
           <Route path="demo" element={<Demo/>}></Route>
@@ -36,7 +36,7 @@ root.render(
       <Route path="dangky" element={<Register />}></Route>
       <Route path="dangnhap" element={<LogIn />}></Route>
       </Routes>
-    </HistoryRouter>
+    </BrowserRouter>
   </Provider>
 );
 

@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { ACCESS_TOKEN, getStore, http } from "../../util/setting";
 
 import axios from "axios";
-import { history } from "../..";
+// import { history } from "../..";
 import {
   
   getProfileApi,
@@ -114,7 +114,7 @@ export default function Profile({}: Props) {
   if (!getStore(ACCESS_TOKEN)) {
     //Nếu chưa đăng nhập => Chuyển hướng trang
     alert("Đăng nhập để vào trang này !");
-    return <Navigate to="/login" />;
+    return <Navigate to="/dangnhap" />;
   }
   const handleChangeInput = (e:any) => {
     let { id, value } = e.target;
