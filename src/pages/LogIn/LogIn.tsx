@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import eye from "../../assets/img/Color.png";
 import * as Yup from "yup";
 
@@ -9,19 +9,17 @@ import axios from "axios";
 import image from "../../assets/img/image.png";
 
 import { Navigate, NavLink, useNavigate } from "react-router-dom";
-import { AppDispatch } from "../../redux/configStore";
+import { AppDispatch, RootState } from "../../redux/configStore";
 import { LogInApi } from "../../redux/reducers/userReducer";
-import { ACCESS_TOKEN, getStore } from "../../util/setting";
+import { ACCESS_TOKEN, getStore, USER_LOGIN } from "../../util/setting";
 
 type Props = {};
 
-
 export default function LogIn({}: Props) {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const [passwordType, setPassWordType] = useState("password");
-  const [passwordReType, setPassWordReType] = useState("password");
-
+const {userToken} = useSelector((state:RootState)=> state.userReducer)
   const [passwordInput, setPasswordInput] = useState("");
   const handlePasswordChange = (e: any) => {
     setPasswordInput(e.target.value);
@@ -33,13 +31,6 @@ export default function LogIn({}: Props) {
       return;
     }
     setPassWordType("password");
-  };
-  const toggleRePassword = () => {
-    if (passwordReType === "password") {
-      setPassWordReType("text");
-      return;
-    }
-    setPassWordReType("password");
   };
 
   let regexPass = new RegExp(
@@ -66,12 +57,17 @@ export default function LogIn({}: Props) {
     },
   });
 
+
+  useEffect(()=>{
+    
+    if(userToken !== ''){
+      navigate('/profile')
+    }
+
+  },[userToken])
+
+ 
   
-
-  if (getStore(ACCESS_TOKEN)) {
-
-    navigate('/profile')
-  }
 
   return (
     <div className="d-flex ">
@@ -136,7 +132,7 @@ export default function LogIn({}: Props) {
 
             <div className="d-flex justify-content-between w-100 mb-5  mt-5">
               <div className="submit">
-                <button type="submit" className="btn"  >
+                <button type="submit" className="btn">
                   Đăng Nhập
                 </button>
               </div>

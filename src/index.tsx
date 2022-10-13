@@ -6,7 +6,7 @@ import HomeTeplate from "./templates/HomeTeplate/HomeTeplate";
 
 import { Provider } from "react-redux";
 import { store } from "./redux/configStore";
-import Register from "./pages/Register";
+import Register from "./pages/Register/Register";
 import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom"; 
 import { createBrowserHistory } from "history";
 import "antd/dist/antd.css";

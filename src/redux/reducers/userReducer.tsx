@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
+import LogIn from "../../pages/LogIn/LogIn";
 
-// import {history} from '../../index'
 import {
   ACCESS_TOKEN,
   getStoreJson,
@@ -52,6 +52,7 @@ export interface ChiTietKhoaHocGhiDanh {
 
 const initialState: any = {
   userLogin: getStoreJson(USER_LOGIN) || {},
+  userToken:''
 };
 
 const userReducer = createSlice({
@@ -61,10 +62,14 @@ const userReducer = createSlice({
     getProfileAction: (state, action: PayloadAction<Profile>) => {
       state.userLogin = action.payload;
     },
+    userCheck:(state, action: PayloadAction<Profile>) => {
+      state.userToken = action.payload
+
+    }
   },
 });
 
-export const { getProfileAction } = userReducer.actions;
+export const { getProfileAction, userCheck } = userReducer.actions;
 
 export default userReducer.reducer;
 
@@ -91,22 +96,20 @@ export const postSignUpApi = (student: Student) => {
 // -----------------Login API --------------------
 
 export const LogInApi = (userLogin: userLogin) => {
-   
   return async (dispatch: AppDispatch) => {
-    
     try {
       const result = await http.post("/QuanLyNguoiDung/DangNhap", userLogin);
       console.log(result);
       setCookie(ACCESS_TOKEN, result.data.accessToken, 30);
       setStore(ACCESS_TOKEN, result.data.accessToken);
-    
+      dispatch(userCheck(result.data.accessToken))
+      
       dispatch(getProfileApi());
-    } catch (error:any) {
-      alert(error.response.data)
+    } catch (error: any) {
+      alert(error.response.data);
     }
   };
 };
-
 
 //------------Profile API-------------------------
 

@@ -112,6 +112,7 @@ export default function Profile({}: Props) {
   });
   
   if (!getStore(ACCESS_TOKEN)) {
+    
     //Nếu chưa đăng nhập => Chuyển hướng trang
     alert("Đăng nhập để vào trang này !");
     return <Navigate to="/dangnhap" />;

@@ -7,9 +7,9 @@ import * as Yup from "yup";
 import axios from "axios";
 
 
-import image from "../assets/img/image.png";
-import { postSignUpApi } from "../redux/reducers/userReducer";
-import { AppDispatch } from "../redux/configStore";
+import image from "../../assets/img/image.png";
+import { postSignUpApi } from "../../redux/reducers/userReducer";
+import { AppDispatch } from "../../redux/configStore";
 import { NavLink } from "react-router-dom";
 
 type Props = {};
