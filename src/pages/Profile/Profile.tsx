@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { ACCESS_TOKEN, getStore, http } from "../../util/setting";
 
 import axios from "axios";
-// import { history } from "../..";
+// import { profile } from "../..";
 import { getProfileApi } from "../../redux/reducers/userReducer";
 import { Navigate } from "react-router-dom";
 
@@ -24,7 +24,7 @@ type Props = {};
 
 export default function Profile({}: Props) {
   const { userLogin } = useSelector((state: RootState) => state.userReducer);
-  const [update, setUpdate] = useState<updateUser>({...userLogin});
+  const [update, setUpdate] = useState<updateUser>({ ...userLogin });
   const dispatch = useDispatch();
   const [passwordType, setPassWordType] = useState("password");
 
@@ -45,7 +45,6 @@ export default function Profile({}: Props) {
     setPassWordType("password");
   };
 
-  
   let regexName = new RegExp(
     "[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹs]+$"
   );
@@ -100,107 +99,10 @@ export default function Profile({}: Props) {
     setUpdate(newValue);
   };
 
-  
-
-  
   return (
     <div className="update">
-      <h2 className="title">Profile</h2>
-      <div className="container d-flex h-100">
-        <div className="image col-2"></div>
-        <form
-          className="form d-flex flex-wrap justify-content-start col-10 "
-          onSubmit={frm.handleSubmit}
-        >
-          <div className="form-group col-md-10 mb-4 me-5">
-            <div className="input-group d-flex flex-column">
-              <h2>Email</h2>
-              <input
-                data-type="email"
-                type="email"
-                name="email"
-                id="staticEmail"
-                className="form-control input-sm w-100"
-                placeholder="Email"
-                onChange={frm.handleChange}
-                onBlur={frm.handleBlur}
-                value={userLogin.email}
-              />
-              {frm.errors.email ? (
-                <span className="text-danger">{frm.errors.email} </span>
-              ) : (
-                ""
-              )}
-            </div>
-          </div>
-          <div className="form-group col-md-10 mb-4 me-5">
-            <div className="input-group d-flex flex-column">
-              <h2>Họ tên</h2>
-              <input
-                data-type="hoTen"
-                type="text"
-                name="hoTen"
-                id="hoTen"
-                className="form-control input-sm w-100"
-                placeholder="Name"
-                onChange={frm.handleChange}
-                onBlur={frm.handleBlur}
-                value={update.hoTen}
-                onInput={handleChangeInput}
-              />
-
-              <span className="text-danger">{frm.errors.hoTen} </span>
-            </div>
-          </div>
-
-          <div className="form-group col-md-10 mb-4 me-5">
-            <div className="input-group d-flex flex-column">
-              <h2>Số điện thoại</h2>
-              <input
-                data-type="phone"
-                type="text"
-                name="soDT"
-                id="soDT"
-                className="form-control input-sm w-100"
-                placeholder="Phone"
-                onChange={frm.handleChange}
-                onBlur={frm.handleBlur}
-                value={update.soDT}
-                onInput={handleChangeInput}
-              />
-              <span className="text-danger">{frm.errors.soDT} </span>
-            </div>
-          </div>
-          <div className="form-group col-md-10 mb-4 me-5">
-            <div className="input-group d-flex flex-column">
-              <h2>Mật khẩu</h2>
-              <input
-                data-type="password"
-                type={passwordType}
-                name="matKhau"
-                id="matKhau"
-                className="form-control input-sm w-100"
-                placeholder="Password"
-                onChange={frm.handleChange}
-                onBlur={frm.handleBlur}
-                onInput={handlePasswordChange}
-                value={update.matKhau}
-              />
-
-              <span className="text-danger">{frm.errors.matKhau} </span>
-            </div>
-            <button type="button" onClick={togglePassword}>
-              {passwordType === "password" ? (
-                <i className="bi bi-eye-slash"></i>
-              ) : (
-                <i className="bi bi-eye"></i>
-              )}
-            </button>
-          </div>
-        </form>
-      </div>
-      <hr />
-      <div className="container order d-flex align-items-start flex-wrap">
+     
+      <div className="container order d-flex align-items-start flex-wrap justify-content-around ">
         <div
           className="nav flex-row nav-pills me-3 col-10"
           id="v-pills-tab"
@@ -208,117 +110,157 @@ export default function Profile({}: Props) {
           aria-orientation="vertical"
         >
           <button
-            className="nav-link active"
-            id="v-pills-history-tab"
+            className="nav-link active "
+            id="v-pills-profile-tab"
             data-bs-toggle="pill"
-            data-bs-target="#v-pills-history"
+            data-bs-target="#v-pills-profile"
             type="button"
             role="tab"
-            aria-controls="v-pills-history"
+            aria-controls="v-pills-profile"
             aria-selected="true"
           >
-            Order History
+            Thông tin cá nhân
           </button>
           <button
             className="nav-link"
-            id="v-pills-favorite-tab"
+            id="v-pills-course-tab"
             data-bs-toggle="pill"
-            data-bs-target="#v-pills-favorite"
+            data-bs-target="#v-pills-course"
             type="button"
             role="tab"
-            aria-controls="v-pills-favorite"
+            aria-controls="v-pills-course"
             aria-selected="false"
           >
-            Favorite
+            Khoá học của tôi
           </button>
         </div>
-        <div className="tab-content col-10" id="v-pills-tabContent">
+        <div className="tab-content col-10 border" id="v-pills-tabContent">
           <div
             className="tab-pane fade show active"
-            id="v-pills-history"
+            id="v-pills-profile"
             role="tabpanel"
-            aria-labelledby="v-pills-history-tab"
+            aria-labelledby="v-pills-profile-tab"
           >
-            {/* {userLogin?.ordersHistory?.map((orderItem, index) => {
-              return (
-                <div className="cover mt-2" key={index}>
-                  <hr />
-                  <p>+ Order has been placed on {orderItem.date}</p>
-                  <table className="table">
-                    <thead className="bg-light">
-                      <tr>
-                        <th>ID</th>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                      </tr>
-                    </thead>
-                    {orderItem?.orderDetail?.map((item, index) => {
-                      return (
-                        <tbody key={index}>
-                          <tr>
-                            <td>{orderItem.id}</td>
-                            <td>
-                              <img
-                                src={item.image}
-                                alt={item.name}
-                                height={50}
-                              />
-                            </td>
-                            <td>{item.name}</td>
-                            <td>{item.price}$</td>
-                            <td>{item.quantity}</td>
-                            <td>
-                              {(item.price * item.quantity).toLocaleString()}
-                              $
-                            </td>
-                          </tr>
-                        </tbody>
-                      );
-                    })}
-                  </table>
+            <div className="contain d-flex h-100 w-100 ">
+              
+              <form
+                className="form d-flex flex-wrap justify-content-between"
+                onSubmit={frm.handleSubmit}
+              >
+                <div className="form-group col-md-10 mb-4 me-5">
+                  <div className="input-group d-flex flex-column">
+                    <h2>Email</h2>
+                    <input
+                      data-type="email" 
+                      type="email"
+                      name="email"
+                      className="form-control input-sm w-100"
+                      onChange={frm.handleChange}
+                      placeholder={userLogin.email}
+                    />
+                    {frm.errors.email ? (
+                      <span className="text-danger">{frm.errors.email} </span>
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 </div>
-              );
-            })} */}
+                <div className="form-group col-md-10 mb-4 me-5">
+                  <div className="input-group d-flex flex-column">
+                    <h2>Tài khoản</h2>
+                    <input
+                      type="text"
+                      name="taiKhoan"
+                      id="taiKhoan"
+                      className="form-control input-sm w-100"
+                      aria-label="Disabled input example"
+                      disabled
+                      onChange={frm.handleChange}
+                      placeholder={userLogin.taiKhoan}
+                    />
+                  </div>
+                </div>
+                <div className="form-group col-md-10 mb-4 me-5">
+                  <div className="input-group d-flex flex-column">
+                    <h2>Họ tên</h2>
+                    <input
+                      data-type="hoTen"
+                      type="text"
+                      name="hoTen"
+                      id="hoTen"
+                      className="form-control input-sm w-100"
+                      onChange={frm.handleChange}
+                      placeholder={userLogin.hoTen}
+                      onInput={handleChangeInput}
+                    />
+
+                    <span className="text-danger">{frm.errors.hoTen} </span>
+                  </div>
+                </div>
+
+                <div className="form-group col-md-10 mb-4 me-5">
+                  <div className="input-group d-flex flex-column">
+                    <h2>Số điện thoại</h2>
+                    <input
+                      data-type="phone"
+                      type="text"
+                      name="soDT"
+                      id="soDT"
+                      className="form-control input-sm w-100"
+                      placeholder={userLogin.soDT}
+                      onChange={frm.handleChange}
+                      onInput={handleChangeInput}
+                    />
+                    <span className="text-danger">{frm.errors.soDT} </span>
+                  </div>
+                </div>
+                <div className="form-group col-md-10 mb-4 me-5">
+                  <div className="input-group d-flex flex-column">
+                    <h2>Mật khẩu</h2>
+                    <input
+                      data-type="password"
+                      type={passwordType}
+                      name="matKhau"
+                      id="matKhau"
+                      className="form-control input-sm w-100"
+                      placeholder={userLogin.matKhau}
+                      onChange={frm.handleChange}
+                      onInput={handlePasswordChange}
+                    />
+
+                    <span className="text-danger">{frm.errors.matKhau} </span>
+                  </div>
+                  <button type="button" onClick={togglePassword}>
+                    {passwordType === "password" ? (
+                      <i className="bi bi-eye-slash"></i>
+                    ) : (
+                      <i className="bi bi-eye"></i>
+                    )}
+                  </button>
+                </div>
+                <div className="d-flex justify-content-between w-100 mb-5  mt-5">
+              <div className="submit">
+                <button type="submit" className="btn"  >
+                  Cập nhật
+                </button>
+              </div>
+              
+             
+            </div>
+              </form>
+            </div>
           </div>
 
           <div
             className="tab-pane fade"
-            id="v-pills-favorite"
+            id="v-pills-course"
             role="tabpanel"
-            aria-labelledby="v-pills-favorite-tab"
+            aria-labelledby="v-pills-course-tab"
           >
             <div className="mt-2">
               <hr />
 
-              {/* <table className="table">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Image</th>
-                  </tr>
-                </thead>
-                {userFavorite?.productsFavorite?.map((itemFavorite, index) => {
-                  return (
-                    <tbody key={index}>
-                      <tr>
-                        <td>{itemFavorite.id}</td>
-                        <td>{itemFavorite.name}</td>
-                        <td>
-                          <img
-                            src={itemFavorite.image}
-                            alt={itemFavorite.name}
-                            height={50}
-                          />
-                        </td>
-                      </tr>
-                    </tbody>
-                  );
-                })}
-              </table> */}
+              
             </div>
           </div>
         </div>
