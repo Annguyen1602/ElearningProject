@@ -7,47 +7,36 @@ import { ACCESS_TOKEN, getStore, http } from "../../util/setting";
 
 import axios from "axios";
 // import { history } from "../..";
-import {
-  
-  getProfileApi,
-} from "../../redux/reducers/userReducer";
+import { getProfileApi } from "../../redux/reducers/userReducer";
 import { Navigate } from "react-router-dom";
 
 import { RootState } from "../../redux/configStore";
 
-
-export interface updateUser{
-  taiKhoan: string,
-    matKhau: string,
-    hoTen: string,
-    soDT:string,
-    email: string,
+export interface updateUser {
+  taiKhoan: string;
+  matKhau: string;
+  hoTen: string;
+  soDT: string;
+  email: string;
 }
 
-
-  
-type Props = {}
+type Props = {};
 
 export default function Profile({}: Props) {
-  const { userLogin } = useSelector(
-    (state:RootState) => state.userReducer
-  );
-
+  const { userLogin } = useSelector((state: RootState) => state.userReducer);
+  const [update, setUpdate] = useState<updateUser>({...userLogin});
   const dispatch = useDispatch();
   const [passwordType, setPassWordType] = useState("password");
-  
 
   const [passwordInput, setPasswordInput] = useState("");
-  const handlePasswordChange = (e:any) => {
+  const handlePasswordChange = (e: any) => {
     setPasswordInput(e.target.value);
   };
 
   useEffect(() => {
-    getProfileApi()
+    getProfileApi();
   }, []);
 
-
-  
   const togglePassword = () => {
     if (passwordType === "password") {
       setPassWordType("text");
@@ -55,17 +44,8 @@ export default function Profile({}: Props) {
     }
     setPassWordType("password");
   };
-  
-  
 
-
-  const [update, setUpdate] = useState<updateUser>({
-    taiKhoan: userLogin.taiKhoan,
-      matKhau: userLogin.matKhau,
-      hoTen: userLogin.hoTen,
-      soDT:userLogin.soDT,
-      email: userLogin.email,
-  });
+  
   let regexName = new RegExp(
     "[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹs]+$"
   );
@@ -83,7 +63,6 @@ export default function Profile({}: Props) {
       hoTen: "",
       soDT: "",
       email: "",
-      
     },
 
     validationSchema: Yup.object().shape({
@@ -105,32 +84,30 @@ export default function Profile({}: Props) {
     }),
     onSubmit: (values) => {
       console.log(values);
-      
-      
-     
     },
   });
-  
+
   if (!getStore(ACCESS_TOKEN)) {
-    
     //Nếu chưa đăng nhập => Chuyển hướng trang
     alert("Đăng nhập để vào trang này !");
     return <Navigate to="/dangnhap" />;
   }
-  const handleChangeInput = (e:any) => {
+  const handleChangeInput = (e: any) => {
     let { id, value } = e.target;
-   
-    let newValue:any = { ...update };
+
+    let newValue: any = { ...update };
     newValue[id] = value;
     setUpdate(newValue);
   };
+
+  
+
+  
   return (
     <div className="update">
       <h2 className="title">Profile</h2>
       <div className="container d-flex h-100">
-        <div className="image col-2">
-          
-        </div>
+        <div className="image col-2"></div>
         <form
           className="form d-flex flex-wrap justify-content-start col-10 "
           onSubmit={frm.handleSubmit}
@@ -148,7 +125,6 @@ export default function Profile({}: Props) {
                 onChange={frm.handleChange}
                 onBlur={frm.handleBlur}
                 value={userLogin.email}
-                
               />
               {frm.errors.email ? (
                 <span className="text-danger">{frm.errors.email} </span>
@@ -221,8 +197,6 @@ export default function Profile({}: Props) {
               )}
             </button>
           </div>
-
-          
         </form>
       </div>
       <hr />
@@ -349,7 +323,6 @@ export default function Profile({}: Props) {
           </div>
         </div>
       </div>
-     
     </div>
-  )
+  );
 }
