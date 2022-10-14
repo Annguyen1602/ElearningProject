@@ -8,30 +8,47 @@ import { ACCESS_TOKEN, getStore, http } from "../../util/setting";
 import axios from "axios";
 // import { profile } from "../..";
 import { getProfileApi } from "../../redux/reducers/userReducer";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 import { RootState } from "../../redux/configStore";
 
-export interface updateUser {
+export interface ProfileStudent {
+  chiTietKhoaHocGhiDanh: ChiTietKhoaHocGhiDanh[];
   taiKhoan: string;
   matKhau: string;
   hoTen: string;
   soDT: string;
+  maLoaiNguoiDung: string;
+  maNhom: string;
   email: string;
+}
+
+export interface ChiTietKhoaHocGhiDanh {
+  maKhoaHoc: string;
+  tenKhoaHoc: string;
+  biDanh: string;
+  moTa: string;
+  luotXem: number;
+  hinhAnh: string;
+  ngayTao: Date;
+  danhGia: number;
 }
 
 type Props = {};
 
 export default function Profile({}: Props) {
   const { userLogin } = useSelector((state: RootState) => state.userReducer);
-  const [update, setUpdate] = useState<updateUser>({ ...userLogin });
+  const navigate = useNavigate();
+
+  const [update, setUpdate] = useState<ProfileStudent>({ ...userLogin });
+
   const dispatch = useDispatch();
   const [passwordType, setPassWordType] = useState("password");
 
-  const [passwordInput, setPasswordInput] = useState("");
-  const handlePasswordChange = (e: any) => {
-    setPasswordInput(e.target.value);
-  };
+  // const [passwordInput, setPasswordInput] = useState("");
+  // const handlePasswordChange = (e: any) => {
+  //   setPasswordInput(e.target.value);
+  // };
 
   useEffect(() => {
     getProfileApi();
@@ -86,11 +103,16 @@ export default function Profile({}: Props) {
     },
   });
 
+  useEffect(() => {
+    setUpdate(userLogin);
+  }, [userLogin]);
+
   if (!getStore(ACCESS_TOKEN)) {
     //Nếu chưa đăng nhập => Chuyển hướng trang
     alert("Đăng nhập để vào trang này !");
-    return <Navigate to="/dangnhap" />;
+    navigate("/login");
   }
+
   const handleChangeInput = (e: any) => {
     let { id, value } = e.target;
 
@@ -101,7 +123,6 @@ export default function Profile({}: Props) {
 
   return (
     <div className="update">
-     
       <div className="container order d-flex align-items-start flex-wrap justify-content-around ">
         <div
           className="nav flex-row nav-pills me-3 col-10"
@@ -142,7 +163,6 @@ export default function Profile({}: Props) {
             aria-labelledby="v-pills-profile-tab"
           >
             <div className="contain d-flex h-100 w-100 ">
-              
               <form
                 className="form d-flex flex-wrap justify-content-between"
                 onSubmit={frm.handleSubmit}
@@ -151,12 +171,13 @@ export default function Profile({}: Props) {
                   <div className="input-group d-flex flex-column">
                     <h2>Email</h2>
                     <input
-                      data-type="email" 
                       type="email"
                       name="email"
+                      id="email"
                       className="form-control input-sm w-100"
                       onChange={frm.handleChange}
-                      placeholder={userLogin.email}
+                      onInput={handleChangeInput}
+                      value={update.email}
                     />
                     {frm.errors.email ? (
                       <span className="text-danger">{frm.errors.email} </span>
@@ -176,7 +197,8 @@ export default function Profile({}: Props) {
                       aria-label="Disabled input example"
                       disabled
                       onChange={frm.handleChange}
-                      placeholder={userLogin.taiKhoan}
+                      onInput={handleChangeInput}
+                      value={update.taiKhoan}
                     />
                   </div>
                 </div>
@@ -190,7 +212,7 @@ export default function Profile({}: Props) {
                       id="hoTen"
                       className="form-control input-sm w-100"
                       onChange={frm.handleChange}
-                      placeholder={userLogin.hoTen}
+                      value={update.hoTen}
                       onInput={handleChangeInput}
                     />
 
@@ -207,7 +229,7 @@ export default function Profile({}: Props) {
                       name="soDT"
                       id="soDT"
                       className="form-control input-sm w-100"
-                      placeholder={userLogin.soDT}
+                      value={update.soDT}
                       onChange={frm.handleChange}
                       onInput={handleChangeInput}
                     />
@@ -223,9 +245,9 @@ export default function Profile({}: Props) {
                       name="matKhau"
                       id="matKhau"
                       className="form-control input-sm w-100"
-                      placeholder={userLogin.matKhau}
+                      value={update.matKhau}
                       onChange={frm.handleChange}
-                      onInput={handlePasswordChange}
+                      onInput={handleChangeInput}
                     />
 
                     <span className="text-danger">{frm.errors.matKhau} </span>
@@ -239,14 +261,12 @@ export default function Profile({}: Props) {
                   </button>
                 </div>
                 <div className="d-flex justify-content-between w-100 mb-5  mt-5">
-              <div className="submit">
-                <button type="submit" className="btn"  >
-                  Cập nhật
-                </button>
-              </div>
-              
-             
-            </div>
+                  <div className="submit">
+                    <button type="submit" className="btn">
+                      Cập nhật
+                    </button>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
@@ -259,8 +279,6 @@ export default function Profile({}: Props) {
           >
             <div className="mt-2">
               <hr />
-
-              
             </div>
           </div>
         </div>
