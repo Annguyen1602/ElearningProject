@@ -55,20 +55,7 @@
             z-index: 10;
             color: $c6-red;
           }
-          #gender {
-            width: 482px;
-            height: 68px;
-            p {
-              font-weight: $text-regular;
-              font-size: $text-big;
-              line-height: 36px;
-            }
-            border: none;
-            display: flex;
-            justify-content: space-between;
-            padding-top: 18px;
-            align-items: baseline;
-          }
+          
           span {
           }
         }

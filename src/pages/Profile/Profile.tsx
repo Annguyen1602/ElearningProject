@@ -11,6 +11,7 @@ import { getProfileApi } from "../../redux/reducers/userReducer";
 import { Navigate, useNavigate } from "react-router-dom";
 
 import { RootState } from "../../redux/configStore";
+import { Button, Popover } from "antd";
 
 export interface ProfileStudent {
   chiTietKhoaHocGhiDanh: ChiTietKhoaHocGhiDanh[];
@@ -72,6 +73,7 @@ export default function Profile({}: Props) {
   let regexPass = new RegExp(
     "^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,10}$"
   );
+  
   const frm = useFormik({
     initialValues: {
       taiKhoan: "",
@@ -79,10 +81,14 @@ export default function Profile({}: Props) {
       hoTen: "",
       soDT: "",
       email: "",
+      maLoaiNguoiDung:userLogin.maLoaiNguoiDung,
+      maNhom:userLogin.maNhom
+
     },
+    
 
     validationSchema: Yup.object().shape({
-      taiKhoan: Yup.string().required("Tên tài khoản không được bỏ trống"),
+      // taiKhoan: Yup.string().required("Tên tài khoản không được bỏ trống"),
       email: Yup.string()
         .required("Email không được bỏ trống")
         .email("Email không đúng định dạng"),
@@ -120,6 +126,12 @@ export default function Profile({}: Props) {
     newValue[id] = value;
     setUpdate(newValue);
   };
+
+  const content = (
+    <div>
+      <p>Tài khoản không thể chỉnh sửa</p>
+    </div>
+  );
 
   return (
     <div className="update">
@@ -189,17 +201,21 @@ export default function Profile({}: Props) {
                 <div className="form-group col-md-10 mb-4 me-5">
                   <div className="input-group d-flex flex-column">
                     <h2>Tài khoản</h2>
-                    <input
-                      type="text"
-                      name="taiKhoan"
-                      id="taiKhoan"
-                      className="form-control input-sm w-100"
-                      aria-label="Disabled input example"
-                      disabled
-                      onChange={frm.handleChange}
-                      onInput={handleChangeInput}
-                      value={update.taiKhoan}
-                    />
+                    <Popover content={content} trigger="hover" className="m-0">
+                      
+                      <input
+                        type="text"
+                        name="taiKhoan"
+                        id="taiKhoan"
+                        className="form-control input-sm w-100"
+                        aria-label="Disabled input example"
+                        disabled
+                        onChange={frm.handleChange}
+                        onInput={handleChangeInput}
+                        value={update.taiKhoan}
+                      />
+                      <Button></Button>
+                    </Popover>
                   </div>
                 </div>
                 <div className="form-group col-md-10 mb-4 me-5">
@@ -260,7 +276,7 @@ export default function Profile({}: Props) {
                     )}
                   </button>
                 </div>
-                <div className="d-flex justify-content-between w-100 mb-5  mt-5">
+                <div className="d-flex justify-content-between w-100 flex-row-reverse info">
                   <div className="submit">
                     <button type="submit" className="btn">
                       Cập nhật
