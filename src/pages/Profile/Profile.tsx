@@ -7,10 +7,13 @@ import { ACCESS_TOKEN, getStore, http } from "../../util/setting";
 
 import axios from "axios";
 // import { profile } from "../..";
-import { getProfileApi } from "../../redux/reducers/userReducer";
+import {
+  getProfileApi,
+  updateProfileApi,
+} from "../../redux/reducers/userReducer";
 import { Navigate, useNavigate } from "react-router-dom";
 
-import { RootState } from "../../redux/configStore";
+import { AppDispatch, RootState } from "../../redux/configStore";
 import { Button, Popover } from "antd";
 
 export interface ProfileStudent {
@@ -43,17 +46,17 @@ export default function Profile({}: Props) {
 
   const [update, setUpdate] = useState<ProfileStudent>({ ...userLogin });
 
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const [passwordType, setPassWordType] = useState("password");
-
-  // const [passwordInput, setPasswordInput] = useState("");
-  // const handlePasswordChange = (e: any) => {
-  //   setPasswordInput(e.target.value);
-  // };
 
   useEffect(() => {
     getProfileApi();
   }, []);
+  if (!getStore(ACCESS_TOKEN)) {
+    //Nếu chưa đăng nhập => Chuyển hướng trang
+    alert("Đăng nhập để vào trang này !");
+    navigate("/dangnhap");
+  }
 
   const togglePassword = () => {
     if (passwordType === "password") {
@@ -73,22 +76,20 @@ export default function Profile({}: Props) {
   let regexPass = new RegExp(
     "^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,10}$"
   );
-  
+
   const frm = useFormik({
     initialValues: {
-      taiKhoan: "",
-      matKhau: "",
-      hoTen: "",
-      soDT: "",
-      email: "",
-      maLoaiNguoiDung:userLogin.maLoaiNguoiDung,
-      maNhom:userLogin.maNhom
-
+      taiKhoan: userLogin.taiKhoan,
+      matKhau: update.matKhau,
+      hoTen: update.hoTen,
+      soDT: update.soDT,
+      email: update.email,
+      maLoaiNguoiDung: userLogin.maLoaiNguoiDung,
+      maNhom: userLogin.maNhom,
     },
-    
+    enableReinitialize: true,
 
     validationSchema: Yup.object().shape({
-      // taiKhoan: Yup.string().required("Tên tài khoản không được bỏ trống"),
       email: Yup.string()
         .required("Email không được bỏ trống")
         .email("Email không đúng định dạng"),
@@ -105,19 +106,13 @@ export default function Profile({}: Props) {
         .matches(regexPass, "Mật khẩu không đúng định dạng"),
     }),
     onSubmit: (values) => {
-      console.log(values);
+      dispatch(updateProfileApi(values));
     },
   });
 
   useEffect(() => {
     setUpdate(userLogin);
   }, [userLogin]);
-
-  if (!getStore(ACCESS_TOKEN)) {
-    //Nếu chưa đăng nhập => Chuyển hướng trang
-    alert("Đăng nhập để vào trang này !");
-    navigate("/login");
-  }
 
   const handleChangeInput = (e: any) => {
     let { id, value } = e.target;
@@ -202,7 +197,6 @@ export default function Profile({}: Props) {
                   <div className="input-group d-flex flex-column">
                     <h2>Tài khoản</h2>
                     <Popover content={content} trigger="hover" className="m-0">
-                      
                       <input
                         type="text"
                         name="taiKhoan"

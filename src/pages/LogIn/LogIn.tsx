@@ -19,7 +19,7 @@ export default function LogIn({}: Props) {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const [passwordType, setPassWordType] = useState("password");
-const {userToken} = useSelector((state:RootState)=> state.userReducer)
+  const { userToken } = useSelector((state: RootState) => state.userReducer);
   const [passwordInput, setPasswordInput] = useState("");
   const handlePasswordChange = (e: any) => {
     setPasswordInput(e.target.value);
@@ -57,17 +57,11 @@ const {userToken} = useSelector((state:RootState)=> state.userReducer)
     },
   });
 
-
-  useEffect(()=>{
-    
-    if(userToken !== ''){
-      navigate('/profile')
+  useEffect(() => {
+    if (userToken !== "") {
+      navigate("/profile");
     }
-
-  },[userToken])
-
- 
-  
+  }, [userToken]);
 
   return (
     <div className="d-flex ">
@@ -92,7 +86,6 @@ const {userToken} = useSelector((state:RootState)=> state.userReducer)
                   className="form-control input-sm w-100"
                   placeholder="Tài khoản"
                   onChange={frm.handleChange}
-                  onBlur={frm.handleBlur}
                 />
                 {frm.errors.taiKhoan ? (
                   <span className="text-danger">{frm.errors.taiKhoan} </span>
@@ -110,7 +103,6 @@ const {userToken} = useSelector((state:RootState)=> state.userReducer)
                   className="form-control input-sm w-100"
                   placeholder="Password"
                   onChange={frm.handleChange}
-                  onBlur={frm.handleBlur}
                   onInput={handlePasswordChange}
                   value={passwordInput}
                 />

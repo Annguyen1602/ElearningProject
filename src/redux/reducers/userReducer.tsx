@@ -38,6 +38,15 @@ export interface Profile {
   maNhom: string;
   email: string;
 }
+export interface updateProfile {
+  taiKhoan: string;
+  matKhau: string;
+  hoTen: string;
+  soDT: string;
+  email: string;
+  maLoaiNguoiDung: string;
+  maNhom: string;
+}
 
 export interface ChiTietKhoaHocGhiDanh {
   maKhoaHoc: string;
@@ -49,10 +58,13 @@ export interface ChiTietKhoaHocGhiDanh {
   ngayTao: Date;
   danhGia: number;
 }
-
-const initialState: any = {
+export interface stateRedux {
+    userLogin:Profile;
+    userToken:any;
+}
+const initialState: stateRedux = {
   userLogin: getStoreJson(USER_LOGIN) || {},
-  userToken:''
+  userToken: "",
 };
 
 const userReducer = createSlice({
@@ -62,10 +74,9 @@ const userReducer = createSlice({
     getProfileAction: (state, action: PayloadAction<Profile>) => {
       state.userLogin = action.payload;
     },
-    userCheck:(state, action: PayloadAction<Profile>) => {
-      state.userToken = action.payload
-
-    }
+    userCheck: (state, action: PayloadAction<Profile>) => {
+      state.userToken = action.payload;
+    },
   },
 });
 
@@ -102,8 +113,8 @@ export const LogInApi = (userLogin: userLogin) => {
       console.log(result);
       setCookie(ACCESS_TOKEN, result.data.accessToken, 30);
       setStore(ACCESS_TOKEN, result.data.accessToken);
-      dispatch(userCheck(result.data.accessToken))
-      
+      dispatch(userCheck(result.data.accessToken));
+
       dispatch(getProfileApi());
     } catch (error: any) {
       alert(error.response.data);
@@ -123,6 +134,28 @@ export const getProfileApi = () => {
       setStoreJson(USER_LOGIN, result.data);
     } catch (error) {
       console.log(error);
+    }
+  };
+};
+
+//----------------UpdateAPI-----------------------
+
+export const updateProfileApi = (userUpdate: updateProfile) => {
+  return async () => {
+    try {
+      const result = await http.put(
+        "/QuanLyNguoiDung/CapNhatThongTinNguoiDung", userUpdate
+      );
+      const key = "updatable";
+      const openMessage = () => {
+        message.loading({ content: "Vui lòng chờ", key });
+        setTimeout(() => {
+          message.success({ content: "Cập nhật thành công!", key, duration: 2 });
+        }, 1000);
+      };
+      openMessage();
+    } catch (error:any) {
+      alert(error.response.data);
     }
   };
 };
