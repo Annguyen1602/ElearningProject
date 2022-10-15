@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import eye from "../../assets/img/Color.png";
 import * as Yup from "yup";
 import { ACCESS_TOKEN, getStore, http } from "../../util/setting";
-
+import { Input, Space } from "antd";
 import axios from "axios";
-// import { profile } from "../..";
+import { Rate } from "antd";
 import {
   getProfileApi,
   updateProfileApi,
@@ -112,6 +112,7 @@ export default function Profile({}: Props) {
 
   useEffect(() => {
     setUpdate(userLogin);
+    dispatch(getProfileApi());
   }, [userLogin]);
 
   const handleChangeInput = (e: any) => {
@@ -127,6 +128,9 @@ export default function Profile({}: Props) {
       <p>Tài khoản không thể chỉnh sửa</p>
     </div>
   );
+
+  const { Search } = Input;
+  const onSearch = (value: string) => console.log(value);
 
   return (
     <div className="update">
@@ -162,7 +166,10 @@ export default function Profile({}: Props) {
             Khoá học của tôi
           </button>
         </div>
-        <div className="tab-content col-10 border" id="v-pills-tabContent">
+        <div
+          className="tab-content col-10 border border-dark border-2"
+          id="v-pills-tabContent"
+        >
           <div
             className="tab-pane fade show active"
             id="v-pills-profile"
@@ -288,7 +295,43 @@ export default function Profile({}: Props) {
             aria-labelledby="v-pills-course-tab"
           >
             <div className="mt-2">
+              <div className="title d-flex justify-content-between">
+                <h2>Các khoá học đã tham gia</h2>
+                <div>
+                  <Space direction="vertical">
+                    <Search
+                      placeholder="Nhập khoá học cần tìm"
+                      onSearch={onSearch}
+                      style={{ width: 400 }}
+                    />
+                  </Space>
+                </div>
+              </div>
+
               <hr />
+              {userLogin?.chiTietKhoaHocGhiDanh?.map((course,index)=>{
+                return <div className="m-4" key={index}>
+                <div className="coursesRegistered d-flex border-top pt-2 bg-light">
+                  <div className="imageCourse col-2 me-4">
+                    <img src={course.hinhAnh} alt={course.tenKhoaHoc} className="w-100" />
+                  </div>
+                  <div className="detailCourse col-8 d-flex flex-column">
+                    <h3>{course.tenKhoaHoc}</h3>
+                    <p>
+                      {course.moTa}
+                    </p>
+                  </div>
+                  <div className="rate col-2 d-flex flex-column align-items-center">
+                    <div>
+                      <Rate value={course.danhGia} />
+                    </div>
+                    <span>{course.luotXem}</span>
+                    <button className="btn"> Huỷ</button>
+                  </div>
+                </div>
+                </div>
+              })}
+              
             </div>
           </div>
         </div>
