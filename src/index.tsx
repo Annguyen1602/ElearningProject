@@ -11,9 +11,11 @@ import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import "antd/dist/antd.css";
 import './assets/scss/styles.scss'
-import Demo from "./pages/Register/demo";
+
 import LogIn from "./pages/LogIn/LogIn";
 import Profile from "./pages/Profile/Profile";
+import Demo1 from "./pages/Register/Demo1";
+
 
 
 
@@ -27,7 +29,7 @@ root.render(
     <BrowserRouter >
       <Routes>
         <Route path="" element={<HomeTeplate />}>
-          <Route path="demo" element={<Demo/>}></Route>
+          <Route path="demo" element={<Demo1/>}></Route>
           <Route path="profile" element={<Profile/>}></Route>
           
         </Route>
