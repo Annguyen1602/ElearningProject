@@ -9,6 +9,7 @@ import axios from "axios";
 import { Rate } from "antd";
 import {
   deleteCourse,
+  deleteCre,
   getProfileApi,
   updateProfileApi,
 } from "../../redux/reducers/userReducer";
@@ -53,43 +54,33 @@ export default function Profile({}: Props) {
 
   const [update, setUpdate] = useState<ProfileStudent>({ ...userLogin });
 
-
-    
   let [sortArray, setSortArray] = useState<ChiTietKhoaHocGhiDanh[]>();
 
   const dispatch: AppDispatch = useDispatch();
   const [passwordType, setPassWordType] = useState("password");
 
-
-
   //-----------Search------------------------------
   const [inputText, setInputText] = useState("");
 
-  let inputHandler = (e:any) => {
+  let inputHandler = (e: any) => {
     let lowerCase = e.target.value.toLowerCase();
     setInputText(lowerCase);
-  
   };
   const debouceInputHandler = debounce(inputHandler, 500);
 
-
-  useEffect(()=>{
-    if(inputText){
-      let sortArr = chiTietKhoaHocGhiDanh.filter((item)=>{
-        return item.tenKhoaHoc.toLowerCase().includes(inputText)
-      })
-      setSortArray(sortArr)
-    }else{
-      setSortArray(chiTietKhoaHocGhiDanh)
+  useEffect(() => {
+    if (inputText) {
+      let sortArr = chiTietKhoaHocGhiDanh.filter((item) => {
+        return item.tenKhoaHoc.toLowerCase().includes(inputText);
+      });
+      setSortArray(sortArr);
+    } else {
+      setSortArray(chiTietKhoaHocGhiDanh);
     }
-  },[inputText, chiTietKhoaHocGhiDanh])
-//-----------------------------------------------------
-
-
+  }, [inputText, chiTietKhoaHocGhiDanh]);
+  //-----------------------------------------------------
 
   //----------------Course ----------------------
-
-  
 
   const pageSize = 2;
 
@@ -176,7 +167,6 @@ export default function Profile({}: Props) {
 
   useEffect(() => {
     setUpdate(userLogin);
-    dispatch(getProfileApi());
   }, [userLogin]);
 
   const handleChangeInput = (e: any) => {
@@ -371,7 +361,6 @@ export default function Profile({}: Props) {
                       onSearch={onSearch}
                       style={{ width: 400 }}
                       onChange={debouceInputHandler}
-                     
                     />
                   </Space>
                 </div>
@@ -405,10 +394,19 @@ export default function Profile({}: Props) {
                             <Rate value={data.danhGia} />
                           </div>
                           <span>({data.luotXem} học viên)</span>
-                          <button className="btn btn-warning mt-4 ms-4" onClick={()=>{
-                            
-
-                          }}> Huỷ</button>
+                          <button
+                            className="btn btn-warning mt-4 ms-4"
+                            onClick={() => {
+                              let deleteItem: deleteCre = {
+                                maKhoaHoc: data.maKhoaHoc,
+                                taiKhoan: userLogin.taiKhoan,
+                              };
+                              dispatch(deleteCourse(deleteItem));
+                            }}
+                          >
+                            {" "}
+                            Huỷ
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -420,8 +418,7 @@ export default function Profile({}: Props) {
                 current={current}
                 total={data.length}
                 onChange={handleChange}
-                style={{ bottom: "0px" , textAlign:"end", margin:'20px'}}
-                
+                style={{ bottom: "0px", textAlign: "end", margin: "20px" }}
               />
             </div>
           </div>

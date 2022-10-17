@@ -60,12 +60,17 @@ export interface ChiTietKhoaHocGhiDanh {
 }
 
 export interface deleteCs {
-  maKhoaHoc: string,
-  taiKhoan: string
+  maKhoaHoc: string;
+  taiKhoan: string;
 }
 export interface stateRedux {
-    userLogin:Profile;
-    userToken:any;
+  userLogin: Profile;
+  userToken: string;
+}
+
+export interface deleteCre {
+  maKhoaHoc: string;
+  taiKhoan: string;
 }
 const initialState: stateRedux = {
   userLogin: getStoreJson(USER_LOGIN) || {},
@@ -79,7 +84,7 @@ const userReducer = createSlice({
     getProfileAction: (state, action: PayloadAction<Profile>) => {
       state.userLogin = action.payload;
     },
-    userCheck: (state, action: PayloadAction<Profile>) => {
+    userCheck: (state, action: PayloadAction<string>) => {
       state.userToken = action.payload;
     },
   },
@@ -149,17 +154,22 @@ export const updateProfileApi = (userUpdate: updateProfile) => {
   return async () => {
     try {
       const result = await http.put(
-        "/QuanLyNguoiDung/CapNhatThongTinNguoiDung", userUpdate
+        "/QuanLyNguoiDung/CapNhatThongTinNguoiDung",
+        userUpdate
       );
       const key = "updatable";
       const openMessage = () => {
         message.loading({ content: "Vui lòng chờ", key });
         setTimeout(() => {
-          message.success({ content: "Cập nhật thành công!", key, duration: 2 });
+          message.success({
+            content: "Cập nhật thành công!",
+            key,
+            duration: 2,
+          });
         }, 1000);
       };
       openMessage();
-    } catch (error:any) {
+    } catch (error: any) {
       alert(error.response.data);
     }
   };
@@ -167,17 +177,14 @@ export const updateProfileApi = (userUpdate: updateProfile) => {
 
 //----------------Delete Course------------------
 
-export const deleteCourse = (info:deleteCs) =>{
-  return async ()=>{
+export const deleteCourse = (info: deleteCs) => {
+  return async (dispatch: AppDispatch) => {
     try {
-      const result = await http.post("/QuanLyKhoaHoc/HuyGhiDanh", info)
-      console.log(result);
-      
-    } catch (error) {
-      console.log(error);
-      
-      
+      const result = await http.post("/QuanLyKhoaHoc/HuyGhiDanh", info);
+      alert(result.data)
+      dispatch(getProfileApi());
+    } catch (error:any) {
+      alert(error.response.data)
     }
-  }
-
-}
+  };
+};
