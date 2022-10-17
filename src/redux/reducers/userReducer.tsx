@@ -58,6 +58,11 @@ export interface ChiTietKhoaHocGhiDanh {
   ngayTao: Date;
   danhGia: number;
 }
+
+export interface deleteCs {
+  maKhoaHoc: string,
+  taiKhoan: string
+}
 export interface stateRedux {
     userLogin:Profile;
     userToken:any;
@@ -159,3 +164,20 @@ export const updateProfileApi = (userUpdate: updateProfile) => {
     }
   };
 };
+
+//----------------Delete Course------------------
+
+export const deleteCourse = (info:deleteCs) =>{
+  return async ()=>{
+    try {
+      const result = await http.post("/QuanLyKhoaHoc/HuyGhiDanh", info)
+      console.log(result);
+      
+    } catch (error) {
+      console.log(error);
+      
+      
+    }
+  }
+
+}

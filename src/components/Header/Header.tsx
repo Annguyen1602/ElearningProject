@@ -56,7 +56,7 @@ export default function Header() {
       </Menu>
       <div className="register">
         <NavLink to='/dangky' className="btn btn-primary"> Đăng ký</NavLink>
-        <NavLink to='/dangky' className="btn btn-primary"> Đăng nhập</NavLink>
+        <NavLink to='/dangnhap' className="btn btn-primary"> Đăng nhập</NavLink>
       </div>
     </div>
   );

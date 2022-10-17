@@ -8,6 +8,7 @@ import { Input, Space } from "antd";
 import axios from "axios";
 import { Rate } from "antd";
 import {
+  deleteCourse,
   getProfileApi,
   updateProfileApi,
 } from "../../redux/reducers/userReducer";
@@ -16,6 +17,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../../redux/configStore";
 import { Button, Popover } from "antd";
 import { Pagination } from "antd";
+import { debounce } from "lodash";
+import { type } from "@testing-library/user-event/dist/type";
 
 export interface ProfileStudent {
   chiTietKhoaHocGhiDanh: ChiTietKhoaHocGhiDanh[];
@@ -43,20 +46,52 @@ type Props = {};
 
 export default function Profile({}: Props) {
   const { userLogin } = useSelector((state: RootState) => state.userReducer);
+  const { chiTietKhoaHocGhiDanh } = useSelector(
+    (state: RootState) => state.userReducer.userLogin
+  );
   const navigate = useNavigate();
 
   const [update, setUpdate] = useState<ProfileStudent>({ ...userLogin });
 
+
+    
+  let [sortArray, setSortArray] = useState<ChiTietKhoaHocGhiDanh[]>();
+
   const dispatch: AppDispatch = useDispatch();
   const [passwordType, setPassWordType] = useState("password");
 
+
+
+  //-----------Search------------------------------
+  const [inputText, setInputText] = useState("");
+
+  let inputHandler = (e:any) => {
+    let lowerCase = e.target.value.toLowerCase();
+    setInputText(lowerCase);
+  
+  };
+  const debouceInputHandler = debounce(inputHandler, 500);
+
+
+  useEffect(()=>{
+    if(inputText){
+      let sortArr = chiTietKhoaHocGhiDanh.filter((item)=>{
+        return item.tenKhoaHoc.toLowerCase().includes(inputText)
+      })
+      setSortArray(sortArr)
+    }else{
+      setSortArray(chiTietKhoaHocGhiDanh)
+    }
+  },[inputText, chiTietKhoaHocGhiDanh])
+//-----------------------------------------------------
+
+
+
   //----------------Course ----------------------
 
-  const { chiTietKhoaHocGhiDanh } = useSelector(
-    (state: RootState) => state.userReducer.userLogin
-  );
+  
 
-  const pageSize = 4;
+  const pageSize = 2;
 
   const [state, setState] = useState({
     data: chiTietKhoaHocGhiDanh,
@@ -159,7 +194,10 @@ export default function Profile({}: Props) {
   );
 
   const { Search } = Input;
-  const onSearch = (value: string) => console.log(value);
+  const onSearch = (value: string) => {
+    let lowerCase = value.toLowerCase();
+    setInputText(lowerCase);
+  };
 
   return (
     <div className="update">
@@ -324,7 +362,7 @@ export default function Profile({}: Props) {
             aria-labelledby="v-pills-course-tab"
           >
             <div className="mt-2">
-              <div className="title d-flex justify-content-between">
+              <div className="title d-flex justify-content-between p-4">
                 <h2>Các khoá học đã tham gia</h2>
                 <div>
                   <Space direction="vertical">
@@ -332,23 +370,26 @@ export default function Profile({}: Props) {
                       placeholder="Nhập khoá học cần tìm"
                       onSearch={onSearch}
                       style={{ width: 400 }}
+                      onChange={debouceInputHandler}
+                     
                     />
                   </Space>
                 </div>
               </div>
 
               <hr />
-              {chiTietKhoaHocGhiDanh?.map(
+              {sortArray?.map(
                 (data, index): any =>
                   index >= minIndex &&
                   index < maxIndex && (
                     <div className="m-4" key={index}>
-                      <div className="coursesRegistered d-flex border-top pt-2 bg-light">
+                      <div className="coursesRegistered d-flex border-top pt-2 bg-light p-2">
                         <div className="imageCourse col-2 me-4">
                           <img
                             src={data.hinhAnh}
                             alt={data.tenKhoaHoc}
                             className="w-100"
+                            height={150}
                           />
                         </div>
                         <div className="detailCourse col-8 d-flex flex-column">
@@ -359,12 +400,15 @@ export default function Profile({}: Props) {
                               : data.moTa}
                           </p>
                         </div>
-                        <div className="rate col-2 d-flex flex-column align-items-center">
+                        <div className="rate col-2 d-flex flex-column align-items-center p-3">
                           <div>
                             <Rate value={data.danhGia} />
                           </div>
-                          <span>{data.luotXem} học viên</span>
-                          <button className="btn"> Huỷ</button>
+                          <span>({data.luotXem} học viên)</span>
+                          <button className="btn btn-warning mt-4 ms-4" onClick={()=>{
+                            
+
+                          }}> Huỷ</button>
                         </div>
                       </div>
                     </div>
