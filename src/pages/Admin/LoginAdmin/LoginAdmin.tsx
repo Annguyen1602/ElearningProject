@@ -45,6 +45,7 @@ export default function LoginAdmin ({}: Props) {
 
   useEffect(() => {
     if (userLogin?.maLoaiNguoiDung === 'GV') {
+      message.success({ content: "Đăng nhập thành công"})
       navigate('/admin/index')
     } else if (userLogin?.maLoaiNguoiDung === 'HV') {
       message.error({ content: "Bạn không phải admin"})

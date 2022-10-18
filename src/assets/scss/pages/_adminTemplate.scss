@@ -2,20 +2,28 @@
   @import "../vendor/skeudo.scss";
   height: 100vh;
   background-color: $admin-color-secondary;
+  color: #874c62;
   .bi {
     font-size: $text-big;
     margin-right: 10px;
   }
   .admin-navbar {
+    padding: 50px;
     background: $admin-color-primary;
     width: 20%;
     border-radius: 0 50px 50px 0;
+    &-brand {
+      padding: 20px;
+      border-radius: 20px;
+      background: #f2d388;
+      box-shadow: 11px 11px 22px #ceb374, -11px -11px 22px #fff39c;
+    }
     &-items {
       margin-top: 100px;
       a {
+        width: 100%;
         display: block;
-        margin-left: 30px;
-        margin: 30px;
+        margin: 30px 0;
         color: #874c62;
         transition: 0.5s ease;
         padding: 20px;
