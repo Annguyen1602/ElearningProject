@@ -1,42 +1,41 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import { BrowserRouter, Routes, Route, useNavigate, createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useNavigate,
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import HomeTeplate from "./templates/HomeTeplate/HomeTeplate";
 
 import { Provider } from "react-redux";
 import { store } from "./redux/configStore";
 import Register from "./pages/Register/Register";
-import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom"; 
+import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import "antd/dist/antd.css";
-import './assets/scss/styles.scss'
+import "./assets/scss/styles.scss";
 
 import LogIn from "./pages/LogIn/LogIn";
 import Profile from "./pages/Profile/Profile";
-import Demo1 from "./pages/Register/Demo1";
-
-
-
-
-
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <Provider store={store}>
-    <BrowserRouter >
+    <BrowserRouter>
       <Routes>
         <Route path="" element={<HomeTeplate />}>
-          <Route path="demo" element={<Demo1/>}></Route>
-          <Route path="profile" element={<Profile/>}></Route>
-          
+          <Route path="profile" element={<Profile />}></Route>
         </Route>
       </Routes>
       <Routes>
-      <Route path="dangky" element={<Register />}></Route>
-      <Route path="dangnhap" element={<LogIn />}></Route>
+        <Route path="dangky" element={<Register />}></Route>
+        <Route path="dangnhap" element={<LogIn />}></Route>
       </Routes>
     </BrowserRouter>
   </Provider>

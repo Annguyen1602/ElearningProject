@@ -5,7 +5,6 @@ import eye from "../../assets/img/Color.png";
 import * as Yup from "yup";
 import { ACCESS_TOKEN, getStore, http } from "../../util/setting";
 import { Input, Space } from "antd";
-import axios from "axios";
 import { Rate } from "antd";
 import {
   deleteCourse,
@@ -19,7 +18,6 @@ import { AppDispatch, RootState } from "../../redux/configStore";
 import { Button, Popover } from "antd";
 import { Pagination } from "antd";
 import { debounce } from "lodash";
-import { type } from "@testing-library/user-event/dist/type";
 
 export interface ProfileStudent {
   chiTietKhoaHocGhiDanh: ChiTietKhoaHocGhiDanh[];
@@ -129,7 +127,7 @@ export default function Profile({}: Props) {
     "^(0|84)(2(0[3-9]|1[0-6|8|9]|2[0-2|5-9]|3[2-9]|4[0-9]|5[1|2|4-9]|6[0-3|9]|7[0-7]|8[0-9]|9[0-4|6|7|9])|3[2-9]|5[5|6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])([0-9]{7})$"
   );
   let regexPass = new RegExp(
-    "^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,10}$"
+    "^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,32}$"
   );
 
   const frm = useFormik({
