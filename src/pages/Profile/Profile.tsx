@@ -52,6 +52,24 @@ export default function Profile({}: Props) {
 
   const [update, setUpdate] = useState<ProfileStudent>({ ...userLogin });
 
+
+  const pageSize = 2;
+
+  interface stateType {
+    data: ChiTietKhoaHocGhiDanh[];
+    totalPage: number;
+    current: number;
+    minIndex: number;
+    maxIndex: number;
+  }
+    const [state, setState] = useState<stateType>({
+    data: chiTietKhoaHocGhiDanh,
+    totalPage: chiTietKhoaHocGhiDanh?.length / pageSize,
+    current: 1,
+    minIndex: 0,
+    maxIndex: pageSize,
+  });
+
   let [sortArray, setSortArray] = useState<ChiTietKhoaHocGhiDanh[]>();
 
   const dispatch: AppDispatch = useDispatch();
@@ -73,22 +91,19 @@ export default function Profile({}: Props) {
       });
       setSortArray(sortArr);
     } else {
+      setState({...state,
+        data:chiTietKhoaHocGhiDanh,
+        totalPage:chiTietKhoaHocGhiDanh?.length /pageSize}) 
       setSortArray(chiTietKhoaHocGhiDanh);
     }
-  }, [inputText, chiTietKhoaHocGhiDanh]);
+  }, [inputText, userLogin]);
   //-----------------------------------------------------
 
   //----------------Course ----------------------
 
-  const pageSize = 2;
+  
 
-  const [state, setState] = useState({
-    data: chiTietKhoaHocGhiDanh,
-    totalPage: chiTietKhoaHocGhiDanh.length / pageSize,
-    current: 1,
-    minIndex: 0,
-    maxIndex: pageSize,
-  });
+  
 
   const handleChange = (page: number) => {
     setState({
@@ -103,8 +118,10 @@ export default function Profile({}: Props) {
   //----------------------------------
 
   useEffect(() => {
+     
     getProfileApi();
   }, []);
+
   if (!getStore(ACCESS_TOKEN)) {
     //Nếu chưa đăng nhập => Chuyển hướng trang
     alert("Đăng nhập để vào trang này !");
@@ -414,6 +431,7 @@ export default function Profile({}: Props) {
               <Pagination
                 pageSize={pageSize}
                 current={current}
+                defaultCurrent={1}
                 total={data.length}
                 onChange={handleChange}
                 style={{ bottom: "0px", textAlign: "end", margin: "20px" }}
