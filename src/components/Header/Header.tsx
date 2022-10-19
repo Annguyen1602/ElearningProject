@@ -1,5 +1,5 @@
 import { BarsOutlined, StepForwardOutlined } from "@ant-design/icons";
-import type { MenuProps, MenuTheme } from "antd";
+import { MenuProps, MenuTheme, Space, Input } from "antd";
 import { Menu, Switch } from "antd";
 import path from "path";
 import React, { useEffect, useState } from "react";
@@ -34,34 +34,55 @@ export default function Header() {
   };
   console.log(arrCourseDirectory);
 
+  const [inputText, setInputText] = useState("");
+  const { Search } = Input;
+  const onSearch = (value: string) => {
+    let lowerCase = value.toLowerCase();
+    setInputText(lowerCase);
+    console.log(value);
+    
+  };
   return (
     <div className="header border mb-2">
       <div className="container d-flex ">
         <div className="image">
           <img src={pic3} alt="..." height={40} />
         </div>
-        <Menu onClick={onClick} style={{ width: 256 ,height:45 }} mode="inline">
+        <Menu
+          onClick={onClick}
+          style={{ width: 256, height: 45 }}
+          mode="inline"
+        >
           <Menu.SubMenu
             key="SubMenu"
             title="Danh mục khoá học "
             icon={<BarsOutlined />}
-            
           >
             {arrCourseDirectory.map((courseType: DanhMuc, index: number) => {
               return (
-                <Menu.Item key={index} >
+                <Menu.Item key={index}>
                   <NavLink to="#">{courseType.tenDanhMuc}</NavLink>
                 </Menu.Item>
               );
             })}
           </Menu.SubMenu>
         </Menu>
-        <div className="register">
-          <NavLink to="/dangky" className="btn btn-primary">
+        <div className="search">
+          <Space direction="vertical">
+            <Search
+              placeholder="Nhập khoá học cần tìm"
+              onSearch={onSearch}
+              style={{ width: 400 }}
+              // onChange={debouceInputHandler}
+            />
+          </Space>
+        </div>
+        <div className="registerHeader">
+          <NavLink to="/dangky" className="btn btn-warning registerButton">
             {" "}
             Đăng ký
           </NavLink>
-          <NavLink to="/dangnhap" className="btn btn-primary">
+          <NavLink to="/dangnhap" className="btn btn-warning loginButton">
             {" "}
             Đăng nhập
           </NavLink>

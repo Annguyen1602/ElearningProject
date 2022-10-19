@@ -19,5 +19,26 @@
             }
 
         }
+        .search{
+
+        }
+        .registerHeader{
+            padding: 30px 0px 30px 120px;
+            display: flex;
+            .registerButton{
+                width: 90px;
+                height: 30px;
+                line-height: 15px;
+                margin-right: 10px;
+                border-radius: 2px;
+
+            }
+            .loginButton{
+                width: 120px;
+                height: 30px;
+                line-height: 15px;
+                border-radius: 2px;
+            }
+        }
     }
 }

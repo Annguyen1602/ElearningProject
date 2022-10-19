@@ -396,7 +396,7 @@ export default function Profile({}: Props) {
                             height={150}
                           />
                         </div>
-                        <div className="detailCourse col-8 d-flex flex-column">
+                        <div className="detailCourse col-7 d-flex flex-column">
                           <h3>{data.tenKhoaHoc}</h3>
                           <p>
                             {data.moTa.length > 100
@@ -404,7 +404,7 @@ export default function Profile({}: Props) {
                               : data.moTa}
                           </p>
                         </div>
-                        <div className="rate col-2 d-flex flex-column align-items-center p-3">
+                        <div className="rate col-3 d-flex flex-column align-items-center p-3">
                           <div>
                             <Rate value={data.danhGia} />
                           </div>
