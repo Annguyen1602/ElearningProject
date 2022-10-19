@@ -118,15 +118,15 @@ export default function Profile({}: Props) {
   //----------------------------------
 
   useEffect(() => {
-     
-    getProfileApi();
-  }, []);
-
-  if (!getStore(ACCESS_TOKEN)) {
+     if (!getStore(ACCESS_TOKEN)) {
     //Nếu chưa đăng nhập => Chuyển hướng trang
     alert("Đăng nhập để vào trang này !");
     navigate("/dangnhap");
   }
+    getProfileApi();
+  }, []);
+
+  
 
   const togglePassword = () => {
     if (passwordType === "password") {
@@ -432,7 +432,7 @@ export default function Profile({}: Props) {
                 pageSize={pageSize}
                 current={current}
                 defaultCurrent={1}
-                total={data.length}
+                total={data?.length}
                 onChange={handleChange}
                 style={{ bottom: "0px", textAlign: "end", margin: "20px" }}
               />

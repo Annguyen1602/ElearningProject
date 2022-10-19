@@ -13,13 +13,13 @@ import {
   getListCoursesApi,
 } from "../../redux/reducers/listCoursesReducer";
 
-import pic3 from "../../assets/img/image 3.png";
+import pic3 from "../../assets/img/img4.png";
 
 export default function Header() {
   const { arrCourseDirectory } = useSelector(
     (state: RootState) => state.listCoursesReducer
   );
-  
+
   const [current, setCurrent] = useState("1");
   const dispatch: AppDispatch = useDispatch();
 
@@ -35,28 +35,37 @@ export default function Header() {
   console.log(arrCourseDirectory);
 
   return (
-    <div className="container d-flex">
-      <div>
-        <img src={pic3} alt="..." />
-      </div>
-      <Menu onClick={onClick} style={{ width: 256 }} mode="inline">
-        <Menu.SubMenu
-          key="SubMenu"
-          title="Danh mục khoá học "
-          icon={<BarsOutlined />}
-        >
-          {arrCourseDirectory.map((courseType: DanhMuc, index: number) => {
-            return (
-              <Menu.Item key={index}>
-                <NavLink to="#">{courseType.tenDanhMuc}</NavLink>
-              </Menu.Item>
-            );
-          })}
-        </Menu.SubMenu>
-      </Menu>
-      <div className="register">
-        <NavLink to='/dangky' className="btn btn-primary"> Đăng ký</NavLink>
-        <NavLink to='/dangnhap' className="btn btn-primary"> Đăng nhập</NavLink>
+    <div className="header border mb-2">
+      <div className="container d-flex ">
+        <div className="image">
+          <img src={pic3} alt="..." height={40} />
+        </div>
+        <Menu onClick={onClick} style={{ width: 256 ,height:45 }} mode="inline">
+          <Menu.SubMenu
+            key="SubMenu"
+            title="Danh mục khoá học "
+            icon={<BarsOutlined />}
+            
+          >
+            {arrCourseDirectory.map((courseType: DanhMuc, index: number) => {
+              return (
+                <Menu.Item key={index} >
+                  <NavLink to="#">{courseType.tenDanhMuc}</NavLink>
+                </Menu.Item>
+              );
+            })}
+          </Menu.SubMenu>
+        </Menu>
+        <div className="register">
+          <NavLink to="/dangky" className="btn btn-primary">
+            {" "}
+            Đăng ký
+          </NavLink>
+          <NavLink to="/dangnhap" className="btn btn-primary">
+            {" "}
+            Đăng nhập
+          </NavLink>
+        </div>
       </div>
     </div>
   );
