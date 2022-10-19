@@ -78,11 +78,11 @@ export default function Header() {
           </Space>
         </div>
         <div className="registerHeader">
-          <NavLink to="/dangky" className="btn btn-warning registerButton">
+          <NavLink to="/dangky" className="custom-btn btn-5 me-4">
             {" "}
             Đăng ký
           </NavLink>
-          <NavLink to="/dangnhap" className="btn btn-warning loginButton">
+          <NavLink to="/dangnhap" className="custom-btn btn-5">
             {" "}
             Đăng nhập
           </NavLink>
