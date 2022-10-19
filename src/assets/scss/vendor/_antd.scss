@@ -1,0 +1,41 @@
+.ant-modal {
+  color: $admin-color-text;
+  min-width: 800px !important;
+  //layout
+  .ant-modal-content {
+    padding: 20px;
+    border-radius: 20px;
+    background-color: $admin-color-secondary;
+    .ant-modal-header {
+        background-color: $admin-color-secondary;
+        border: 0;
+        .ant-modal-title {
+          color: $admin-color-text;
+          font-size: 20px;
+        }
+    }
+    //button
+    .ant-btn {
+      line-height: 0;
+    }
+    .ant-modal-close {
+      @extend .red-button;
+      padding: 0;
+      margin: 20px;
+    }
+    .ant-modal-close-x {
+        line-height: 46px;
+    }
+    .ant-btn-dangerous {
+      @extend .red-button;
+      padding: 20px;
+      height: 50px;
+    }
+    .ant-btn-primary {
+      @extend .blue-button;
+      padding: 20px;
+      height: 50px;
+    }
+    @import "./skeudo";
+  }
+}

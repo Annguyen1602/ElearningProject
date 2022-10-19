@@ -1,12 +1,13 @@
 #homeAdmin {
-  padding: 50px;
-  height: 100vh;
-  .admin-profile {
+  .admin-item {
     width: 30%;
-    height: 40%;
+    margin-bottom: 40px;
   }
   .admin-member {
-    height: 100%;
-    width: 30%;
+    .user-chart {
+      margin: 0 auto;
+      width: 240px;
+      border-radius: 100%;
+    }
   }
 }

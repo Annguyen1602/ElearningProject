@@ -45,10 +45,19 @@ root.render(
       </Routes>
       <Routes>
         <Route path='admin' element={<Admin />}>
-          <Route index element={<LoginAdmin/>}/>
-          <Route path='index' element={<Admintemplate Component={HomeAdmin}/>}/>
-          <Route path='user' element={<Admintemplate Component={UserAdmin}/>}/>
-          <Route path='course' element={<Admintemplate Component={CourseAdmin}/>}/>
+          <Route index element={<LoginAdmin />} />
+          <Route
+            path='index'
+            element={<Admintemplate Component={HomeAdmin} />}
+          />
+          <Route
+            path='user'
+            element={<Admintemplate Component={UserAdmin} />}
+          />
+          <Route
+            path='course'
+            element={<Admintemplate Component={CourseAdmin} />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

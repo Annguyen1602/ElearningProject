@@ -8,7 +8,6 @@ type props = {
 
 export default function Admintemplate ({ Component }: props) {
   const location = useLocation()
-  console.log(location)
   const [isActive, setActive] = useState(location.pathname)
   useEffect(() => {
     setActive(location.pathname)

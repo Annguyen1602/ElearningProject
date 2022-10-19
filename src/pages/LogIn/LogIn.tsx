@@ -34,7 +34,7 @@ export default function LogIn({}: Props) {
   };
 
   let regexPass = new RegExp(
-    "^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,10}$"
+    "^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,32}$"
   );
   const frm = useFormik({
     initialValues: {

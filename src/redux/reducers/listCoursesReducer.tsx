@@ -62,7 +62,6 @@ export const getListCoursesApi = () => {
   return async (dispatch: AppDispatch) => {
     try {
       const result = await http.get("/QuanLyKhoaHoc/LayDanhSachKhoaHoc");
-      console.log(result.data);
       let arrCourses: listCourses[] = result.data;
       const action = getAllCoursesAction(arrCourses);
       dispatch(action);
@@ -75,7 +74,7 @@ export const getCourseDirectoryApi = () => {
   return async (dispatch: AppDispatch) => {
     try {
       const result = await http.get("/QuanLyKhoaHoc/LayDanhMucKhoaHoc");
-      
+      console.log(result)
       let arrCoursesDirectory: DanhMucKhoaHoc[] = result.data;
       const action = getAllCoursesDirectory(arrCoursesDirectory);
       dispatch(action);
