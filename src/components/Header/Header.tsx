@@ -78,7 +78,7 @@ export default function Header() {
           </Space>
         </div>
         <div className="registerHeader">
-          <NavLink to="/dangky" className="custom-btn btn-5 me-4">
+          <NavLink to="/dangky" className="custom-btn btn-5 mb-lg-2 me-4">
             {" "}
             Đăng ký
           </NavLink>
