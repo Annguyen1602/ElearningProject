@@ -19,12 +19,15 @@
         .contain {
           padding: 40px 0;
           .form {
+            @media screen and (max-width: 1200px) {
+              justify-content: space-evenly !important;
+            }
             .form-group {
               position: relative;
               width: 400px;
               height: 100px;
               @media screen and (max-width: 1200px) {
-                width: 90%;
+                width: 80%;
               }
 
               .input-group {
@@ -70,6 +73,10 @@
               }
             }
             .info {
+              @media screen and (max-width: 1200px) {
+                flex-direction: row !important;
+                margin-left: 79px;
+              }
               
               
               .submit {

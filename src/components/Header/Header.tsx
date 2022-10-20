@@ -40,7 +40,6 @@ export default function Header() {
     let lowerCase = value.toLowerCase();
     setInputText(lowerCase);
     console.log(value);
-    
   };
   return (
     <div className="header border mb-2">
@@ -67,7 +66,7 @@ export default function Header() {
             })}
           </Menu.SubMenu>
         </Menu>
-        <div className="search">
+        <div className="search ms-2">
           <Space direction="vertical">
             <Search
               placeholder="Nhập khoá học cần tìm"
