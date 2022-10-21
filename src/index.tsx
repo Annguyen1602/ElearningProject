@@ -21,6 +21,7 @@ import "./assets/scss/styles.scss";
 
 import LogIn from "./pages/LogIn/LogIn";
 import Profile from "./pages/Profile/Profile";
+import Demo from "./components/Header/DemoHeader";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -31,6 +32,7 @@ root.render(
       <Routes>
         <Route path="" element={<HomeTeplate />}>
           <Route path="profile" element={<Profile />}></Route>
+          <Route path="demo" element={<Demo />}></Route>
         </Route>
       </Routes>
       <Routes>

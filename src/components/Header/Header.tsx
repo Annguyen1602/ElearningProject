@@ -19,6 +19,7 @@ export default function Header() {
   const { arrCourseDirectory } = useSelector(
     (state: RootState) => state.listCoursesReducer
   );
+  const { userLogin } = useSelector((state: RootState) => state.userReducer);
 
   const [current, setCurrent] = useState("1");
   const dispatch: AppDispatch = useDispatch();
@@ -76,16 +77,24 @@ export default function Header() {
             />
           </Space>
         </div>
-        <div className="registerHeader">
-          <NavLink to="/dangky" className="custom-btn btn-5 mb-lg-2 me-4">
-            {" "}
-            Đăng ký
-          </NavLink>
-          <NavLink to="/dangnhap" className="custom-btn btn-5">
-            {" "}
-            Đăng nhập
-          </NavLink>
-        </div>
+        {userLogin.hoTen ? (
+          <span className="btn btn-warning">
+            Tài khoản
+            <br />
+            {userLogin.hoTen}
+          </span>
+        ) : (
+          <div className="registerHeader">
+            <NavLink to="/dangky" className="custom-btn btn-5 mb-lg-2 me-4">
+              {" "}
+              Đăng ký
+            </NavLink>
+            <NavLink to="/dangnhap" className="custom-btn btn-5">
+              {" "}
+              Đăng nhập
+            </NavLink>
+          </div>
+        )}
       </div>
     </div>
   );
