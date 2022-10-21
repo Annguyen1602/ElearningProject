@@ -139,7 +139,7 @@ input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
   display: none; }
 
-button, .checktext input + span, .blue-button, .checktext input:checked + span, button.blue-button, .green-button, button.green-button, .green-button.blue-button, .red-button, button.red-button, .red-button.blue-button, .red-button.green-button, input[type="button"], input[type="submit"], input[type="reset"] {
+.button, button, .checktext input + span, .blue-button, .checktext input:checked + span, button.blue-button, .green-button, button.green-button, .green-button.blue-button, .red-button, button.red-button, .red-button.blue-button, .red-button.green-button, input[type="button"], input[type="submit"], input[type="reset"] {
   border: 0;
   text-transform: capitalize;
   text-align: center;

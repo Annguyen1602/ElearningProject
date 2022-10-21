@@ -45,16 +45,18 @@ export default function LoginAdmin ({}: Props) {
 
   useEffect(() => {
     if (userLogin?.maLoaiNguoiDung === 'GV') {
-      message.success({ content: "Đăng nhập thành công"})
+      message.success({ content: 'Đăng nhập thành công' })
       navigate('/admin/index')
     } else if (userLogin?.maLoaiNguoiDung === 'HV') {
-      message.error({ content: "Bạn không phải admin"})
+      message.error({ content: 'Bạn không phải admin' })
       deleteStore(USER_LOGIN)
       deleteStore(ACCESS_TOKEN)
       deleteCookie(ACCESS_TOKEN)
-      setTimeout(()=> {
+      setTimeout(() => {
         navigate('/')
-      },1000)
+      }, 1000)
+    } else if (!userLogin) {
+      navigate('/admin')
     }
   }, [userLogin])
 

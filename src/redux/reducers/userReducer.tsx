@@ -1,10 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { message } from 'antd'
+import { AxiosError } from 'axios'
 import { useNavigate } from 'react-router-dom'
 import LogIn from '../../pages/LogIn/LogIn'
 
 import {
   ACCESS_TOKEN,
+  deleteCookie,
+  deleteStore,
   getStoreJson,
   http,
   setCookie,
@@ -38,6 +41,25 @@ export interface Profile {
   maNhom: string
   email: string
 }
+
+export interface userAdmin {
+  taiKhoan: string
+  matKhau: string
+  hoTen: string
+  soDT: string
+  maLoaiNguoiDung: string
+  maNhom: string
+  email: string
+}
+
+export interface deleteUser {
+  taiKhoan: string
+  hoTen: string
+  soDT: string
+  maLoaiNguoiDung: string
+  email: string
+}
+
 export interface updateProfile {
   taiKhoan: string
   matKhau: string
@@ -68,12 +90,14 @@ export interface stateRedux {
   userToken: any
   arrUser: Profile[]
   userType: userType[]
+  status: boolean
 }
 const initialState: stateRedux = {
   userLogin: getStoreJson(USER_LOGIN) || {},
   userToken: '',
   arrUser: [],
-  userType: []
+  userType: [],
+  status: false
 }
 
 const userReducer = createSlice({
@@ -91,6 +115,9 @@ const userReducer = createSlice({
     },
     userTypeAction: (state, action: PayloadAction<userType[]>) => {
       state.userType = action.payload
+    },
+    logoutAction: (state, action: PayloadAction<Profile>) => {
+      state.userLogin = action.payload
     }
   }
 })
@@ -99,7 +126,8 @@ export const {
   getProfileAction,
   userCheck,
   arrUserAction,
-  userTypeAction
+  userTypeAction,
+  logoutAction
 } = userReducer.actions
 
 export default userReducer.reducer
@@ -118,8 +146,8 @@ export const postSignUpApi = (student: Student) => {
         }, 1000)
       }
       openMessage()
-    } catch (error:any) {
-      alert(error.response.data)
+    } catch (error) {
+      // alert(error.response.data)
     }
   }
 }
@@ -136,8 +164,8 @@ export const LogInApi = (userLogin: userLogin) => {
       dispatch(userCheck(result.data.accessToken))
 
       dispatch(getProfileApi())
-    } catch (error:any) {
-      alert(error.response.data)
+    } catch (error) {
+      // alert(error.response.data)
     }
   }
 }
@@ -175,8 +203,8 @@ export const updateProfileApi = (userUpdate: updateProfile) => {
         }, 1000)
       }
       openMessage()
-    } catch (error:any) {
-      alert(error.response.data)
+    } catch (error) {
+      // alert(error.response.data)
     }
   }
 }
@@ -186,6 +214,7 @@ export const getListUserApi = () => {
     try {
       const result = await http.get('/QuanLyNguoiDung/LayDanhSachNguoiDung')
       dispatch(arrUserAction(result.data))
+      console.log(1111)
     } catch (error) {
       console.log(error)
     }
@@ -197,6 +226,49 @@ export const getUserTypeApi = () => {
     try {
       const result = await http.get('/QuanLyNguoiDung/LayDanhSachLoaiNguoiDung')
       dispatch(userTypeAction(result.data))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+//------------------Add User-----------------
+export const addUserApi = (data: userAdmin) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.post('/QuanLyNguoiDung/ThemNguoiDung', data)
+      message.success('Thêm người dùng thành công')
+    } catch (err: any) {
+      message.error(err.response.data)
+      console.log(err)
+    }
+  }
+}
+//-----------------delete user--------------
+export const deleteUserApi = (user: string) => {
+  console.log(user)
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.delete(
+        `/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${user}`
+      )
+      message.success(result.data)
+      dispatch(getListUserApi())
+    } catch (err:any) {
+      console.log(err)
+      message.error(err.response.data)
+    }
+  }
+}
+//----------------update user--------------
+export const updateUserApi = (user: userAdmin) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.put(
+        '/QuanLyNguoiDung/CapNhatThongTinNguoiDung',
+        user
+      )
+      message.success('Cập nhật thành công')
+      dispatch(getListUserApi())
     } catch (err) {
       console.log(err)
     }

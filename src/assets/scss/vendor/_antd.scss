@@ -1,4 +1,5 @@
 .ant-modal {
+  @import "./skeudo";
   color: $admin-color-text;
   min-width: 800px !important;
   //layout
@@ -7,12 +8,12 @@
     border-radius: 20px;
     background-color: $admin-color-secondary;
     .ant-modal-header {
-        background-color: $admin-color-secondary;
-        border: 0;
-        .ant-modal-title {
-          color: $admin-color-text;
-          font-size: 20px;
-        }
+      background-color: $admin-color-secondary;
+      border: 0;
+      .ant-modal-title {
+        color: $admin-color-text;
+        font-size: 20px;
+      }
     }
     //button
     .ant-btn {
@@ -24,7 +25,7 @@
       margin: 20px;
     }
     .ant-modal-close-x {
-        line-height: 46px;
+      line-height: 46px;
     }
     .ant-btn-dangerous {
       @extend .red-button;
@@ -36,6 +37,49 @@
       padding: 20px;
       height: 50px;
     }
-    @import "./skeudo";
+  }
+}
+//antd table
+.ant-spin-container {
+  .ant-table-content {
+    @extend .paper;
+    .ant-table-thead > tr > th {
+      background-color: transparent;
+    }
+    .ant-table-tbody > tr.ant-table-row:hover > td,
+    .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+      background-color: transparent;
+    }
+    .ant-table-row:hover {
+      transition: 0.5s ease;
+      border-radius: 20px;
+      background: #f2f3f7;
+      box-shadow: inset 5px 5px 10px #bdbec1, inset -5px -5px 10px #ffffff;
+    }
+    // button
+  }
+  .ant-pagination-item-link {
+    @extend .blue-button;
+  }
+  .ant-pagination-prev .ant-pagination-item-link,
+  .ant-pagination-next .ant-pagination-item-link {
+    line-height: 100%;
+  }
+  .ant-pagination-item {
+    @extend .blue-button;
+    a {
+      color: white !important;
+    }
+    &:hover {
+      @extend .red-button
+    }
+  }
+  .ant-pagination-item-active {
+    background: #E43030 !important;
+    box-shadow: 0 0 0.5em rgb(228 48 48 / 70%), 0 0 transparent, inset 0 -5px 0 rgb(0 0 0 / 5%), inset 0 2px 0 rgb(255 255 255 / 20%) !important;
+
+  }
+  .ant-select-selector {
+    @extend .blue-button;
   }
 }
