@@ -67,6 +67,25 @@ export default function Header() {
             })}
           </Menu.SubMenu>
         </Menu>
+        <Menu onClick={onClick} style={{ width: 80 }} mode="vertical">
+        <Menu.SubMenu icon={<BarsOutlined />}>
+          <Menu.SubMenu title="Danh sách khóa học">
+            {arrCourseDirectory.map((courseType: DanhMuc, index: number) => {
+              return (
+                <Menu.Item key={index}>
+                  <NavLink to="#">{courseType.tenDanhMuc}</NavLink>
+                </Menu.Item>
+              );
+            })}
+          </Menu.SubMenu>
+          <NavLink to="/dangky">
+            <Menu.SubMenu title="Đăng ký"></Menu.SubMenu>
+          </NavLink>
+          <NavLink to="/dangnhap">
+            <Menu.SubMenu title="Đăng nhập"></Menu.SubMenu>
+          </NavLink>
+        </Menu.SubMenu>
+      </Menu>
         <div className="search ms-2">
           <Space direction="vertical">
             <Search

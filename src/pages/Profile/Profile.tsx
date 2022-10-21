@@ -367,7 +367,7 @@ export default function Profile({}: Props) {
             aria-labelledby="v-pills-course-tab"
           >
             <div className="mt-2">
-              <div className="title d-flex justify-content-between p-4">
+              <div className="title d-lg-flex justify-content-between p-4">
                 <h2>Các khoá học đã tham gia</h2>
                 <div>
                   <Space direction="vertical">
@@ -388,7 +388,7 @@ export default function Profile({}: Props) {
                   index < maxIndex && (
                     <div className="m-4" key={index}>
                       <div className="coursesRegistered d-flex border-top pt-2 bg-light p-2">
-                        <div className="imageCourse col-2 me-4">
+                        <div className="imageCourse col-lg-3 col-xl-3 me-4">
                           <img
                             src={data.hinhAnh}
                             alt={data.tenKhoaHoc}
@@ -396,7 +396,7 @@ export default function Profile({}: Props) {
                             height={150}
                           />
                         </div>
-                        <div className="detailCourse col-7 d-flex flex-column">
+                        <div className="detailCourse col-lg-6 col-xl-6 d-flex flex-column">
                           <h3>{data.tenKhoaHoc}</h3>
                           <p>
                             {data.moTa.length > 100
@@ -404,7 +404,7 @@ export default function Profile({}: Props) {
                               : data.moTa}
                           </p>
                         </div>
-                        <div className="rate col-3 d-flex flex-column align-items-center p-3">
+                        <div className="rate col-3 col-xl-3 d-flex flex-column align-items-center p-3 ">
                           <div>
                             <Rate value={data.danhGia} />
                           </div>

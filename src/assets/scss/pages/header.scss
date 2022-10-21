@@ -1,9 +1,7 @@
 .header {
   height: 70px;
-  @media screen and (max-width:1200px) {
+  @media screen and (max-width: 1200px) {
     height: 115px;
-    
-    
   }
 
   .container {
@@ -14,10 +12,20 @@
       img {
       }
     }
-    .ant-menu {
+    .ant-menu-inline {
+      @media screen and (max-width: 992px) {
+        display: none;
+      }
       .ant-menu-submenu {
         position: relative;
         z-index: 10;
+      }
+      .ant-menu-submenu-arrow {
+      }
+    }
+    .ant-menu-vertical {
+      @media screen and (min-width: 992px) {
+        display: none;
       }
     }
     .search {
@@ -25,11 +33,12 @@
     .registerHeader {
       padding: 30px 0px 30px 120px;
       display: flex;
-      @media screen and (max-width:1200px) {
+      @media screen and (max-width: 1200px) {
         display: block;
-        padding-left: 60px;;
-        
-        
+        padding-left: 60px;
+      }
+      @media screen and (max-width: 992px) {
+        display: none;
       }
       .custom-btn {
         width: 130px;
@@ -48,7 +57,6 @@
           7px 7px 20px 0px rgba(0, 0, 0, 0.1),
           4px 4px 5px 0px rgba(0, 0, 0, 0.1);
         outline: none;
-        
       }
       .btn-5 {
         width: 130px;
@@ -92,8 +100,6 @@
         width: 100%;
         transition: 800ms ease all;
       }
-
-      
     }
   }
 }
