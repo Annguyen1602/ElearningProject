@@ -387,8 +387,8 @@ export default function Profile({}: Props) {
                   index >= minIndex &&
                   index < maxIndex && (
                     <div className="m-4" key={index}>
-                      <div className="coursesRegistered d-flex border-top pt-2 bg-light p-2">
-                        <div className="imageCourse col-lg-3 col-xl-3 me-4">
+                      <div className="coursesRegistered d-md-flex border-top pt-2 bg-light p-2">
+                        <div className="imageCourse col-md-3 col-lg-3 col-xl-2  me-md-4">
                           <img
                             src={data.hinhAnh}
                             alt={data.tenKhoaHoc}
@@ -396,15 +396,15 @@ export default function Profile({}: Props) {
                             height={150}
                           />
                         </div>
-                        <div className="detailCourse col-lg-6 col-xl-6 d-flex flex-column">
-                          <h3>{data.tenKhoaHoc}</h3>
+                        <div className="detailCourse col-md-8 col-lg-6 col-xl-7 d-flex flex-column">
+                          <h3 className="mt-2">{data.tenKhoaHoc}</h3>
                           <p>
                             {data.moTa.length > 100
                               ? data.moTa.substring(0, 200) + "..."
                               : data.moTa}
                           </p>
                         </div>
-                        <div className="rate col-3 col-xl-3 d-flex flex-column align-items-center p-3 ">
+                        <div className="rate col-lg-3 col-xl-3 d-flex d-sm-none d-lg-flex flex-column align-items-center p-3 ">
                           <div>
                             <Rate value={data.danhGia} />
                           </div>

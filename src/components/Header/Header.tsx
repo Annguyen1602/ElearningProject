@@ -44,7 +44,7 @@ export default function Header() {
   };
   return (
     <div className="header border mb-2">
-      <div className="container d-flex ">
+      <div className="container d-flex flex-wrap">
         <div className="image">
           <img src={pic3} alt="..." height={40} />
         </div>
@@ -97,7 +97,7 @@ export default function Header() {
           </Space>
         </div>
         {userLogin.hoTen ? (
-          <span className="btn btn-warning">
+          <span className="btn btn-warning d-sm-none d-lg-block" >
             Tài khoản
             <br />
             {userLogin.hoTen}

@@ -6,7 +6,6 @@ import * as Yup from "yup";
 
 import axios from "axios";
 
-
 import image from "../../assets/img/image.png";
 import { postSignUpApi } from "../../redux/reducers/userReducer";
 import { AppDispatch } from "../../redux/configStore";
@@ -15,7 +14,7 @@ import { NavLink } from "react-router-dom";
 type Props = {};
 
 export default function Register({}: Props) {
-  const dispatch:AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const [passwordType, setPassWordType] = useState("password");
   const [passwordReType, setPassWordReType] = useState("password");
 
@@ -39,7 +38,6 @@ export default function Register({}: Props) {
     setPassWordReType("password");
   };
 
-  
   let regexName = new RegExp(
     "[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹs]+$"
   );
@@ -58,7 +56,7 @@ export default function Register({}: Props) {
       soDT: "",
       maNhom: "GP01",
       email: "",
-      passConfirm:''
+      passConfirm: "",
     },
 
     validationSchema: Yup.object().shape({
@@ -87,20 +85,17 @@ export default function Register({}: Props) {
     }),
     onSubmit: (values) => {
       console.log(values);
-      let action = postSignUpApi(values)
-      dispatch(action)
-      
-     
+      let action = postSignUpApi(values);
+      dispatch(action);
     },
   });
-  
 
   return (
     <div className="d-flex ">
-      <div className="col-6">
+      <div className="col-6 d-none d-md-block">
         <img src={image} alt="..." className="w-100" height={1200} />
       </div>
-      <section className="register col-6">
+      <section className="register col-12 col-md-6">
         <div className="contain">
           <h2 className="title">ĐĂNG KÝ</h2>
           <hr />
@@ -143,11 +138,15 @@ export default function Register({}: Props) {
 
                 <span className="text-danger">{frm.errors.matKhau} </span>
               </div>
-              <button type="button" style={{background:'transparent'}} onClick={togglePassword}>
+              <button
+                type="button"
+                style={{ background: "transparent" }}
+                onClick={togglePassword}
+              >
                 {passwordType === "password" ? (
-                  <i className="bi bi-eye-slash" ></i>
+                  <i className="bi bi-eye-slash"></i>
                 ) : (
-                  <i className="bi bi-eye" ></i>
+                  <i className="bi bi-eye"></i>
                 )}
               </button>
             </div>
@@ -164,11 +163,15 @@ export default function Register({}: Props) {
                 />
                 <span className="text-danger">{frm.errors.passConfirm}</span>
               </div>
-              <button type="button" style={{background:'transparent'}} onClick={toggleRePassword}>
+              <button
+                type="button"
+                style={{ background: "transparent" }}
+                onClick={toggleRePassword}
+              >
                 {passwordReType === "password" ? (
-                  <i className="bi bi-eye-slash" ></i>
+                  <i className="bi bi-eye-slash"></i>
                 ) : (
-                  <i className="bi bi-eye" ></i>
+                  <i className="bi bi-eye"></i>
                 )}
               </button>
             </div>
@@ -226,16 +229,18 @@ export default function Register({}: Props) {
             </div>
 
             <div className="d-flex justify-content-between w-100 mb-5  mt-5">
-            <div className="submit">
-              <button type="submit" className="btn">Đăng ký</button>
-            </div>
-            <div className="signIn">
-              <NavLink to='/dangnhap'>
-              <button type="button" className="btn">
-                Đăng nhập
-              </button>
-              </NavLink>
-            </div>
+              <div className="submit">
+                <button type="submit" className="btn">
+                  Đăng ký
+                </button>
+              </div>
+              <div className="signIn">
+                <NavLink to="/dangnhap">
+                  <button type="button" className="btn">
+                    Đăng nhập
+                  </button>
+                </NavLink>
+              </div>
             </div>
           </form>
         </div>

@@ -65,10 +65,10 @@ export default function LogIn({}: Props) {
 
   return (
     <div className="d-flex ">
-      <div className="col-6">
+      <div className="col-6 d-none d-md-block">
         <img src={image} alt="..." className="w-100" height={1000} />
       </div>
-      <section className="login col-6">
+      <section className="login col-12 col-md-6">
         <div className="contain">
           <h2 className="title">ĐĂNG NHẬP</h2>
           <hr />
@@ -122,13 +122,13 @@ export default function LogIn({}: Props) {
               </button>
             </div>
 
-            <div className="d-flex justify-content-between w-100 mb-5  mt-5">
-              <div className="submit">
+            <div className="d-flex justify-content-between w-100 mb-5 mt-5 flex-md-column-reverse flex-xl-row">
+              <div className="submit mt-4">
                 <button type="submit" className="btn">
                   Đăng Nhập
                 </button>
               </div>
-              <div className="signUp">
+              <div className="signUp mt-4">
                 <NavLink to="/dangky">
                   <button type="button" className="btn">
                     Đăng ký

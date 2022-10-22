@@ -1,5 +1,8 @@
 .register {
   padding: 30px 120px;
+  @media screen and (max-width: 992px) {
+    padding: 0 60px;
+  }
   .contain {
     .title {
       margin-top: 52px;
