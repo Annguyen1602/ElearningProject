@@ -4,7 +4,7 @@ type Props = {};
 
 export default function Footer({}: Props) {
   return (
-    <div className="bg-dark p-3">
+    <div className="footer bg-dark p-3">
       <div className="row">
         <div className="leftComponent col-4">
           <div className="logo">
@@ -15,15 +15,23 @@ export default function Footer({}: Props) {
             </p>
           </div>
           <div className="infoRegister">
-            <h2 className="text-white">NHẬN TIN SỰ KIỆN & KHUYẾN MÃI</h2>
+            <h2 className="text">NHẬN TIN SỰ KIỆN & KHUYẾN MÃI</h2>
             <p className="text-white">
               CyberSoft sẽ gửi các khoá học trực tuyến & các chương trình
               CyberLive hoàn toàn MIỄN PHÍ và các chương trình KHUYẾN MÃI hấp
               dẫn cho các bạn
             </p>
             <div className="form d-flex">
-              <input type="email" name="email" id="email" />
-              <button>ĐĂNG KÝ</button>
+            <div className="form-floating mb-3 col-8">
+              <input
+                type="email"
+                className="form-control"
+                id="floatingPassword"
+                placeholder="Email liên hệ"
+              />
+              <label htmlFor="floatingPassword">Email</label>
+            </div>
+              <button className="btn btn-warning">ĐĂNG KÝ</button>
             </div>
           </div>
           <div className="location">
@@ -87,12 +95,25 @@ export default function Footer({}: Props) {
               />
               <label htmlFor="floatingPassword">Điện thoại liên hệ</label>
             </div>
-            <button>ĐĂNG KÝ TƯ VẤN</button>
+            <button className="btn btn-warning">ĐĂNG KÝ TƯ VẤN</button>
+          </div>
+          <div className="linkCourse">
+            <a href="#">Lập trình Front End</a>
+            <a href="#"> Lập trình React JS</a>
+            <a href="#"> Lập trình tư duy</a>
+            <a href="#"> Lập trình Frontend</a>
+            <a href="#">Lập trình NodeJS</a>
+            <a href="#">Lập trình Backend</a>
+            <a href="#">Lập trình Java Web</a>
+            <a href="#">Lập trình Java Spring - Java Boot</a>
+            <a href="#">Phân tích Dữ liệu với Python</a>
+            <a href="#">Tôi Đi Code Dạo</a>
+            
           </div>
           
         </div>
         <div className="rightComponent col-4">
-       <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Flophocviet&tabs=timeline&width=340&height=331&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width={340} height={331} style={{border: 'none', overflow: 'hidden'}} scrolling="no" frameBorder={0}  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" />
+       <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Flophocviet&tabs=timeline&width=340&height=331&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width={400} height={331} style={{border: 'none', overflow: 'hidden'}} scrolling="no" frameBorder={0}  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" />
 
 
         </div>

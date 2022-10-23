@@ -1,0 +1,114 @@
+.footer { 
+
+	.row { 
+
+		.leftComponent { 
+
+			.logo { 
+
+				img { 
+
+				}
+
+				.text-white { 
+
+				}
+			}
+
+			.infoRegister { 
+
+				.text { 
+                    font-weight: $text-regular;
+                    font-size:$text-medium ;
+                    color: $c7-white;
+
+				}
+
+				.form { 
+
+					.form-floating { 
+
+						.form-control { 
+
+						}
+
+						label { 
+
+						}
+					}
+
+					.btn { 
+
+					}
+				}
+			}
+
+			.location { 
+
+				.locat1 { 
+
+					.bi { 
+
+					}
+
+					.text-white { 
+
+					}
+				}
+
+				.phone { 
+
+					.bi { 
+
+					}
+
+					.text-white { 
+
+					}
+				}
+			}
+		}
+
+		.centerComponent { 
+
+			.text-white { 
+
+			}
+
+			div { 
+
+				.form-floating { 
+
+					.form-control { 
+
+					}
+
+					label { 
+
+					}
+				}
+
+				.btn { 
+
+				}
+			}
+
+			.linkCourse { 
+
+				
+
+				a { 
+                    color: $c7-white;
+
+				}
+			}
+		}
+
+		.rightComponent { 
+
+			iframe { 
+
+			}
+		}
+	}
+}
