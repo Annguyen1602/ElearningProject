@@ -1,13 +1,17 @@
 import { Button, Modal } from 'antd'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '../../../redux/configStore'
-import { addUserApi, updateUserApi, userAdmin } from '../../../redux/reducers/userReducer'
+import {
+  addUserApi,
+  updateUserApi,
+  userAdmin
+} from '../../../redux/reducers/userReducer'
 
 type Props = {
-  user?: userAdmin
+  user?: userAdmin 
 }
 
 export default function ModalUser ({ user }: Props) {
@@ -22,14 +26,15 @@ export default function ModalUser ({ user }: Props) {
     '^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,32}$'
   )
   const form = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      taiKhoan: user?.taiKhoan || "",
-      matKhau: user?.matKhau || "",
-      hoTen: user?.hoTen || "",
-      soDT: user?.soDT || "",
-      maNhom: user?.maNhom || "GP01",
-      email: user?.email || "",
-      maLoaiNguoiDung: user?.maLoaiNguoiDung || "HV"
+      taiKhoan: user?.taiKhoan || '',
+      matKhau: user?.matKhau || '',
+      hoTen: user?.hoTen || '',
+      soDT: user?.soDT || '',
+      maNhom: user?.maNhom || 'GP01',
+      email: user?.email || '',
+      maLoaiNguoiDung: user?.maLoaiNguoiDung || 'HV'
     },
 
     validationSchema: Yup.object().shape({
@@ -52,8 +57,7 @@ export default function ModalUser ({ user }: Props) {
       setTimeout(() => {
         if (user) {
           dispatch(updateUserApi(values))
-        }
-        else {
+        } else {
           dispatch(addUserApi(values))
         }
         form.resetForm()
@@ -75,16 +79,28 @@ export default function ModalUser ({ user }: Props) {
     form.resetForm()
     setOpen(false)
   }
-
   return (
     <>
-      <Button
-        className='green-button px-4 py-2 mx-2 h-100'
-        type='primary'
-        onClick={showModal}
-      >
-        {user ? 'Sửa người dùng' : 'Thêm người dùng'}
-      </Button>
+      {user ? (
+        <Button
+          className='blue-button px-4 py-2 mx-2 h-100'
+          type='primary'
+          onClick={() =>{
+            setOpen(true)
+          }}
+        >
+          Sửa người dùng
+        </Button>
+      ) : (
+        <Button
+          className='green-button fs-4 py-4 h-100 w-25'
+          type='primary'
+          onClick={showModal}
+        >
+          {' '}
+          Thêm người dùng
+        </Button>
+      )}
       <Modal
         open={open}
         title={user ? 'Sửa người dùng' : 'Thêm người dùng'}

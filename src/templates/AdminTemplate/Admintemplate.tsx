@@ -16,7 +16,7 @@ export default function Admintemplate ({ Component }: props) {
     <div className='adminTemplate d-flex' id='adminTemplate'>
       <div className='admin-navbar d-flex flex-column align-items-center'>
         <div className='admin-navbar-brand text-center'>
-          <img src={image} alt='' className='w-75' />
+          <img src={image} alt='' className='' />
         </div>
         <div className='admin-navbar-items  h-100 w-100'>
           <ul>
@@ -29,7 +29,7 @@ export default function Admintemplate ({ Component }: props) {
                     : 'fs-4 fw-normal'
                 }`}
               >
-                <i className='bi bi-house'></i>Trang Chủ
+                <i className='bi bi-house'></i>Trang chủ
               </NavLink>
             </li>
 

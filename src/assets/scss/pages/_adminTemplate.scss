@@ -8,10 +8,13 @@
     margin-right: 10px;
   }
   .admin-navbar {
+    height: 100vh;
     padding: 50px;
     background-color: $admin-color-primary;
-    width: 20%;
     border-radius: 0 50px 50px 0;
+    position: sticky;
+    top: 0;
+    left: 0;
     &-brand {
       padding: 20px;
       border-radius: 20px;
@@ -45,7 +48,7 @@
   .admin-content {
     width: 80%;
     height: 100%;
-    padding: 40px
+    margin: 40px
   }
 }
 @import "./homeAdmin";

@@ -8,21 +8,20 @@ import {
   deleteUserApi,
   getListUserApi,
   Profile,
-  updateUserApi
+  updateUserApi,
+  userType
 } from '../../../redux/reducers/userReducer'
 import ModalUser from './ModalUser'
 
-type Props = {}
+type Props = {
+}
 
-interface DataType {
-  chiTietKhoaHocGhiDanh: ChiTietKhoaHocGhiDanh[]
+export interface DataType {
   taiKhoan: string
-  matKhau: string
   hoTen: string
   soDT: string
   maLoaiNguoiDung: string
   maNhom: string
-  email: string
 }
 
 export default function TableUser ({}: Props) {
@@ -46,10 +45,9 @@ export default function TableUser ({}: Props) {
       title: 'Thao tác',
       dataIndex: '',
       width:420,
-      key: 'x',
       render: e => (
         <>
-          <ModalUser user={e} />
+          <ModalUser user={e}/>
           <button className='red-button px-4 py-2 mx-2' onClick={() => {
             dispatch(deleteUserApi(e.taiKhoan))
           }}>Xóa người dùng</button>
@@ -58,7 +56,8 @@ export default function TableUser ({}: Props) {
     }
   ]
 
-  const data: DataType[] = arrUser
+  const data: DataType[] = arrUser;
+
 
   useEffect(() => {
     dispatch(getListUserApi())

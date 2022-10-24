@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { AppDispatch, RootState } from '../../../redux/configStore'
-import { getListCoursesApi } from '../../../redux/reducers/listCoursesReducer'
+import { getCourseDirectoryApi, getListCoursesApi } from '../../../redux/reducers/listCoursesReducer'
 import {
   getListUserApi,
   logoutAction
@@ -32,10 +32,11 @@ export default function HomeAdmin () {
   useEffect(() => {
     dispatch(getListUserApi())
     dispatch(getListCoursesApi())
+    dispatch(getCourseDirectoryApi())
   }, [])
   return (
     <div id='homeAdmin' className='d-flex flex-wrap justify-content-between'>
-      <div className='admin-profile admin-item paper animate__animated animate__fadeIn'>
+      <div className='admin-profile text-center admin-item paper animate__animated animate__fadeIn'>
         <img src='/img/avatar.png' alt='' className='w-50 m-3' />
         <p className='fs-4 m-3'>Xin chào {userLogin.hoTen}</p>
         <div className='admin-profile-button d-flex justify-content-between'>
@@ -63,7 +64,7 @@ export default function HomeAdmin () {
       <div className='admin-member admin-item paper animate__animated animate__fadeIn'>
         <p>Khóa học</p>
       </div>
-      <div className='admin-member admin-item paper animate__animated animate__fadeIn animate__delay-1s'>
+      {/* <div className='admin-member admin-item paper animate__animated animate__fadeIn animate__delay-1s'>
         <p>todo</p>
       </div>
       <div className='admin-member admin-item paper animate__animated animate__fadeIn animate__delay-1s'>
@@ -71,7 +72,7 @@ export default function HomeAdmin () {
       </div>
       <div className='admin-member admin-item paper animate__animated animate__fadeIn animate__delay-1s'>
         <p>notification</p>
-      </div>
+      </div> */}
     </div>
   )
 }

@@ -51,12 +51,16 @@
       background-color: transparent;
     }
     .ant-table-row:hover {
+      overflow: hidden;
       transition: 0.5s ease;
-      border-radius: 20px;
-      background: #f2f3f7;
-      box-shadow: inset 5px 5px 10px #bdbec1, inset -5px -5px 10px #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 0 transparent, 0 0 transparent,
+        inset 3px 3px 5px rgb(0 0 0 / 10%), inset -3px -3px 5px rgba(255, 255, 255, 0.733);
     }
     // button
+  }
+  .ant-btn {
+    line-height: unset;
   }
   .ant-pagination-item-link {
     @extend .blue-button;
@@ -71,13 +75,13 @@
       color: white !important;
     }
     &:hover {
-      @extend .red-button
+      @extend .red-button;
     }
   }
   .ant-pagination-item-active {
-    background: #E43030 !important;
-    box-shadow: 0 0 0.5em rgb(228 48 48 / 70%), 0 0 transparent, inset 0 -5px 0 rgb(0 0 0 / 5%), inset 0 2px 0 rgb(255 255 255 / 20%) !important;
-
+    background: #e43030 !important;
+    box-shadow: 0 0 0.5em rgb(228 48 48 / 70%), 0 0 transparent,
+      inset 0 -5px 0 rgb(0 0 0 / 5%), inset 0 2px 0 rgb(255 255 255 / 20%) !important;
   }
   .ant-select-selector {
     @extend .blue-button;

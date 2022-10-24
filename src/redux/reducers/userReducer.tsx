@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { message } from 'antd'
 import { AxiosError } from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { DataType } from '../../pages/Admin/UserAdmin/TableUser'
 import LogIn from '../../pages/LogIn/LogIn'
 
 import {
@@ -88,16 +89,16 @@ export interface ChiTietKhoaHocGhiDanh {
 export interface stateRedux {
   userLogin: Profile
   userToken: any
-  arrUser: Profile[]
+  arrUser: Profile[] | DataType[]
   userType: userType[]
-  status: boolean
+  arrUserSearch: Profile[] | DataType[]
 }
 const initialState: stateRedux = {
   userLogin: getStoreJson(USER_LOGIN) || {},
   userToken: '',
   arrUser: [],
   userType: [],
-  status: false
+  arrUserSearch: []
 }
 
 const userReducer = createSlice({
@@ -214,7 +215,6 @@ export const getListUserApi = () => {
     try {
       const result = await http.get('/QuanLyNguoiDung/LayDanhSachNguoiDung')
       dispatch(arrUserAction(result.data))
-      console.log(1111)
     } catch (error) {
       console.log(error)
     }
@@ -237,7 +237,7 @@ export const addUserApi = (data: userAdmin) => {
     try {
       const result = await http.post('/QuanLyNguoiDung/ThemNguoiDung', data)
       message.success('Thêm người dùng thành công')
-    } catch (err: any) {
+    } catch (err:any) {
       message.error(err.response.data)
       console.log(err)
     }
@@ -269,6 +269,20 @@ export const updateUserApi = (user: userAdmin) => {
       )
       message.success('Cập nhật thành công')
       dispatch(getListUserApi())
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+// ----------------------Search api---------------
+export const searchUserApi = (key: string) => {
+  console.log(key)
+  return async (dispatch: AppDispatch) => {
+    try {
+        const result = await http.get(
+          '/QuanLyNguoiDung/TimKiemNguoiDung?tuKhoa=' + key
+        )
+        dispatch(arrUserAction(result.data))
     } catch (err) {
       console.log(err)
     }
