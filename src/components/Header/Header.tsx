@@ -14,6 +14,8 @@ import {
 } from "../../redux/reducers/listCoursesReducer";
 
 import pic3 from "../../assets/img/img4.png";
+import { ACCESS_TOKEN, USER_LOGIN } from "../../util/setting";
+import { getProfileAction } from "../../redux/reducers/userReducer";
 
 export default function Header() {
   const { arrCourseDirectory } = useSelector(
@@ -68,24 +70,24 @@ export default function Header() {
           </Menu.SubMenu>
         </Menu>
         <Menu onClick={onClick} style={{ width: 80 }} mode="vertical">
-        <Menu.SubMenu icon={<BarsOutlined />}>
-          <Menu.SubMenu title="Danh sách khóa học">
-            {arrCourseDirectory.map((courseType: DanhMuc, index: number) => {
-              return (
-                <Menu.Item key={index}>
-                  <NavLink to="#">{courseType.tenDanhMuc}</NavLink>
-                </Menu.Item>
-              );
-            })}
+          <Menu.SubMenu icon={<BarsOutlined />}>
+            <Menu.SubMenu title="Danh sách khóa học">
+              {arrCourseDirectory.map((courseType: DanhMuc, index: number) => {
+                return (
+                  <Menu.Item key={index}>
+                    <NavLink to="#">{courseType.tenDanhMuc}</NavLink>
+                  </Menu.Item>
+                );
+              })}
+            </Menu.SubMenu>
+            <NavLink to="/dangky">
+              <Menu.SubMenu title="Đăng ký"></Menu.SubMenu>
+            </NavLink>
+            <NavLink to="/dangnhap">
+              <Menu.SubMenu title="Đăng nhập"></Menu.SubMenu>
+            </NavLink>
           </Menu.SubMenu>
-          <NavLink to="/dangky">
-            <Menu.SubMenu title="Đăng ký"></Menu.SubMenu>
-          </NavLink>
-          <NavLink to="/dangnhap">
-            <Menu.SubMenu title="Đăng nhập"></Menu.SubMenu>
-          </NavLink>
-        </Menu.SubMenu>
-      </Menu>
+        </Menu>
         <div className="search ms-2">
           <Space direction="vertical">
             <Search
@@ -97,11 +99,24 @@ export default function Header() {
           </Space>
         </div>
         {userLogin.hoTen ? (
-          <span className="btn btn-warning d-sm-none d-lg-block" >
-            Tài khoản
-            <br />
-            {userLogin.hoTen}
-          </span>
+          <div className="nav-item logout d-flex">
+            <span className="btn btn-warning d-sm-none d-lg-block me-2">
+              Tài khoản
+              <br />
+              {userLogin.hoTen}
+            </span>
+            <a
+            style={{fontSize:"16px",lineHeight:"65px"}}
+              className=" nav-link btn btn-warning d-sm-none d-lg-block"
+              href="/"
+              onClick={() => {
+                localStorage.removeItem(ACCESS_TOKEN);
+                localStorage.removeItem(USER_LOGIN);
+              }}
+            >
+              Đăng xuất
+            </a>
+          </div>
         ) : (
           <div className="registerHeader">
             <NavLink to="/dangky" className="custom-btn btn-5 mb-lg-2 me-4">
