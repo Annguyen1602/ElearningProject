@@ -1,114 +1,120 @@
-.footer { 
+.footer {
+  .row {
+    .leftComponent {
+      .logo {
+        margin-bottom: 40px;
 
-	.row { 
+        img {
+        }
 
-		.leftComponent { 
+        .text-white {
+        }
+      }
 
-			.logo { 
+      .infoRegister {
+        margin-bottom: 40px;
 
-				img { 
+        .text {
+          font-weight: $text-regular;
+          font-size: $text-medium;
+          color: $c7-white;
+        }
+        p {
+        }
 
-				}
+        .form {
+          .form-floating {
+            .form-control {
+            }
 
-				.text-white { 
+            label {
+            }
+          }
 
-				}
-			}
+          .btn {
+            color: $c7-white;
+            width: 100px;
+            background-color: $c5-bg-dark-yellow;
+            height: 58px;
+            margin-left: 10px;
+          }
+          .btn:hover {
+            background-color: $c5-bg-light-yellow;
+          }
+        }
+      }
 
-			.infoRegister { 
+      .location {
+        .locat1 {
+          .bi {
+          }
 
-				.text { 
-                    font-weight: $text-regular;
-                    font-size:$text-medium ;
-                    color: $c7-white;
+          .text-white {
+          }
+        }
 
-				}
+        .phone {
+          .bi {
+          }
 
-				.form { 
+          .text-white {
+          }
+        }
+      }
+    }
 
-					.form-floating { 
+    .centerComponent {
+      .text-white {
+      }
 
-						.form-control { 
+      div {
+        .form-floating {
+          .form-control {
+          }
 
-						}
+          label {
+          }
+        }
 
-						label { 
+        .btn {
+          color: $c7-white;
+          width: 200px;
+          background-color: $c5-bg-dark-yellow;
+          height: 58px;
+          margin-top: 10px;
+        }
+		.btn:hover {
+            background-color: $c5-bg-light-yellow;
+          }
+      }
 
-						}
-					}
-
-					.btn { 
-
-					}
-				}
-			}
-
-			.location { 
-
-				.locat1 { 
-
-					.bi { 
-
-					}
-
-					.text-white { 
-
-					}
-				}
-
-				.phone { 
-
-					.bi { 
-
-					}
-
-					.text-white { 
-
-					}
-				}
-			}
+      .linkCourse {
+		margin-top: 40px;
+        a {
+          color: $c7-white;
+		  margin-right: 5px;
+        }
+		a:hover{
+			color: $color2;
 		}
+      }
+    }
 
-		.centerComponent { 
-
-			.text-white { 
-
-			}
-
-			div { 
-
-				.form-floating { 
-
-					.form-control { 
-
-					}
-
-					label { 
-
-					}
-				}
-
-				.btn { 
-
-				}
-			}
-
-			.linkCourse { 
-
-				
-
-				a { 
-                    color: $c7-white;
-
-				}
-			}
+    .rightComponent {
+		overflow: hidden;
+		
+      iframe {
+      }
+	  .link{
+		margin-top: 40px;
+		a{
+			color: $c7-white;
+			margin-right: 5px;
 		}
-
-		.rightComponent { 
-
-			iframe { 
-
-			}
+		a:hover{
+			color: $color2;
 		}
-	}
+	  }
+    }
+  }
 }
