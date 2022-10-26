@@ -1,14 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { message } from 'antd'
-import { AxiosError } from 'axios'
-import { useNavigate } from 'react-router-dom'
 import { DataType } from '../../pages/Admin/UserAdmin/TableUser'
-import LogIn from '../../pages/LogIn/LogIn'
 
 import {
   ACCESS_TOKEN,
-  deleteCookie,
-  deleteStore,
   getStoreJson,
   http,
   setCookie,
@@ -138,7 +133,7 @@ export default userReducer.reducer
 export const postSignUpApi = (student: Student) => {
   return async () => {
     try {
-      const result = await http.post('/QuanLyNguoiDung/DangKy', student)
+      await http.post('/QuanLyNguoiDung/DangKy', student)
       const key = 'updatable'
       const openMessage = () => {
         message.loading({ content: 'Vui lòng chờ', key })
@@ -192,7 +187,7 @@ export const getProfileApi = () => {
 export const updateProfileApi = (userUpdate: updateProfile) => {
   return async () => {
     try {
-      const result = await http.put(
+      await http.put(
         '/QuanLyNguoiDung/CapNhatThongTinNguoiDung',
         userUpdate
       )

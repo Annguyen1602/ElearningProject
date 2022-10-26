@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { message } from 'antd'
+import axios from 'axios'
 import { http } from '../../util/setting'
 import { AppDispatch } from '../configStore'
 import { userAdmin } from './userReducer'
@@ -49,6 +50,11 @@ export interface CourseAdmin {
   taiKhoanNguoiTao: string
 }
 
+export interface fileData {
+  tenKhoaHoc: string
+  file: any
+}
+
 const initialState: any = {
   arrayListCourses: [],
   arrCourseDirectory: []
@@ -72,7 +78,7 @@ const listCourses = createSlice({
 
 export const {
   getAllCoursesAction,
-  getAllCoursesDirectory,
+  getAllCoursesDirectory
 } = listCourses.actions
 
 export default listCourses.reducer
@@ -106,59 +112,82 @@ export const getCourseDirectoryApi = () => {
 }
 
 //------------Add course api------------------
-export const addCourseAdminApi = (course: CourseAdmin) => {
-  return async (dispatch: AppDispatch) => {
-    try {
-      let result = await http.post("/QuanLyKhoaHoc/ThemKhoaHoc", course)
-      console.log(result)
-      message.success('Thêm thành công')
-      dispatch(getListCoursesApi())
-    }
-    catch (err: any) {
-      console.log(err)
-      message.error(err.response.data)
-    }
-  }
+export const addCourseAdminApi = (course: CourseAdmin, file: any) => {
+  // return (dispatch: AppDispatch) => {
+  //     const frm = new FormData()
+  //     frm.append("formFile", file)
+  //     frm.append("tenKhoaHoc", course.tenKhoaHoc)
+  //     // let result = await http.post("QuanLyKhoaHoc/UploadHinhAnhKhoaHoc", formData)
+  //     let result = http.post("/QuanLyKhoaHoc/ThemKhoaHoc", course).then((res) => {
+  //       http.post("QuanLyKhoaHoc/UploadHinhAnhKhoaHoc", frm)
+  //     })
+  //     // dispatch(addCourseUploadImg(formData))
+
+  //     // dispatch(addCourseUploadImg(formData))
+  //     // console.log(result)
+  //     message.success('Thêm thành công')
+  //     dispatch(getListCoursesApi())
+  // }
+  http.post('/QuanLyKhoaHoc/ThemKhoaHoc', course).then(res => {
+    const frm = new FormData()
+    frm.append('file', file.file)
+    frm.append('tenKhoaHoc', course.tenKhoaHoc)
+    http.post(`QuanLyKhoaHoc?tenKhoaHoc=${course.tenKhoaHoc}&maNhom=GP01`, frm)
+  })
 }
 
 //---------------update course api-------------
 export const updateCourseAdminApi = (course: CourseAdmin) => {
   return async (dispatch: AppDispatch) => {
     try {
-      let result = http.put("QuanLyKhoaHoc/CapNhatKhoaHoc",course)
-    }
-    catch(err) {
+      let result = http.put('QuanLyKhoaHoc/CapNhatKhoaHoc', course)
+    } catch (err) {
       console.log(err)
     }
   }
 }
 
 //----------------delete course-----------------
-export const deleteCouseAdminApi = (id:string) => {
+export const deleteCouseAdminApi = (id: string) => {
   return async (dispatch: AppDispatch) => {
     try {
-      let result = await http.delete("QuanLyKhoaHoc/XoaKhoaHoc?MaKhoaHoc=" + id)
+      let result = await http.delete('QuanLyKhoaHoc/XoaKhoaHoc?MaKhoaHoc=' + id)
       message.success(result.data)
       dispatch(getListCoursesApi())
-    }
-    catch(err:any) {
+    } catch (err:any) {
       message.error(err.response.data)
     }
   }
 }
 
 //---------------search course admin---------------
-export const searchCourseAdminApi = (key:string) => {
+export const searchCourseAdminApi = (key: string) => {
   return async (dispatch: AppDispatch) => {
     try {
-      if(key) {
-        let result = await http.get("QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=" + key)
+      if (key) {
+        let result = await http.get(
+          'QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=' + key
+        )
         console.log(result)
         dispatch(getAllCoursesAction(result.data))
       }
-    }
-    catch(err:any) {
+    } catch (err) {
       console.log(err)
-    } 
+    }
+  }
+}
+
+// --------------upload image----------------
+export const addCourseUploadImg = (file: any) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      let result = await http.post(
+        'QuanLyKhoaHoc/ThemKhoaHocUploadHinh',
+        file,
+        { headers: { 'Content-Type': 'multipart/form-data' } }
+      )
+    } catch (err) {
+      console.log(err)
+    }
   }
 }

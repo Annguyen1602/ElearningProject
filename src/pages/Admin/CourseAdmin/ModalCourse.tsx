@@ -1,5 +1,5 @@
 import { Button, Modal } from 'antd'
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,12 +19,14 @@ type Props = {
 }
 
 export default function ModalCourse ({ course }: Props) {
+  const [image, setImage] =  React.useState<FileList | null>();
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
   const dispatch: AppDispatch = useDispatch()
   const { arrCourseDirectory } = useSelector(
     (state: RootState) => state.listCoursesReducer
   )
+
   const {arrUser,userLogin} = useSelector((state: RootState) => state.userReducer)
 
   const form = useFormik({
@@ -40,17 +42,31 @@ export default function ModalCourse ({ course }: Props) {
       maNhom: 'GP01',
       ngayTao: course?.ngayTao || '',
       maDanhMucKhoaHoc: course?.danhMucKhoaHoc.maDanhMucKhoahoc || 'DiDong',
-      taiKhoanNguoiTao: course?.nguoiTao.taiKhoan || userLogin.taiKhoan || ""
+      taiKhoanNguoiTao: course?.nguoiTao.taiKhoan || userLogin.taiKhoan || "",
     },
 
     onSubmit: values => {
-        console.log(values)
+        // console.log(values)
+        form.resetForm()
+        let formData = {
+          maKhoaHoc: values.maKhoaHoc,
+          biDanh: values.biDanh,
+          tenKhoaHoc: values.tenKhoaHoc,
+          moTa: values.moTa,
+          luotXem: values.luotXem,
+          danhGia: values.danhGia,
+          hinhAnh: values.hinhAnh,
+          maNhom: values.maNhom,
+          ngayTao: values.ngayTao,
+          maDanhMucKhoaHoc: values.maDanhMucKhoaHoc,
+          taiKhoanNguoiTao: values.taiKhoanNguoiTao
+        }
         setLoading(true)
         setTimeout(() => {
           if (course) {
             // dispatch(updateUserApi(values))
           } else {
-            // dispatch(addCourseAdminApi(values))
+            addCourseAdminApi(values, image)
           }
           form.resetForm()
           setLoading(false)
@@ -186,10 +202,14 @@ export default function ModalCourse ({ course }: Props) {
               <p>Hình ảnh</p>
               <img src={form.values.hinhAnh} alt="" style={{width:100}}/>
               <input
-                type='text'
+                type='file'
                 id='hinhAnh'
                 name='hinhAnh'
-                onChange={form.handleChange}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                  setImage(e.target.files)
+                  console.log(image)
+                  form.setFieldValue("hinhAnh", e.currentTarget.files?.[0].name)
+                }}
                 onBlur={form.handleBlur}
               />
             </div>
