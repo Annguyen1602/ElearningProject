@@ -42,7 +42,7 @@ export default function TableCourse ({}: Props) {
       render: text => <img src={text} alt='' style={{ width: 50 }} />
     },
     { title: 'Mã khóa học', dataIndex: 'maKhoaHoc', key: 'maKhoaHoc' },
-    { title: 'Tên khóa học', dataIndex: 'tenKhoaHoc', key: 'tenKhoaHoc' },
+    { title: 'Tên khóa học', dataIndex: 'tenKhoaHoc', key: 'tenKhoaHoc', width: 300 },
     {
       title: 'Người tạo',
       dataIndex: 'nguoiTao',

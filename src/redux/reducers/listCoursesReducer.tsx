@@ -112,39 +112,32 @@ export const getCourseDirectoryApi = () => {
 }
 
 //------------Add course api------------------
-export const addCourseAdminApi = (course: CourseAdmin, file: any) => {
-  // return (dispatch: AppDispatch) => {
-  //     const frm = new FormData()
-  //     frm.append("formFile", file)
-  //     frm.append("tenKhoaHoc", course.tenKhoaHoc)
-  //     // let result = await http.post("QuanLyKhoaHoc/UploadHinhAnhKhoaHoc", formData)
-  //     let result = http.post("/QuanLyKhoaHoc/ThemKhoaHoc", course).then((res) => {
-  //       http.post("QuanLyKhoaHoc/UploadHinhAnhKhoaHoc", frm)
-  //     })
-  //     // dispatch(addCourseUploadImg(formData))
-
-  //     // dispatch(addCourseUploadImg(formData))
-  //     // console.log(result)
-  //     message.success('Thêm thành công')
-  //     dispatch(getListCoursesApi())
-  // }
-  http.post('/QuanLyKhoaHoc/ThemKhoaHoc', course).then(res => {
-    const frm = new FormData()
-    frm.append('file', file.file)
-    frm.append('tenKhoaHoc', course.tenKhoaHoc)
-    http.post(`QuanLyKhoaHoc?tenKhoaHoc=${course.tenKhoaHoc}&maNhom=GP01`, frm)
-  })
+export const addCourseAdminApi = (course: CourseAdmin, file: FormData) => {
+  return async (dispatch: AppDispatch) => {
+    await http.post("/QuanLyKhoaHoc/ThemKhoaHoc", course)
+    try {
+      await http.post("QuanLyKhoaHoc/UploadHinhAnhKhoaHoc", file)
+      dispatch(getListCoursesApi())
+      message.success("Thêm khoá học thành công")
+    }
+    catch(err) {
+      console.log(err)
+    }
+  } 
 }
 
 //---------------update course api-------------
-export const updateCourseAdminApi = (course: CourseAdmin) => {
+export const updateCourseAdminApi = (course: CourseAdmin,file: FormData) => {
   return async (dispatch: AppDispatch) => {
+    await http.put("QuanLyKhoaHoc/CapNhatKhoaHoc", course)
     try {
-      let result = http.put('QuanLyKhoaHoc/CapNhatKhoaHoc', course)
-    } catch (err) {
+      await http.post("QuanLyKhoaHoc/UploadHinhAnhKhoaHoc", file)
+      dispatch(getListCoursesApi())
+    }
+    catch(err) {
       console.log(err)
     }
-  }
+  } 
 }
 
 //----------------delete course-----------------

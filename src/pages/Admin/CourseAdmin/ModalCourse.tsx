@@ -4,22 +4,22 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../../redux/configStore'
+import { userAdmin } from '../../../redux/reducers/userReducer'
 import {
-  userAdmin
-} from '../../../redux/reducers/userReducer'
-import {
-    addCourseAdminApi,
+  addCourseAdminApi,
   CourseAdmin,
   DanhMuc,
-  listCourses
+  listCourses,
+  updateCourseAdminApi
 } from '../../../redux/reducers/listCoursesReducer'
+import { http } from '../../../util/setting'
 
 type Props = {
   course?: listCourses
 }
 
 export default function ModalCourse ({ course }: Props) {
-  const [image, setImage] =  React.useState<FileList | null>();
+  const [image, setImage] = React.useState<FileList | null>()
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
   const dispatch: AppDispatch = useDispatch()
@@ -27,7 +27,9 @@ export default function ModalCourse ({ course }: Props) {
     (state: RootState) => state.listCoursesReducer
   )
 
-  const {arrUser,userLogin} = useSelector((state: RootState) => state.userReducer)
+  const { arrUser, userLogin } = useSelector(
+    (state: RootState) => state.userReducer
+  )
 
   const form = useFormik({
     enableReinitialize: true,
@@ -38,40 +40,50 @@ export default function ModalCourse ({ course }: Props) {
       moTa: course?.moTa || '',
       luotXem: course?.luotXem || 0,
       danhGia: 0,
-      hinhAnh: course?.hinhAnh || "",
+      hinhAnh: course?.hinhAnh || '',
       maNhom: 'GP01',
       ngayTao: course?.ngayTao || '',
       maDanhMucKhoaHoc: course?.danhMucKhoaHoc.maDanhMucKhoahoc || 'DiDong',
-      taiKhoanNguoiTao: course?.nguoiTao.taiKhoan || userLogin.taiKhoan || "",
+      taiKhoanNguoiTao: course?.nguoiTao.taiKhoan || userLogin.taiKhoan || '',
+      image: ''
     },
+    validationSchema: Yup.object().shape({
+      maKhoaHoc: Yup.string().required('Tên tài khoản không được bỏ trống'),
+      TenKhoaHoc: Yup.string().required('Email không được bỏ trống'),
+      moTa: Yup.string().required('Tên không được để trống'),
+      hinhAnh: Yup.string().required('Số điện thoại không được bỏ trống'),
+      ngayTao: Yup.string().required('Mật khẩu không được để trống'),
+      image:Yup.object().required("Hình ảnh không được bỏ trống")
+    }),
 
     onSubmit: values => {
-        // console.log(values)
+      const data = new FormData()
+      data.append('file', values.image)
+      data.append("tenKhoaHoc", values.tenKhoaHoc)
+      let formData = {
+        maKhoaHoc: values.maKhoaHoc,
+        biDanh: values.biDanh,
+        tenKhoaHoc: values.tenKhoaHoc,
+        moTa: values.moTa,
+        luotXem: values.luotXem,
+        danhGia: values.danhGia,
+        hinhAnh: values.hinhAnh,
+        maNhom: values.maNhom,
+        ngayTao: values.ngayTao,
+        maDanhMucKhoaHoc: values.maDanhMucKhoaHoc,
+        taiKhoanNguoiTao: values.taiKhoanNguoiTao
+      }
+      if (course) {
+        dispatch(updateCourseAdminApi(formData, data))
+      } else {
+        dispatch(addCourseAdminApi(formData, data))
+      }
+      setLoading(true)
+      setTimeout(() => {
         form.resetForm()
-        let formData = {
-          maKhoaHoc: values.maKhoaHoc,
-          biDanh: values.biDanh,
-          tenKhoaHoc: values.tenKhoaHoc,
-          moTa: values.moTa,
-          luotXem: values.luotXem,
-          danhGia: values.danhGia,
-          hinhAnh: values.hinhAnh,
-          maNhom: values.maNhom,
-          ngayTao: values.ngayTao,
-          maDanhMucKhoaHoc: values.maDanhMucKhoaHoc,
-          taiKhoanNguoiTao: values.taiKhoanNguoiTao
-        }
-        setLoading(true)
-        setTimeout(() => {
-          if (course) {
-            // dispatch(updateUserApi(values))
-          } else {
-            addCourseAdminApi(values, image)
-          }
-          form.resetForm()
-          setLoading(false)
-          setOpen(false)
-        }, 2000)
+        setLoading(false)
+        setOpen(false)
+      }, 2000)
     }
   })
 
@@ -192,26 +204,43 @@ export default function ModalCourse ({ course }: Props) {
             </div>
             <div className='form-item col-6 mb-4'>
               <p>Người tạo</p>
-              <select name="taiKhoanNguoiTao" id="taiKhoanNguoiTao" defaultValue={form.values.taiKhoanNguoiTao} onChange={form.handleChange}>
-                {(arrUser.filter((e) => e.maLoaiNguoiDung === "GV")).map((item,index) => {
-                  return <option key={index} value={item.taiKhoan}>{item.taiKhoan}</option>
-                })}
+              <select
+                name='taiKhoanNguoiTao'
+                id='taiKhoanNguoiTao'
+                defaultValue={form.values.taiKhoanNguoiTao}
+                onChange={form.handleChange}
+              >
+                {arrUser
+                  .filter(e => e.maLoaiNguoiDung === 'GV')
+                  .map((item, index) => {
+                    return (
+                      <option key={index} value={item.taiKhoan}>
+                        {item.taiKhoan}
+                      </option>
+                    )
+                  })}
               </select>
             </div>
             <div className='form-item col-6 mb-4'>
               <p>Hình ảnh</p>
-              <img src={form.values.hinhAnh} alt="" style={{width:100}}/>
+              <img src={form.values.hinhAnh} alt='' style={{ width: 100 }} />
               <input
                 type='file'
-                id='hinhAnh'
-                name='hinhAnh'
-                onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                  setImage(e.target.files)
-                  console.log(image)
-                  form.setFieldValue("hinhAnh", e.currentTarget.files?.[0].name)
+                id='image'
+                name='image'
+                onChange={e => {
+                  form.setFieldValue('image', e.target.files?.[0])
+                  form.setFieldValue('hinhAnh', e.currentTarget.files?.[0].name)
                 }}
                 onBlur={form.handleBlur}
               />
+              {form.errors.image && form.touched.image ? (
+                <div className='text-danger position-absolute'>
+                  {form.errors.image}
+                </div>
+              ) : (
+                ''
+              )}
             </div>
             <div className='form-item col-6 mb-4'>
               <p>Ngày tạo</p>

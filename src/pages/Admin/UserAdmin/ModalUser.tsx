@@ -53,13 +53,13 @@ export default function ModalUser ({ user }: Props) {
         .matches(regexPass, 'Mật khẩu không đúng định dạng')
     }),
     onSubmit: values => {
+      if (user) {
+        dispatch(updateUserApi(values))
+      } else {
+        dispatch(addUserApi(values))
+      }
       setLoading(true)
       setTimeout(() => {
-        if (user) {
-          dispatch(updateUserApi(values))
-        } else {
-          dispatch(addUserApi(values))
-        }
         form.resetForm()
         setLoading(false)
         setOpen(false)
