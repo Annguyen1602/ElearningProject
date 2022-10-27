@@ -48,7 +48,9 @@ export default function Header() {
     <div className="header border mb-2">
       <div className="container d-flex flex-wrap">
         <div className="image">
+          <NavLink to=''>
           <img src={pic3} alt="..." height={40} />
+          </NavLink>
         </div>
         <Menu
           onClick={onClick}
