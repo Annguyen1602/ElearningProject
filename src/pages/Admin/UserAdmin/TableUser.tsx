@@ -11,6 +11,7 @@ import {
   updateUserApi,
   userType
 } from '../../../redux/reducers/userReducer'
+import UserRegisterCourseModal from '../RegisterModal/User/UserRegisterCourseModal'
 import ModalUser from './ModalUser'
 
 type Props = {
@@ -46,12 +47,13 @@ export default function TableUser ({}: Props) {
       dataIndex: '',
       width:420,
       render: e => (
-        <>
+        <div className='d-flex justify-content-betwen'>
+          <UserRegisterCourseModal taiKhoan={e.taiKhoan}/>
           <ModalUser user={e}/>
           <button className='red-button px-4 py-2 mx-2' onClick={() => {
             dispatch(deleteUserApi(e.taiKhoan))
-          }}>Xóa người dùng</button>
-        </>
+          }}><i className='bi bi-trash3 m-0 p-2'></i></button>
+        </div>
       )
     }
   ]

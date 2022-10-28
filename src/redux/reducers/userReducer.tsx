@@ -81,19 +81,26 @@ export interface ChiTietKhoaHocGhiDanh {
   ngayTao: Date
   danhGia: number
 }
+export interface courseOfStudent {
+  maKhoaHoc: string
+  biDanh: string
+  tenKhoaHoc: string
+}
 export interface stateRedux {
   userLogin: Profile
   userToken: any
   arrUser: Profile[] | DataType[]
   userType: userType[]
   arrUserSearch: Profile[] | DataType[]
+  listCourseOfStudent: courseOfStudent[]
 }
 const initialState: stateRedux = {
   userLogin: getStoreJson(USER_LOGIN) || {},
   userToken: '',
   arrUser: [],
   userType: [],
-  arrUserSearch: []
+  arrUserSearch: [],
+  listCourseOfStudent:[]
 }
 
 const userReducer = createSlice({
@@ -283,3 +290,4 @@ export const searchUserApi = (key: string) => {
     }
   }
 }
+//--------------------lấy danh sách khóa học chưa ghi danh-----------

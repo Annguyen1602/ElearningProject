@@ -114,30 +114,32 @@ export const getCourseDirectoryApi = () => {
 //------------Add course api------------------
 export const addCourseAdminApi = (course: CourseAdmin, file: FormData) => {
   return async (dispatch: AppDispatch) => {
-    await http.post("/QuanLyKhoaHoc/ThemKhoaHoc", course)
     try {
-      await http.post("QuanLyKhoaHoc/UploadHinhAnhKhoaHoc", file)
+      let result = await http
+        .post('/QuanLyKhoaHoc/ThemKhoaHoc', course)
+        .then(() => {
+          http.post('QuanLyKhoaHoc/UploadHinhAnhKhoaHoc', file)
+        })
       dispatch(getListCoursesApi())
-      message.success("Thêm khoá học thành công")
-    }
-    catch(err) {
+      message.success('Thêm khoá học thành công')
+    } catch (err:any) {
       console.log(err)
+      message.error(err.response.data)
     }
-  } 
+  }
 }
 
 //---------------update course api-------------
-export const updateCourseAdminApi = (course: CourseAdmin,file: FormData) => {
+export const updateCourseAdminApi = (course: CourseAdmin, file: FormData) => {
   return async (dispatch: AppDispatch) => {
-    await http.put("QuanLyKhoaHoc/CapNhatKhoaHoc", course)
+    await http.put('QuanLyKhoaHoc/CapNhatKhoaHoc', course)
     try {
-      await http.post("QuanLyKhoaHoc/UploadHinhAnhKhoaHoc", file)
+      await http.post('QuanLyKhoaHoc/UploadHinhAnhKhoaHoc', file)
       dispatch(getListCoursesApi())
-    }
-    catch(err) {
+    } catch (err) {
       console.log(err)
     }
-  } 
+  }
 }
 
 //----------------delete course-----------------

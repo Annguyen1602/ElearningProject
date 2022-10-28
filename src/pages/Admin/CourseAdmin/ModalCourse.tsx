@@ -48,15 +48,15 @@ export default function ModalCourse ({ course }: Props) {
       image: ''
     },
     validationSchema: Yup.object().shape({
-      maKhoaHoc: Yup.string().required('Tên tài khoản không được bỏ trống'),
-      TenKhoaHoc: Yup.string().required('Email không được bỏ trống'),
-      moTa: Yup.string().required('Tên không được để trống'),
-      hinhAnh: Yup.string().required('Số điện thoại không được bỏ trống'),
-      ngayTao: Yup.string().required('Mật khẩu không được để trống'),
-      image:Yup.object().required("Hình ảnh không được bỏ trống")
+      maKhoaHoc: Yup.string().required('Mã khóa học không được bỏ trống'),
+      tenKhoaHoc: Yup.string().required('Tên khóa học không được bỏ trống'),
+      moTa: Yup.string().required('Mô tả không được để trống'),
+      ngayTao: Yup.string().required('Ngày tạo không được để trống'),
+      image:Yup.string().required("Hình ảnh không được bỏ trống")
     }),
 
     onSubmit: values => {
+      console.log(values)
       const data = new FormData()
       data.append('file', values.image)
       data.append("tenKhoaHoc", values.tenKhoaHoc)
@@ -168,6 +168,13 @@ export default function ModalCourse ({ course }: Props) {
                 onBlur={form.handleBlur}
                 disabled={course ? true : false}
               />
+              {form.errors.maKhoaHoc && form.touched.maKhoaHoc ? (
+                <div className='text-danger position-absolute'>
+                  {form.errors.maKhoaHoc}
+                </div>
+              ) : (
+                ''
+              )}
             </div>
             <div className='form-item col-6 mb-4'>
               <p>Đánh giá</p>
@@ -190,6 +197,13 @@ export default function ModalCourse ({ course }: Props) {
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
               />
+              {form.errors.tenKhoaHoc && form.touched.tenKhoaHoc ? (
+                <div className='text-danger position-absolute'>
+                  {form.errors.tenKhoaHoc}
+                </div>
+              ) : (
+                ''
+              )}
             </div>
             <div className='form-item col-6 mb-4'>
               <p>Lượt xem</p>
@@ -252,6 +266,13 @@ export default function ModalCourse ({ course }: Props) {
                 onChange={form.handleChange}
                 onBlur={form.handleBlur}
               />
+              {form.errors.ngayTao && form.touched.ngayTao ? (
+                <div className='text-danger position-absolute'>
+                  {form.errors.ngayTao}
+                </div>
+              ) : (
+                ''
+              )}
             </div>
             <div className='form-item col-6 mb-4'>
               <p>Danh mục khóa học</p>
@@ -270,6 +291,17 @@ export default function ModalCourse ({ course }: Props) {
                   )
                 })}
               </select>
+            </div>
+            <div className='form-item col-12 mb-4'>
+              <p>Mô tả</p>
+              <textarea name="moTa" id="moTa" rows={20} className="w-100"></textarea>
+              {form.errors.moTa && form.touched.moTa ? (
+                <div className='text-danger position-absolute'>
+                  {form.errors.moTa}
+                </div>
+              ) : (
+                ''
+              )}
             </div>
           </form>
         </div>

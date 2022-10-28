@@ -89,7 +89,7 @@ export default function ModalUser ({ user }: Props) {
             setOpen(true)
           }}
         >
-          Sửa người dùng
+          <i className='bi bi-pencil-square m-0 p-2'></i>
         </Button>
       ) : (
         <Button

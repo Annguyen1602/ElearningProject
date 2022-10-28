@@ -10,6 +10,7 @@ import {
   NguoiTao
 } from '../../../redux/reducers/listCoursesReducer'
 import { getListUserApi } from '../../../redux/reducers/userReducer'
+import CourseRegisterUserModal from '../RegisterModal/Course/CourseRegisterUserModal'
 import ModalCourse from './ModalCourse'
 
 type Props = {}
@@ -65,6 +66,7 @@ export default function TableCourse ({}: Props) {
       key: 'x',
       render: e => (
         <>
+          <CourseRegisterUserModal/>
           <ModalCourse course={e} />
           <button className='red-button p-2 mx-2' onClick={() => {
             dispatch(deleteCouseAdminApi(e.maKhoaHoc))
