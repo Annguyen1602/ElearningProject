@@ -1,23 +1,30 @@
 import { Button, Modal } from 'antd'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '../../../../redux/configStore'
+import { getListCourseNotRegisterApi, registerCourseApi } from '../../../../redux/reducers/userReducer'
 import UserTableRegisted from './UserTableRegisted'
 import UserTableRegister from './UserTableRegister'
 
 type Props = {
-    taiKhoan:string
+  taiKhoan: string
 }
 
-export default function UserRegisterCourseModal ({taiKhoan}: Props) {
-    console.log(taiKhoan)
+export default function UserRegisterCourseModal ({ taiKhoan }: Props) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const [maKhoaHoc, setMaKhoaHoc] = useState("")
+
+  const { listCourseOfStudent } = useSelector(
+    (state: RootState) => state.userReducer
+  )
+
+  const dispatch: AppDispatch = useDispatch()
 
   const showModal = () => {
     setIsModalOpen(true)
   }
 
-  const handleOk = () => {
-    setIsModalOpen(false)
-  }
 
   const handleCancel = () => {
     setIsModalOpen(false)
@@ -26,16 +33,18 @@ export default function UserRegisterCourseModal ({taiKhoan}: Props) {
   return (
     <>
       <Button
-        className='green-button px-4 py-2 mx-2 h-100'
+        className='green-button p-2 h-100'
         type='primary'
-        onClick={showModal}
+        onClick={() => {
+          showModal()
+          dispatch(getListCourseNotRegisterApi(taiKhoan))
+        }}
       >
         <i className='bi bi-plus-circle m-0 p-2'></i>
       </Button>
       <Modal
         title='Ghi danh khóa học'
         open={isModalOpen}
-        onOk={handleOk}
         onCancel={handleCancel}
         footer={[]}
       >
@@ -43,22 +52,30 @@ export default function UserRegisterCourseModal ({taiKhoan}: Props) {
           <div className='form-item w-100'>
             <p className='fs-5 py-4'>Đăng ký khoá học</p>
             <div className='form-action w-100'>
-              <select name='tenKhoaHoc' id='tenKhoaHoc' className='w-75'>
-                <option value='IETC'>bla bla</option>
-                <option value='IETC'>bla bla</option>
-                <option value='IETC'>bla bla</option>
-                <option value='IETC'>bla bla</option>
+              <select name='tenKhoaHoc' id='tenKhoaHoc' className='w-75' defaultValue={listCourseOfStudent[0]?.maKhoaHoc} onChange={(e) =>{
+                console.log(e.target.value)
+                setMaKhoaHoc(e.target.value)
+              }}>
+                {listCourseOfStudent.map((item, index) => {
+                  return (
+                    <option value={item.maKhoaHoc} key={index}>
+                      {item.tenKhoaHoc}
+                    </option>
+                  )
+                })}
               </select>
-              <button className='blue-button w-25 p-3'>Đăng ký</button>
+              <button className='blue-button w-25 p-3' onClick={() => {
+                dispatch(registerCourseApi( maKhoaHoc,taiKhoan))
+              }}>Đăng ký</button>
             </div>
           </div>
           <div className='form-item'>
             <p className='fs-5 py-4'>Khóa học chờ đăng ký</p>
-            <UserTableRegister />
+            <UserTableRegister taiKhoan={taiKhoan}/>
           </div>
           <div className='form-item'>
             <p className='fs-5 py-4'>Khóa học đã đăng ký</p>
-            <UserTableRegisted />
+            <UserTableRegisted taiKhoan={taiKhoan}/>
           </div>
         </section>
       </Modal>

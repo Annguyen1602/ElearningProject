@@ -83,7 +83,7 @@ export default function ModalUser ({ user }: Props) {
     <>
       {user ? (
         <Button
-          className='blue-button px-4 py-2 mx-2 h-100'
+          className='blue-button p-2 mx-2 h-100'
           type='primary'
           onClick={() =>{
             setOpen(true)

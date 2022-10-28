@@ -104,7 +104,7 @@ export default function ModalCourse ({ course }: Props) {
     <>
       {course ? (
         <Button
-          className='blue-button p-2 h-100'
+          className='blue-button p-2 mx-2 h-100'
           type='primary'
           onClick={showModal}
         >

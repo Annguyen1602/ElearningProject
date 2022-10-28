@@ -45,12 +45,12 @@ export default function TableUser ({}: Props) {
     {
       title: 'Thao tác',
       dataIndex: '',
-      width:420,
+      width:100,
       render: e => (
-        <div className='d-flex justify-content-betwen'>
+        <div className='d-flex justify-content-between'>
           <UserRegisterCourseModal taiKhoan={e.taiKhoan}/>
           <ModalUser user={e}/>
-          <button className='red-button px-4 py-2 mx-2' onClick={() => {
+          <button className='red-button p-2' onClick={() => {
             dispatch(deleteUserApi(e.taiKhoan))
           }}><i className='bi bi-trash3 m-0 p-2'></i></button>
         </div>

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { message } from 'antd'
+import { AxiosError } from 'axios'
 import { DataType } from '../../pages/Admin/UserAdmin/TableUser'
 
 import {
@@ -93,6 +94,8 @@ export interface stateRedux {
   userType: userType[]
   arrUserSearch: Profile[] | DataType[]
   listCourseOfStudent: courseOfStudent[]
+  listCourseWaitRegister: courseOfStudent[]
+  listCourseReigsterd: courseOfStudent[]
 }
 const initialState: stateRedux = {
   userLogin: getStoreJson(USER_LOGIN) || {},
@@ -100,7 +103,9 @@ const initialState: stateRedux = {
   arrUser: [],
   userType: [],
   arrUserSearch: [],
-  listCourseOfStudent:[]
+  listCourseOfStudent: [],
+  listCourseWaitRegister: [],
+  listCourseReigsterd: []
 }
 
 const userReducer = createSlice({
@@ -121,6 +126,24 @@ const userReducer = createSlice({
     },
     logoutAction: (state, action: PayloadAction<Profile>) => {
       state.userLogin = action.payload
+    },
+    getListCourseNotRegisterAction: (
+      state,
+      action: PayloadAction<courseOfStudent[]>
+    ) => {
+      state.listCourseOfStudent = action.payload
+    },
+    getListCourseWaitRegisterAction: (
+      state,
+      action: PayloadAction<courseOfStudent[]>
+    ) => {
+      state.listCourseWaitRegister = action.payload
+    },
+    getListCourseRegisteredAction: (
+      state,
+      action: PayloadAction<courseOfStudent[]>
+    ) => {
+      state.listCourseReigsterd = action.payload
     }
   }
 })
@@ -130,7 +153,10 @@ export const {
   userCheck,
   arrUserAction,
   userTypeAction,
-  logoutAction
+  logoutAction,
+  getListCourseNotRegisterAction,
+  getListCourseWaitRegisterAction,
+  getListCourseRegisteredAction
 } = userReducer.actions
 
 export default userReducer.reducer
@@ -194,10 +220,7 @@ export const getProfileApi = () => {
 export const updateProfileApi = (userUpdate: updateProfile) => {
   return async () => {
     try {
-      await http.put(
-        '/QuanLyNguoiDung/CapNhatThongTinNguoiDung',
-        userUpdate
-      )
+      await http.put('/QuanLyNguoiDung/CapNhatThongTinNguoiDung', userUpdate)
       const key = 'updatable'
       const openMessage = () => {
         message.loading({ content: 'Vui lòng chờ', key })
@@ -255,7 +278,7 @@ export const deleteUserApi = (user: string) => {
       )
       message.success(result.data)
       dispatch(getListUserApi())
-    } catch (err:any) {
+    } catch (err: any) {
       console.log(err)
       message.error(err.response.data)
     }
@@ -281,13 +304,102 @@ export const searchUserApi = (key: string) => {
   console.log(key)
   return async (dispatch: AppDispatch) => {
     try {
+      if (key !== '') {
         const result = await http.get(
           '/QuanLyNguoiDung/TimKiemNguoiDung?tuKhoa=' + key
         )
         dispatch(arrUserAction(result.data))
+      } else {
+        dispatch(getListUserApi())
+      }
     } catch (err) {
       console.log(err)
     }
   }
 }
 //--------------------lấy danh sách khóa học chưa ghi danh-----------
+export const getListCourseNotRegisterApi = (tenTaiKhoan: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      let result = await http.post(
+        'QuanLyNguoiDung/LayDanhSachKhoaHocChuaGhiDanh?TaiKhoan=' + tenTaiKhoan
+      )
+      dispatch(getListCourseNotRegisterAction(result.data))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+// ------------lấy danh sách khoá học chờ xét duyệt------------------
+export const getListCourseWaitRegisterApi = (taiKhoan: string) => {
+  console.log(taiKhoan)
+  return async (dispatch: AppDispatch) => {
+    try {
+      let data = {
+        taiKhoan: taiKhoan
+      }
+      let result = await http.post(
+        'QuanLyNguoiDung/LayDanhSachKhoaHocChoXetDuyet',
+        data
+      )
+      console.log(result)
+      dispatch(getListCourseWaitRegisterAction(result.data))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+//----------lấy danh sác kháo học đã xét duyệt--------------------
+export const getListCourseRegisteredApi = (taiKhoan: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      let data = {
+        taiKhoan: taiKhoan
+      }
+      let result = await http.post(
+        'QuanLyNguoiDung/LayDanhSachKhoaHocDaXetDuyet',
+        data
+      )
+      console.log(result)
+      dispatch(getListCourseRegisteredAction(result.data))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+//----------ghi danh khoá học----------------------
+export const registerCourseApi = (maKhoaHoc: string, taiKhoan: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      let data = {
+        maKhoaHoc: maKhoaHoc,
+        taiKhoan: taiKhoan
+      }
+      let result = await http.post("QuanLyKhoaHoc/GhiDanhKhoaHoc",data)
+      console.log(result)
+      message.success(result.data)
+      dispatch(getListCourseRegisteredApi(taiKhoan))
+      dispatch(getListCourseWaitRegisterApi(taiKhoan))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+//-----------huỷ ghi danh khoá học----------------
+export const UnRegisterCourseApi = (maKhoaHoc: string, taiKhoan: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      let data = {
+        maKhoaHoc: maKhoaHoc,
+        taiKhoan: taiKhoan
+      }
+      let result = await http.post("QuanLyKhoaHoc/HuyGhiDanh",data)
+      console.log(result)
+      message.success(result.data)
+      dispatch(getListCourseRegisteredApi(taiKhoan))
+      dispatch(getListCourseWaitRegisterApi(taiKhoan))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}

@@ -64,16 +64,17 @@ export default function TableCourse ({}: Props) {
       title: 'Thao tác',
       dataIndex: '',
       key: 'x',
+      width:100,
       render: e => (
-        <>
+        <div className='d-flex justify-content-between'>
           <CourseRegisterUserModal/>
           <ModalCourse course={e} />
-          <button className='red-button p-2 mx-2' onClick={() => {
+          <button className='red-button p-2' onClick={() => {
             dispatch(deleteCouseAdminApi(e.maKhoaHoc))
           }}>
             <i className='bi bi-trash3 m-0 p-2'></i>
           </button>
-        </>
+        </div>
       )
     }
   ]

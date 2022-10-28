@@ -1,58 +1,54 @@
-import React from 'react'
-import { Space, Table, Tag } from 'antd'
+import React, { useEffect } from 'react'
+import { Table } from 'antd'
 import { ColumnsType } from 'antd/es/table'
+import { AppDispatch, RootState } from '../../../../redux/configStore'
+import { useDispatch, useSelector } from 'react-redux'
+import { getListCourseRegisteredApi, UnRegisterCourseApi } from '../../../../redux/reducers/userReducer'
 
-type Props = {}
+type Props = {
+  taiKhoan: string
+}
 
 interface DataType {
-  key: string
-  name: string
-  age: number
-  address: string
-  tags: string[]
+  maKhoaHoc: string
+  biDanh: string
+  tenKhoaHoc: string
 }
-export default function UserTableRegisted ({}: Props) {
+export default function UserTableRegisted ({ taiKhoan }: Props) {
+  const dispatch: AppDispatch = useDispatch()
+
+  const {listCourseReigsterd} = useSelector((state: RootState) => state.userReducer)
+
   const columns: ColumnsType<DataType> = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: 'Tên khoá học',
+      dataIndex: 'tenKhoaHoc',
+      key: 'tenKhoaHoc',
       render: text => <a>{text}</a>
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age'
-    },
-    {
-      title: 'Action',
+      title: 'Thao tác',
       key: 'action',
-      render: (_, record) => <></>
+      width: 100,
+      render: (e) => (
+        <div className='d-flex justify-content-between'>
+          <button className='red-button px-3 py-1 mx-2' onClick={() => {
+            dispatch(UnRegisterCourseApi(e.maKhoaHoc, taiKhoan))
+          }}>
+            <i className='m-0 bi bi-x-square'></i>
+          </button>
+        </div>
+      )
     }
   ]
 
-  const data: DataType[] = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer']
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser']
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park',
-      tags: ['cool', 'teacher']
-    }
-  ]
-  return <Table columns={columns} dataSource={data} />
+  const data: DataType[] = listCourseReigsterd
+
+  useEffect(() => {
+    dispatch(getListCourseRegisteredApi(taiKhoan))
+  },[taiKhoan])
+
+  return (
+    <Table columns={columns} dataSource={data} pagination={{ pageSize: 2 }} />
+  )
 }
