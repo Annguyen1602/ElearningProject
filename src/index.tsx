@@ -9,7 +9,7 @@ import {
   createBrowserRouter,
   RouterProvider
 } from 'react-router-dom'
-import HomeTeplate from './templates/HomeTeplate/HomeTeplate'
+import HomeTeplate from './templates/HomeTemplate/HomeTemplate'
 import { Provider } from 'react-redux'
 import { store } from './redux/configStore'
 import Register from './pages/Register/Register'
@@ -28,10 +28,9 @@ import Home from "./pages/Home/Home";
 import Detail from "./pages/Detail/Detail";
 import Category from "./pages/Category/Category";
 import Search from "./pages/Search/Search";
-import LogIn from './pages/Login/LogIn'
 import "antd/dist/antd.css";
 import "./assets/scss/styles.scss";
-
+import LogIn from './pages/LogIn/LogIn'
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

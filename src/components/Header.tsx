@@ -71,7 +71,7 @@ export default function Header({}: Props) {
                       <div key={index}>
                         <Dropdown.Item
                           className="py-2 btn-click"
-                          href={`/category?maKhoaHoc${item.maDanhMuc}`}
+                          href={`/category?maKhoaHoc=${item.maDanhMuc}`}
                         >
                           {item.tenDanhMuc}
                         </Dropdown.Item>

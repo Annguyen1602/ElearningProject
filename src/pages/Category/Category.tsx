@@ -12,7 +12,9 @@ type Props = {};
 
 export default function Category({}: Props) {
   let [searchParams, setSearchParams] = useSearchParams();
-  const maDanhMucKhoahoc = searchParams.get("maDanhMuc");
+  const maDanhMucKhoahoc = searchParams.get("maKhoaHoc");
+  console.log(maDanhMucKhoahoc)
+
 
   const { arrCourseByCategory, arrCurriculum } = useSelector(
     (state: RootState) => state.coursesReducer
