@@ -1,59 +1,63 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Space, Table, Tag } from 'antd'
 import { ColumnsType } from 'antd/es/table'
+import { AppDispatch, RootState } from '../../../../redux/configStore'
+import { useDispatch, useSelector } from 'react-redux'
+import { getListUserRegisteredCourseApi } from '../../../../redux/reducers/listCoursesReducer'
+import { UnRegisterCourseApi } from '../../../../redux/reducers/userReducer'
 
-type Props = {}
+type Props = {
+  maKhoaHoc: string
+}
 
 interface DataType {
-  key: string
-  name: string
-  age: number
-  address: string
-  tags: string[]
+  taiKhoan: string
+  hoTen: string
+  biDanh: string
 }
-export default function CourseRegisterd({}: Props) {
-    const columns: ColumnsType<DataType> = [
-        {
-          title: 'Name',
-          dataIndex: 'name',
-          key: 'name',
-          render: text => <a>{text}</a>
-        },
-        {
-          title: 'Age',
-          dataIndex: 'age',
-          key: 'age'
-        },
-        {
-          title: 'Action',
-          key: 'action',
-          render: (_, record) => <></>
-        }
-      ]
-    
-      const data: DataType[] = [
-        {
-          key: '1',
-          name: 'John Brown',
-          age: 32,
-          address: 'New York No. 1 Lake Park',
-          tags: ['nice', 'developer']
-        },
-        {
-          key: '2',
-          name: 'Jim Green',
-          age: 42,
-          address: 'London No. 1 Lake Park',
-          tags: ['loser']
-        },
-        {
-          key: '3',
-          name: 'Joe Black',
-          age: 32,
-          address: 'Sidney No. 1 Lake Park',
-          tags: ['cool', 'teacher']
-        }
-      ]
-    
-      return <Table columns={columns} dataSource={data} />
+export default function CourseRegisterd ({ maKhoaHoc }: Props) {
+  const dispatch: AppDispatch = useDispatch()
+
+  const {arrUserRegisteredCourse} = useSelector((state: RootState) => state.listCoursesReducer)
+
+  const columns: ColumnsType<DataType> = [
+    {
+      title: 'Tài khoản',
+      dataIndex: 'taiKhoan',
+      key: 'taiKhoan',
+      width: 200
+    },
+    {
+      title: 'Họ tên',
+      dataIndex: 'hoTen',
+      key: 'hoTen'
+    },
+    {
+      title: 'Thao tác',
+      key: 'action',
+      width: 100,
+      render: e => (
+        <div className='d-flex justify-content-between'>
+          <button
+            className='red-button px-3 py-1 mx-2'
+            onClick={() => {
+              dispatch(UnRegisterCourseApi(maKhoaHoc, e.taiKhoan))
+            }}
+          >
+            <i className='m-0 bi bi-x-square'></i>
+          </button>
+        </div>
+      )
+    }
+  ]
+
+  const data: DataType[] = arrUserRegisteredCourse
+
+  useEffect(() => {
+    dispatch(getListUserRegisteredCourseApi(maKhoaHoc))
+  },[maKhoaHoc])
+
+  return (
+    <Table columns={columns} dataSource={data} pagination={{ pageSize: 5 }} />
+  )
 }

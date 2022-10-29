@@ -24,7 +24,6 @@ export default function UserTableRegister ({ taiKhoan }: Props) {
       title: 'Tên khoá học',
       dataIndex: 'tenKhoaHoc',
       key: 'tenKhoaHoc',
-      render: text => <a>{text}</a>
     },
     {
       title: 'Thao tác',

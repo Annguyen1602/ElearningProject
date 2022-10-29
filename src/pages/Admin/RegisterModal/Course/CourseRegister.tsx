@@ -1,59 +1,62 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Space, Table, Tag } from 'antd'
 import { ColumnsType } from 'antd/es/table'
+import { AppDispatch, RootState } from '../../../../redux/configStore'
+import { useDispatch, useSelector } from 'react-redux'
+import { getListUserWaitRegisterCourseApi } from '../../../../redux/reducers/listCoursesReducer'
+import { registerCourseApi, UnRegisterCourseApi } from '../../../../redux/reducers/userReducer'
 
-type Props = {}
+type Props = {
+  maKhoaHoc: string
+}
 
 interface DataType {
-  key: string
-  name: string
-  age: number
-  address: string
-  tags: string[]
+  taiKhoan: string
+  hoTen: string
+  biDanh: string
 }
-export default function CourseRegister({}: Props) {
+export default function CourseRegister({maKhoaHoc}: Props) {
+    const dispatch :AppDispatch = useDispatch() 
+    const {arrUserWaitRegisterCourse} = useSelector((state: RootState) => state.listCoursesReducer)
+
     const columns: ColumnsType<DataType> = [
         {
-          title: 'Name',
-          dataIndex: 'name',
-          key: 'name',
-          render: text => <a>{text}</a>
+          title: 'Tài khoản',
+          dataIndex: 'taiKhoan',
+          key: 'taiKhoan',
+          width: 200,
         },
         {
-          title: 'Age',
-          dataIndex: 'age',
-          key: 'age'
+          title: 'Họ tên',
+          dataIndex: 'hoTen',
+          key: 'hoTen'
         },
         {
-          title: 'Action',
+          title: 'Thao tác',
           key: 'action',
-          render: (_, record) => <></>
+          width: 100,
+          render: (e) => <>
+          <div className='d-flex justify-content-between'>
+          <button className='green-button px-3 py-1 mx-2' onClick={() => {
+            console.log(e)
+            dispatch(registerCourseApi(maKhoaHoc, e.taiKhoan))
+          }}>
+            <i className='m-0 bi bi-plus-square'></i>
+          </button>
+          <button className='red-button px-3 py-1 mx-2' onClick={() => {
+            dispatch(UnRegisterCourseApi(maKhoaHoc, e.taiKhoan))
+          }}>
+            <i className='m-0 bi bi-x-square'></i>
+          </button>
+        </div></>
         }
       ]
     
-      const data: DataType[] = [
-        {
-          key: '1',
-          name: 'John Brown',
-          age: 32,
-          address: 'New York No. 1 Lake Park',
-          tags: ['nice', 'developer']
-        },
-        {
-          key: '2',
-          name: 'Jim Green',
-          age: 42,
-          address: 'London No. 1 Lake Park',
-          tags: ['loser']
-        },
-        {
-          key: '3',
-          name: 'Joe Black',
-          age: 32,
-          address: 'Sidney No. 1 Lake Park',
-          tags: ['cool', 'teacher']
-        }
-      ]
+      const data: DataType[] = arrUserWaitRegisterCourse
+
+      useEffect(()=> {
+        dispatch(getListUserWaitRegisterCourseApi(maKhoaHoc))
+      },[maKhoaHoc])
     
-      return <Table columns={columns} dataSource={data} />
+      return <Table columns={columns} dataSource={data} pagination={{ pageSize: 5 }} />
 }

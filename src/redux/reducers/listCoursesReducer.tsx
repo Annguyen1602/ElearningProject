@@ -54,10 +54,18 @@ export interface fileData {
   tenKhoaHoc: string
   file: any
 }
+export interface UserRegisterCourse {
+  taiKhoan: string
+  hoTen: string
+  biDanh: string
+}
 
 const initialState: any = {
   arrayListCourses: [],
-  arrCourseDirectory: []
+  arrCourseDirectory: [],
+  arrUserNotRegisterCourse: [],
+  arrUserWaitRegisterCourse: [],
+  arrUserRegisteredCourse: []
 }
 
 const listCourses = createSlice({
@@ -72,13 +80,26 @@ const listCourses = createSlice({
       action: PayloadAction<DanhMucKhoaHoc[]>
     ) => {
       state.arrCourseDirectory = action.payload
-    }
+    },
+    getArrUserNotRegisterCourseAction: (state, action: PayloadAction<UserRegisterCourse[]>) => {
+      state.arrUserNotRegisterCourse = action.payload
+    },
+    getArrUserWaitRegisterCourseAction: (state, action: PayloadAction<UserRegisterCourse[]>) => {
+      state.arrUserWaitRegisterCourse = action.payload
+    },
+    getArrUserRegisteredCourseAction: (state, action: PayloadAction<UserRegisterCourse[]>) => {
+      state.arrUserRegisteredCourse = action.payload
+    },
+
   }
 })
 
 export const {
   getAllCoursesAction,
-  getAllCoursesDirectory
+  getAllCoursesDirectory,
+  getArrUserNotRegisterCourseAction,
+  getArrUserWaitRegisterCourseAction,
+  getArrUserRegisteredCourseAction
 } = listCourses.actions
 
 export default listCourses.reducer
@@ -182,6 +203,51 @@ export const addCourseUploadImg = (file: any) => {
         { headers: { 'Content-Type': 'multipart/form-data' } }
       )
     } catch (err) {
+      console.log(err)
+    }
+  }
+}
+//--------------lấy danh sách học viên chưa đăng ký khóa học-------
+export const getListUserNotReigsterCourseApi = (maKhoaHoc: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      let data = {
+        maKhoaHoc: maKhoaHoc
+      }
+      let result = await http.post("QuanLyNguoiDung/LayDanhSachNguoiDungChuaGhiDanh", data)
+      dispatch(getArrUserNotRegisterCourseAction(result.data))
+    }
+    catch(err) {
+      console.log(err)
+    }
+  }
+}
+//-------------lấy danh sách học sinh chờ xét duyệt khóa học-------
+export const getListUserWaitRegisterCourseApi = (maKhoaHoc: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      let data = {
+        maKhoaHoc: maKhoaHoc
+      }
+      let result = await http.post("QuanLyNguoiDung/LayDanhSachHocVienChoXetDuyet", data)
+      dispatch(getArrUserWaitRegisterCourseAction(result.data))
+    }
+    catch(err) {
+      console.log(err)
+    }
+  }
+}
+//-------------lấy danh sách học viên đã đăng ký khóa học----------
+export const getListUserRegisteredCourseApi = (maKhoaHoc: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      let data = {
+        maKhoaHoc: maKhoaHoc
+      }
+      let result = await http.post("QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc", data)
+      dispatch(getArrUserRegisteredCourseAction(result.data))
+    }
+    catch(err) {
       console.log(err)
     }
   }

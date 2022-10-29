@@ -1,25 +1,21 @@
 import { Button, Modal } from 'antd'
-import React, { ChangeEvent, useState } from 'react'
+import React, { useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../../redux/configStore'
-import { userAdmin } from '../../../redux/reducers/userReducer'
 import {
   addCourseAdminApi,
-  CourseAdmin,
   DanhMuc,
   listCourses,
   updateCourseAdminApi
 } from '../../../redux/reducers/listCoursesReducer'
-import { http } from '../../../util/setting'
 
 type Props = {
   course?: listCourses
 }
 
 export default function ModalCourse ({ course }: Props) {
-  const [image, setImage] = React.useState<FileList | null>()
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
   const dispatch: AppDispatch = useDispatch()

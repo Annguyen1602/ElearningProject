@@ -13,6 +13,7 @@ import {
   USER_LOGIN
 } from '../../util/setting'
 import { AppDispatch } from '../configStore'
+import { getListUserNotReigsterCourseApi, getListUserRegisteredCourseApi, getListUserWaitRegisterCourseApi } from './listCoursesReducer'
 
 export interface Student {
   taiKhoan: string
@@ -345,7 +346,6 @@ export const getListCourseNotRegisterApi = (tenTaiKhoan: string) => {
 }
 // ------------lấy danh sách khoá học chờ xét duyệt------------------
 export const getListCourseWaitRegisterApi = (taiKhoan: string) => {
-  console.log(taiKhoan)
   return async (dispatch: AppDispatch) => {
     try {
       let data = {
@@ -391,8 +391,12 @@ export const registerCourseApi = (maKhoaHoc: string, taiKhoan: string) => {
       let result = await http.post("QuanLyKhoaHoc/GhiDanhKhoaHoc",data)
       console.log(result)
       message.success(result.data)
+      dispatch(getListCourseNotRegisterApi(taiKhoan))
       dispatch(getListCourseRegisteredApi(taiKhoan))
       dispatch(getListCourseWaitRegisterApi(taiKhoan))
+      dispatch(getListUserNotReigsterCourseApi(maKhoaHoc))
+      dispatch(getListUserWaitRegisterCourseApi(maKhoaHoc))
+      dispatch(getListUserRegisteredCourseApi(maKhoaHoc))
     } catch (err) {
       console.log(err)
     }
@@ -409,10 +413,15 @@ export const UnRegisterCourseApi = (maKhoaHoc: string, taiKhoan: string) => {
       let result = await http.post("QuanLyKhoaHoc/HuyGhiDanh",data)
       console.log(result)
       message.success(result.data)
+      dispatch(getListCourseNotRegisterApi(taiKhoan))
       dispatch(getListCourseRegisteredApi(taiKhoan))
       dispatch(getListCourseWaitRegisterApi(taiKhoan))
-    } catch (err) {
+      dispatch(getListUserNotReigsterCourseApi(maKhoaHoc))
+      dispatch(getListUserWaitRegisterCourseApi(maKhoaHoc))
+      dispatch(getListUserRegisteredCourseApi(maKhoaHoc))
+    } catch (err:any) {
       console.log(err)
+      message.error(err.response.data)
     }
   }
 }
