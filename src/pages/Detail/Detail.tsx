@@ -2,10 +2,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
 import { AppDispatch, RootState } from "../../redux/configStore";
+import { getCourseApi } from "../../redux/reducers/coursesReducer";
 import {
-  getCourseApi,
-  postSelectedCourseApi,
-} from "../../redux/reducers/coursesReducer";
+  registerCourseApi,
+  signUpCourseApi,
+} from "../../redux/reducers/userReducer";
 
 type Props = {};
 
@@ -21,6 +22,9 @@ export default function Detail({}: Props) {
   const { selectedCourse } = useSelector(
     (state: RootState) => state.coursesReducer
   );
+
+  const { userLogin } = useSelector((state: RootState) => state.userReducer);
+
   const dispatch: AppDispatch = useDispatch();
 
   console.log(selectedCourse);
@@ -64,7 +68,7 @@ export default function Detail({}: Props) {
               <button
                 className="mt-4 btn btn-outline-dark text-white border-white "
                 onClick={() => {
-                  let action = postSelectedCourseApi(selectedCourse);
+                  let action = signUpCourseApi(maKhoaHoc, userLogin.taiKhoan);
                   dispatch(action);
                 }}
               >

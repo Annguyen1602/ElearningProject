@@ -71,7 +71,6 @@ export default function Footer({}: Props) {
                 />
               </div>
             </div>
-
             <button className="mt-2 btn btn-warning btn-hover">
               Đăng ký tư vấn
             </button>

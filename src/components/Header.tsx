@@ -1,12 +1,14 @@
 import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import Dropdown from "react-bootstrap/Dropdown";
-
-import { useEffect, useRef } from "react";
+import { Profile } from "../redux/reducers/userReducer";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/configStore";
 import { DanhMuc, getCurriculumApi } from "../redux/reducers/coursesReducer";
 import { Button } from "react-bootstrap";
+import { ACCESS_TOKEN, USER_LOGIN } from "../util/setting";
+import { getProfileAction } from "../redux/reducers/userReducer";
 
 type Props = {};
 
@@ -14,6 +16,9 @@ export default function Header({}: Props) {
   const { arrCurriculum } = useSelector(
     (state: RootState) => state.coursesReducer
   );
+
+  let { userLogin } = useSelector((state: RootState) => state.userReducer);
+
   const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
     const getCurriculumApiAction = getCurriculumApi();
@@ -34,6 +39,55 @@ export default function Header({}: Props) {
         search: `?keyword=${keywordRef.current.replace(" ", "+")}`,
       });
     }
+  };
+
+  //render userLogin
+  const renderLoginNavItem = () => {
+    if (Object.keys(userLogin).length === 0 || userLogin.taiKhoan === "") {
+      return (
+        <li className="nav-item">
+          <NavLink className="nav-link text-center" to="/dangnhap">
+            <button className="btn btn-outline-dark text-sm">Đăng nhập</button>
+          </NavLink>
+        </li>
+      );
+    }
+    return (
+      <li className="d-flex align-items-center">
+        <div className="nav-item">
+          <NavLink className="nav-link text-center" to="/profile">
+            <button className="btn btn-outline-dark text-sm">
+              Tài khoản
+              <span className="text-uppercase"> {userLogin.taiKhoan}</span>
+            </button>
+          </NavLink>
+        </div>
+        <div className="nav-item">
+          <NavLink className="nav-link" to="">
+            <button
+              className="btn btn-outline-dark text-sm"
+              onClick={() => {
+                localStorage.removeItem(ACCESS_TOKEN);
+                localStorage.removeItem(USER_LOGIN);
+                let user: Profile = {
+                  chiTietKhoaHocGhiDanh: [],
+                  taiKhoan: "",
+                  matKhau: "",
+                  hoTen: "",
+                  soDT: "",
+                  maLoaiNguoiDung: "",
+                  maNhom: "",
+                  email: "",
+                };
+                dispatch(getProfileAction(user));
+              }}
+            >
+              Đăng xuất
+            </button>
+          </NavLink>
+        </div>
+      </li>
+    );
   };
   return (
     <div className="container">
@@ -61,7 +115,7 @@ export default function Header({}: Props) {
                   className="btn btn-outline-dark"
                 >
                   <i className="fas fa-bars"></i>
-                  <span className="ms-2 d-none d-md-inline">
+                  <span className="ms-2 d-none d-lg-inline">
                     Danh mục khoá học
                   </span>
                 </Dropdown.Toggle>
@@ -71,7 +125,7 @@ export default function Header({}: Props) {
                       <div key={index}>
                         <Dropdown.Item
                           className="py-2 btn-click"
-                          href={`/category?maKhoaHoc=${item.maDanhMuc}`}
+                          href={`/category?maDanhMuc=${item.maDanhMuc}`}
                         >
                           {item.tenDanhMuc}
                         </Dropdown.Item>
@@ -98,6 +152,7 @@ export default function Header({}: Props) {
                 </Button>
               </form>
             </li>
+
             <li className="nav-item">
               <NavLink className="nav-link text-center" to="/dangky">
                 <button className="btn btn-outline-dark text-sm">
@@ -105,13 +160,7 @@ export default function Header({}: Props) {
                 </button>
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link text-center" to="/dangnhap">
-                <button className="btn btn-outline-dark text-sm">
-                  Đăng nhập
-                </button>
-              </NavLink>
-            </li>
+            {renderLoginNavItem()}
           </ul>
         </div>
       </nav>
