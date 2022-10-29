@@ -53,15 +53,17 @@ export default function Header({}: Props) {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="collapsibleNavId">
-          <ul className="navbar-nav w-100 px-5 d-flex justify-content-between align-items-center mt-2 mt-lg-0">
-            <li className="nav-item">
+          <ul className="navbar-nav w-100 d-flex justify-content-between align-items-center mt-2 mt-lg-0">
+            <li className="nav-item me-2">
               <Dropdown>
                 <Dropdown.Toggle
                   variant="white"
                   className="btn btn-outline-dark"
                 >
-                  <i className="fas fa-bars me-2"></i>
-                  Danh mục khoá học
+                  <i className="fas fa-bars"></i>
+                  <span className="ms-2 d-none d-md-inline">
+                    Danh mục khoá học
+                  </span>
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="w-100">
                   {arrCurriculum?.map((item: DanhMuc, index: number) => {
@@ -69,7 +71,7 @@ export default function Header({}: Props) {
                       <div key={index}>
                         <Dropdown.Item
                           className="py-2 btn-click"
-                          href={`/category?maDanhMuc=${item.maDanhMuc}`}
+                          href={`/category?maKhoaHoc${item.maDanhMuc}`}
                         >
                           {item.tenDanhMuc}
                         </Dropdown.Item>
@@ -88,19 +90,26 @@ export default function Header({}: Props) {
                   placeholder="Tìm khoá học"
                   onChange={handleChange}
                 />
-                <Button className="btn-light rounded-circle" type="submit">
+                <Button
+                  className="d-none d-md-inline btn-light rounded-circle"
+                  type="submit"
+                >
                   <i className="fas fa-search"></i>
                 </Button>
               </form>
             </li>
             <li className="nav-item ">
               <NavLink className="nav-link text-center" to="/register">
-                <button className="btn btn-outline-dark">Đăng ký</button>
+                <button className="btn btn-outline-dark text-sm">
+                  Đăng ký
+                </button>
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link text-center" to="/login">
-                <button className="btn btn-outline-dark">Đăng nhập</button>
+                <button className="btn btn-outline-dark text-sm">
+                  Đăng nhập
+                </button>
               </NavLink>
             </li>
           </ul>

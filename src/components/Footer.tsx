@@ -6,7 +6,7 @@ export default function Footer({}: Props) {
   return (
     <div className="container p-4 bg-dark text-white">
       <div className="row">
-        <div className="col-4 d-flex flex-column justify-content-between">
+        <div className="col-12 col-lg-4 d-flex flex-column justify-content-between mt-3">
           <div>
             <img src="./img/logo.png" alt="" className="w-50" />
             <p>
@@ -21,14 +21,14 @@ export default function Footer({}: Props) {
               CyberLive hoàn toàn miễn phí và các chương trình khuyến mãi hấp
               dẫn đến các bạn
             </p>
-            <form className="d-flex">
-              <div className="col-8 me-4">
+            <form className="d-block d-sm-flex justify-content-between">
+              <div className="col-12 col-sm-8 me-4 mt-2">
                 <input
                   className="form-control"
                   placeholder="your.address@email.com"
                 />
               </div>
-              <div className="col-4">
+              <div className="col-4 mt-2">
                 <button className="px-2 btn btn-warning btn-hover">
                   Đăng ký
                 </button>
@@ -36,7 +36,7 @@ export default function Footer({}: Props) {
             </form>
           </div>
         </div>
-        <div className="col-4 d-flex flex-column justify-content-between">
+        <div className="col-12 col-lg-4 d-flex flex-column justify-content-between mt-3">
           <h4> Đăng ký tư vấn</h4>
           <form>
             <input className="mt-2 form-control" placeholder="Họ và tên *" />
@@ -77,13 +77,13 @@ export default function Footer({}: Props) {
             </button>
           </form>
         </div>
-        <div className="col-4">
+        <div className="col-12 col-lg-4 mt-3">
           <iframe
             title="facebook"
             src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Flophocviet&show_posts=true&width=340&height=331&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
             width={340}
             height={331}
-            style={{ border: '"none",overflow:"hidden"}}' }}
+            style={{ border: '"none",overflow:"hidden"}}', width: "100%" }}
             scrolling="no"
             frameBorder={0}
             allowFullScreen
@@ -92,7 +92,7 @@ export default function Footer({}: Props) {
         </div>
       </div>
       <div className="row mt-4 pb-2 border-bottom">
-        <div className="col-4">
+        <div className="col-12 col-lg-4">
           <ul className="px-0 mt-2">
             <li>
               <i className="fas fa-map-marker-alt"></i>
@@ -118,7 +118,7 @@ export default function Footer({}: Props) {
             </li>
           </ul>
         </div>
-        <div className="col-4">
+        <div className="col-12 col-lg-4">
           <p>
             Lập trình Front End | Lập trình React JS | Lập trình React Angular |
             Lập trình tư duy | Lập trình Node JS | Lập trình Back End | Lập
@@ -126,7 +126,7 @@ export default function Footer({}: Props) {
             code dạo | Học lập trình trực tuyến
           </p>
         </div>
-        <div className="col-4">
+        <div className="col-12 col-lg-4">
           <p>
             Anh ngữ giao tiếp Khởi động anh ngữ giao tiếp Lấy đà anh ngữ giao
             tiếp Bật nhảy anh ngữ giao tiếp

@@ -147,10 +147,10 @@ export default function Home({}: Props) {
         <div className="row">
           {showingCourses?.map((item: KhoaHoc, index: number) => {
             return (
-              <div className="col-3 mt-5" key={index}>
+              <div className="col-12 col-sm-6 col-md-4 col-lg-3 mt-5" key={index}>
                 <div className="card h-100">
                   <img src={item.hinhAnh} alt="" className="h-50" />
-                  <div className="card-body pt-4 pb-0">
+                  <div className="card-body pt-2 pb-0">
                     <h5 className="card-title h-25">{item.tenKhoaHoc}</h5>
                     <div className="card-text mt-3">
                       <span className="me-2">
