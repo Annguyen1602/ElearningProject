@@ -14,5 +14,11 @@
 @import "./pages/register.scss";
 @import "./pages//login.scss";
 @import "./pages/profile.scss";
+@import './pages/adminTemplate';
 // @import "./pages/search.scss"
+
+
+//vendor 
+@import './vendor/animate';
+@import './vendor/antd';
 
