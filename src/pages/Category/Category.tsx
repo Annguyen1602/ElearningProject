@@ -12,9 +12,8 @@ type Props = {};
 
 export default function Category({}: Props) {
   let [searchParams, setSearchParams] = useSearchParams();
-  const maDanhMucKhoahoc = searchParams.get("maKhoaHoc");
-  console.log(maDanhMucKhoahoc)
-
+  const maDanhMucKhoahoc: string | null = searchParams.get("maDanhMuc");
+  console.log(maDanhMucKhoahoc);
 
   const { arrCourseByCategory, arrCurriculum } = useSelector(
     (state: RootState) => state.coursesReducer
@@ -37,11 +36,17 @@ export default function Category({}: Props) {
       <div className="row py-3 px-5">
         {arrCourseByCategory?.map((item: KhoaHoc, index: number) => {
           return (
-            <div className="col-12 col-sm-6 col-md-4 col-lg-3 mt-5" key={index}style={{height:300}}>
+            <div
+              className="col-12 col-sm-6 col-lg-4 mt-5"
+              key={index}
+              style={{ height: 400 }}
+            >
               <div className="card h-100">
                 <img src={item.hinhAnh} alt="" className="h-50" />
                 <div className="card-body pt-4 pb-0">
-                  <h5 className="card-title h-25">{item.tenKhoaHoc}</h5>
+                  <h5 className="card-title" style={{ height: 60 }}>
+                    {item.tenKhoaHoc}
+                  </h5>
                   <div className="card-text mt-3">
                     <span className="me-2">
                       <i className="fas fa-star"></i>

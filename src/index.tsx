@@ -41,7 +41,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="" element={<HomeTemplate />}>
-          <Route path="profile" element={<Profile />}></Route>
+          <Route path="/profile" element={<Profile />}></Route>
           <Route index element={<Home />}></Route>
           <Route path="/category" element={<Category />}>
             <Route path=":maDanhMuc" element={<Category />}></Route>

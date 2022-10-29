@@ -147,7 +147,7 @@ export default function Home({}: Props) {
               <div
                 className="col-12 col-sm-6 col-md-4 col-lg-3 mt-5"
                 key={index}
-                style={{ height: 300 }}
+                style={{ height: 400 }}
               >
                 <div className="card h-100">
                   <img src={item.hinhAnh} alt="" className="h-50" />
