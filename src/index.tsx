@@ -17,7 +17,6 @@ import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 import 'antd/dist/antd.css'
 import './assets/scss/styles.scss'
-import LogIn from './pages/LogIn/LogIn'
 import Profile from './pages/Profile/Profile'
 import Admin from './pages/Admin/AdminPage/Admin'
 import LoginAdmin from './pages/Admin/LoginAdmin/LoginAdmin'
@@ -25,6 +24,11 @@ import Admintemplate from './templates/AdminTemplate/Admintemplate'
 import HomeAdmin from './pages/Admin/HomeAdmin/HomeAdmin'
 import UserAdmin from './pages/Admin/UserAdmin/UserAdmin'
 import CourseAdmin from './pages/Admin/CourseAdmin/CourseAdmin'
+import Home from "./pages/Home/Home";
+import Detail from "./pages/Detail/Detail";
+import Category from "./pages/Category/Category";
+import Search from "./pages/Search/Search";
+import LogIn from './pages/Login/LogIn'
 import "antd/dist/antd.css";
 import "./assets/scss/styles.scss";
 
@@ -38,6 +42,16 @@ root.render(
       <Routes>
         <Route path='' element={<HomeTeplate />}>
           <Route path='profile' element={<Profile />}></Route>
+          <Route index element={<Home />}></Route>
+          <Route path="/category" element={<Category />}>
+            <Route path=":maDanhMuc" element={<Category />}></Route>
+          </Route>
+          <Route path="/detail">
+            <Route path=":maKhoaHoc" element={<Detail />}></Route>
+          </Route>
+          <Route path="/search" element={<Search />}>
+            <Route path=":keyword" element={<Search />}></Route>
+          </Route>
         </Route>
       </Routes>
       <Routes>
@@ -68,3 +82,4 @@ root.render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+
