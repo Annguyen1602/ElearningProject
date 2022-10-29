@@ -5,9 +5,10 @@ import eye from "../../assets/img/Color.png";
 import * as Yup from "yup";
 import { ACCESS_TOKEN, getStore, http } from "../../util/setting";
 import { Input, Space } from "antd";
-import axios from "axios";
 import { Rate } from "antd";
 import {
+  deleteCourse,
+  deleteCre,
   getProfileApi,
   updateProfileApi,
 } from "../../redux/reducers/userReducer";
@@ -16,6 +17,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../../redux/configStore";
 import { Button, Popover } from "antd";
 import { Pagination } from "antd";
+import { debounce } from "lodash";
 
 export interface ProfileStudent {
   chiTietKhoaHocGhiDanh: ChiTietKhoaHocGhiDanh[];
@@ -43,28 +45,65 @@ type Props = {};
 
 export default function Profile({}: Props) {
   const { userLogin } = useSelector((state: RootState) => state.userReducer);
+  const { chiTietKhoaHocGhiDanh } = useSelector(
+    (state: RootState) => state.userReducer.userLogin
+  );
   const navigate = useNavigate();
 
   const [update, setUpdate] = useState<ProfileStudent>({ ...userLogin });
 
-  const dispatch: AppDispatch = useDispatch();
-  const [passwordType, setPassWordType] = useState("password");
 
-  //----------------Course ----------------------
+  const pageSize = 2;
 
-  const { chiTietKhoaHocGhiDanh } = useSelector(
-    (state: RootState) => state.userReducer.userLogin
-  );
-
-  const pageSize = 4;
-
-  const [state, setState] = useState({
+  interface stateType {
+    data: ChiTietKhoaHocGhiDanh[];
+    totalPage: number;
+    current: number;
+    minIndex: number;
+    maxIndex: number;
+  }
+    const [state, setState] = useState<stateType>({
     data: chiTietKhoaHocGhiDanh,
-    totalPage: chiTietKhoaHocGhiDanh.length / pageSize,
+    totalPage: chiTietKhoaHocGhiDanh?.length / pageSize,
     current: 1,
     minIndex: 0,
     maxIndex: pageSize,
   });
+
+  let [sortArray, setSortArray] = useState<ChiTietKhoaHocGhiDanh[]>();
+
+  const dispatch: AppDispatch = useDispatch();
+  const [passwordType, setPassWordType] = useState("password");
+
+  //-----------Search------------------------------
+  const [inputText, setInputText] = useState("");
+
+  let inputHandler = (e: any) => {
+    let lowerCase = e.target.value.toLowerCase();
+    setInputText(lowerCase);
+  };
+  const debouceInputHandler = debounce(inputHandler, 500);
+
+  useEffect(() => {
+    if (inputText) {
+      let sortArr = chiTietKhoaHocGhiDanh.filter((item) => {
+        return item.tenKhoaHoc.toLowerCase().includes(inputText);
+      });
+      setSortArray(sortArr);
+    } else {
+      setState({...state,
+        data:chiTietKhoaHocGhiDanh,
+        totalPage:chiTietKhoaHocGhiDanh?.length /pageSize}) 
+      setSortArray(chiTietKhoaHocGhiDanh);
+    }
+  }, [inputText, userLogin]);
+  //-----------------------------------------------------
+
+  //----------------Course ----------------------
+
+  
+
+  
 
   const handleChange = (page: number) => {
     setState({
@@ -79,13 +118,15 @@ export default function Profile({}: Props) {
   //----------------------------------
 
   useEffect(() => {
-    getProfileApi();
-  }, []);
-  if (!getStore(ACCESS_TOKEN)) {
+     if (!getStore(ACCESS_TOKEN)) {
     //Nếu chưa đăng nhập => Chuyển hướng trang
     alert("Đăng nhập để vào trang này !");
     navigate("/dangnhap");
   }
+    getProfileApi();
+  }, []);
+
+  
 
   const togglePassword = () => {
     if (passwordType === "password") {
@@ -103,7 +144,7 @@ export default function Profile({}: Props) {
     "^(0|84)(2(0[3-9]|1[0-6|8|9]|2[0-2|5-9]|3[2-9]|4[0-9]|5[1|2|4-9]|6[0-3|9]|7[0-7]|8[0-9]|9[0-4|6|7|9])|3[2-9]|5[5|6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])([0-9]{7})$"
   );
   let regexPass = new RegExp(
-    "^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,10}$"
+    "^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,32}$"
   );
 
   const frm = useFormik({
@@ -141,7 +182,6 @@ export default function Profile({}: Props) {
 
   useEffect(() => {
     setUpdate(userLogin);
-    dispatch(getProfileApi());
   }, [userLogin]);
 
   const handleChangeInput = (e: any) => {
@@ -159,7 +199,10 @@ export default function Profile({}: Props) {
   );
 
   const { Search } = Input;
-  const onSearch = (value: string) => console.log(value);
+  const onSearch = (value: string) => {
+    let lowerCase = value.toLowerCase();
+    setInputText(lowerCase);
+  };
 
   return (
     <div className="update">
@@ -324,7 +367,7 @@ export default function Profile({}: Props) {
             aria-labelledby="v-pills-course-tab"
           >
             <div className="mt-2">
-              <div className="title d-flex justify-content-between">
+              <div className="title d-lg-flex justify-content-between p-4">
                 <h2>Các khoá học đã tham gia</h2>
                 <div>
                   <Space direction="vertical">
@@ -332,39 +375,53 @@ export default function Profile({}: Props) {
                       placeholder="Nhập khoá học cần tìm"
                       onSearch={onSearch}
                       style={{ width: 400 }}
+                      onChange={debouceInputHandler}
                     />
                   </Space>
                 </div>
               </div>
 
               <hr />
-              {chiTietKhoaHocGhiDanh?.map(
+              {sortArray?.map(
                 (data, index): any =>
                   index >= minIndex &&
                   index < maxIndex && (
                     <div className="m-4" key={index}>
-                      <div className="coursesRegistered d-flex border-top pt-2 bg-light">
-                        <div className="imageCourse col-2 me-4">
+                      <div className="coursesRegistered d-md-flex border-top pt-2 bg-light p-2">
+                        <div className="imageCourse col-md-3 col-lg-3 col-xl-2  me-md-4">
                           <img
                             src={data.hinhAnh}
                             alt={data.tenKhoaHoc}
                             className="w-100"
+                            height={150}
                           />
                         </div>
-                        <div className="detailCourse col-8 d-flex flex-column">
-                          <h3>{data.tenKhoaHoc}</h3>
+                        <div className="detailCourse col-md-8 col-lg-6 col-xl-7 d-flex flex-column">
+                          <h3 className="mt-2">{data.tenKhoaHoc}</h3>
                           <p>
                             {data.moTa.length > 100
                               ? data.moTa.substring(0, 200) + "..."
                               : data.moTa}
                           </p>
                         </div>
-                        <div className="rate col-2 d-flex flex-column align-items-center">
+                        <div className="rate col-lg-3 col-xl-3 d-flex d-sm-none d-lg-flex flex-column align-items-center p-3 ">
                           <div>
                             <Rate value={data.danhGia} />
                           </div>
-                          <span>{data.luotXem} học viên</span>
-                          <button className="btn"> Huỷ</button>
+                          <span>({data.luotXem} học viên)</span>
+                          <button
+                            className="btn btn-warning mt-4 ms-4"
+                            onClick={() => {
+                              let deleteItem: deleteCre = {
+                                maKhoaHoc: data.maKhoaHoc,
+                                taiKhoan: userLogin.taiKhoan,
+                              };
+                              dispatch(deleteCourse(deleteItem));
+                            }}
+                          >
+                            {" "}
+                            Huỷ
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -374,10 +431,10 @@ export default function Profile({}: Props) {
               <Pagination
                 pageSize={pageSize}
                 current={current}
-                total={data.length}
+                defaultCurrent={1}
+                total={data?.length}
                 onChange={handleChange}
-                style={{ bottom: "0px" , textAlign:"end", margin:'20px'}}
-                
+                style={{ bottom: "0px", textAlign: "end", margin: "20px" }}
               />
             </div>
           </div>

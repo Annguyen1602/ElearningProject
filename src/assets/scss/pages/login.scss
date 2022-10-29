@@ -83,8 +83,8 @@
             font-size: $text-medium;
             line-height: 36px;
   
-            @media screen and (max-width: 1200px) {
-              transform: translateX(0%);
+            @media screen and (max-width: 576px) {
+              margin-right: 10px;
             }
           }
         }

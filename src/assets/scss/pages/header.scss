@@ -1,0 +1,105 @@
+.header {
+  height: 70px;
+  @media screen and (max-width: 1200px) {
+    height: 115px;
+  }
+
+  .container {
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+    .image {
+      img {
+      }
+    }
+    .ant-menu-inline {
+      @media screen and (max-width: 992px) {
+        display: none;
+      }
+      .ant-menu-submenu {
+        position: relative;
+        z-index: 10;
+      }
+      .ant-menu-submenu-arrow {
+      }
+    }
+    .ant-menu-vertical {
+      @media screen and (min-width: 992px) {
+        display: none;
+      }
+    }
+    .search {
+    }
+    .registerHeader {
+      // padding: 30px 0px 30px 120px;
+      display: flex;
+      @media screen and (max-width: 1200px) {
+        display: flex;
+        padding-left: 60px;
+      }
+      @media screen and (max-width: 992px) {
+        display: none;
+      }
+      .custom-btn {
+        width: 130px;
+        height: 40px;
+        color: $c1-black;
+        border-radius: 5px;
+        padding: 10px 25px;
+        text-align: center;
+        font-weight: 500;
+        background: transparent;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        display: inline-block;
+        box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+          7px 7px 20px 0px rgba(0, 0, 0, 0.1),
+          4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+        outline: none;
+      }
+      .btn-5 {
+        width: 130px;
+        height: 40px;
+        line-height: 42px;
+        padding: 0;
+        border: none;
+        background: rgb(219, 184, 11);
+        background: linear-gradient(
+          0deg,
+          rgba(219, 184, 11, 1) 0%,
+          rgba(219, 184, 11, 1) 100%
+        );
+      }
+      .btn-5:hover {
+        color: $c1-black;
+        background: transparent;
+        box-shadow: none;
+      }
+      .btn-5:before,
+      .btn-5:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 2px;
+        width: 0;
+        background: #dbb80b;
+        box-shadow: -1px -1px 5px 0px #fff, 7px 7px 20px 0px #0003,
+          4px 4px 5px 0px #0002;
+        transition: 400ms ease all;
+      }
+      .btn-5:after {
+        right: inherit;
+        top: inherit;
+        left: 0;
+        bottom: 0;
+      }
+      .btn-5:hover:before,
+      .btn-5:hover:after {
+        width: 100%;
+        transition: 800ms ease all;
+      }
+    }
+  }
+}

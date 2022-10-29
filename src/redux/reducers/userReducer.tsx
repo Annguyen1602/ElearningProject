@@ -87,15 +87,25 @@ export interface courseOfStudent {
   biDanh: string
   tenKhoaHoc: string
 }
+
+export interface deleteCs {
+  maKhoaHoc: string;
+  taiKhoan: string;
+}
 export interface stateRedux {
   userLogin: Profile
-  userToken: any
   arrUser: Profile[] | DataType[]
   userType: userType[]
   arrUserSearch: Profile[] | DataType[]
   listCourseOfStudent: courseOfStudent[]
   listCourseWaitRegister: courseOfStudent[]
   listCourseReigsterd: courseOfStudent[]
+  userToken: string;
+}
+
+export interface deleteCre {
+  maKhoaHoc: string;
+  taiKhoan: string;
 }
 const initialState: stateRedux = {
   userLogin: getStoreJson(USER_LOGIN) || {},
@@ -115,7 +125,7 @@ const userReducer = createSlice({
     getProfileAction: (state, action: PayloadAction<Profile>) => {
       state.userLogin = action.payload
     },
-    userCheck: (state, action: PayloadAction<Profile>) => {
+    userCheck: (state, action: PayloadAction<string>) => {
       state.userToken = action.payload
     },
     arrUserAction: (state, action: PayloadAction<Profile[]>) => {
@@ -220,8 +230,11 @@ export const getProfileApi = () => {
 export const updateProfileApi = (userUpdate: updateProfile) => {
   return async () => {
     try {
-      await http.put('/QuanLyNguoiDung/CapNhatThongTinNguoiDung', userUpdate)
-      const key = 'updatable'
+      const result = await http.put(
+        "/QuanLyNguoiDung/CapNhatThongTinNguoiDung",
+        userUpdate
+      );
+      const key = "updatable";
       const openMessage = () => {
         message.loading({ content: 'Vui lòng chờ', key })
         setTimeout(() => {
@@ -403,3 +416,18 @@ export const UnRegisterCourseApi = (maKhoaHoc: string, taiKhoan: string) => {
     }
   }
 }
+
+
+//----------------Delete Course------------------
+
+export const deleteCourse = (info: deleteCs) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.post("/QuanLyKhoaHoc/HuyGhiDanh", info);
+      alert(result.data)
+      dispatch(getProfileApi());
+    } catch (error:any) {
+      alert(error.response.data)
+    }
+  };
+};
