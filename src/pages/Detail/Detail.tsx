@@ -40,11 +40,18 @@ export default function Detail({}: Props) {
           height: 400,
         }}
       >
-        <div className="row d-flex align-items-center px-5">
-          <div className="col-7 ps-5 text-white">
-            <h1 className="text-uppercase">{selectedCourse?.tenKhoaHoc}</h1>
+        <div className="row d-block d-sm-flex flex-row-reverse align-items-center px-5">
+          <div className="col-5 ps-5">
+            <img src={selectedCourse.hinhAnh} alt="" className="w-75" />
+          </div>
+          <div className="col-12 col-sm-7 mt-4 ps-5 text-white mx-auto">
+            <h1 className="text-uppercase text-white">
+              {selectedCourse?.tenKhoaHoc}
+            </h1>
             <div>
-              Đánh giá khoá học
+              <h4 className="text-white d-block d-sm-inline">
+                Đánh giá khoá học
+              </h4>
               <span className="ms-2">
                 <i className="fas fa-star text-warning me-1"></i>
                 <i className="fas fa-star text-warning me-1"></i>
@@ -64,9 +71,6 @@ export default function Detail({}: Props) {
                 Đăng ký
               </button>
             </NavLink>
-          </div>
-          <div className="col-5 ">
-            <img src={selectedCourse.hinhAnh} alt="" className="w-75" />
           </div>
         </div>
       </div>

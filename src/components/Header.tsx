@@ -53,7 +53,7 @@ export default function Header({}: Props) {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="collapsibleNavId">
-          <ul className="navbar-nav w-100 d-flex justify-content-between align-items-center mt-2 mt-lg-0">
+          <ul className="navbar-nav w-100 d-flex justify-content-between align-items-start align-items-sm-center mt-2 mt-lg-0">
             <li className="nav-item me-2">
               <Dropdown>
                 <Dropdown.Toggle
@@ -81,7 +81,7 @@ export default function Header({}: Props) {
                 </Dropdown.Menu>
               </Dropdown>
             </li>
-            <li className="nav-item w-50">
+            <li className="nav-item w-50 mt-2 mt-sm-0">
               <form className="d-flex" onSubmit={handleSubmit}>
                 <input
                   id="keywordRef"
@@ -98,7 +98,7 @@ export default function Header({}: Props) {
                 </Button>
               </form>
             </li>
-            <li className="nav-item ">
+            <li className="nav-item">
               <NavLink className="nav-link text-center" to="/dangky">
                 <button className="btn btn-outline-dark text-sm">
                   Đăng ký

@@ -66,15 +66,15 @@ export default function Search({}: Props) {
         {newSearchArr?.map((item: KhoaHoc, index: number) => {
           return (
             <div key={index} className="row mt-4 bg-light p-2 border-top">
-              <div className="col-4 d-flex align-items-center">
+              <div className="col-12 col-sm-4 d-flex align-items-center">
                 <img
                   src={item.hinhAnh}
                   alt=""
-                  className="w-75"
+                  className="w-100"
                   style={{ height: 150 }}
                 />
               </div>
-              <div className="col-8">
+              <div className="col-12 col-sm-8">
                 <h4>{item.tenKhoaHoc}</h4>
                 <div>
                   <span className="me-2">
@@ -94,7 +94,7 @@ export default function Search({}: Props) {
                 </p>
                 <NavLink
                   to={`/detail/${item.maKhoaHoc}`}
-                  className="btn btn-warning text-uppercase btn-hover"
+                  className="mt-2 btn btn-warning text-uppercase btn-hover"
                 >
                   Đăng ký
                 </NavLink>

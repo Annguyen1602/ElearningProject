@@ -37,7 +37,7 @@ export default function Category({}: Props) {
       <div className="row py-3 px-5">
         {arrCourseByCategory?.map((item: KhoaHoc, index: number) => {
           return (
-            <div className="col-3 mt-5" key={index}>
+            <div className="col-12 col-sm-6 col-md-4 col-lg-3 mt-5" key={index}style={{height:300}}>
               <div className="card h-100">
                 <img src={item.hinhAnh} alt="" className="h-50" />
                 <div className="card-body pt-4 pb-0">

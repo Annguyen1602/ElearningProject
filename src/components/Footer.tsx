@@ -21,14 +21,14 @@ export default function Footer({}: Props) {
               CyberLive hoàn toàn miễn phí và các chương trình khuyến mãi hấp
               dẫn đến các bạn
             </p>
-            <form className="d-block d-sm-flex justify-content-between">
-              <div className="col-12 col-sm-8 me-4 mt-2">
+            <form className="d-block d-lg-flex justify-content-between">
+              <div className="col-12 col-lg-8 me-2 mt-2">
                 <input
-                  className="form-control"
+                  className="form-control "
                   placeholder="your.address@email.com"
                 />
               </div>
-              <div className="col-4 mt-2">
+              <div className="col-12 col-lg-4 mt-2">
                 <button className="px-2 btn btn-warning btn-hover">
                   Đăng ký
                 </button>
