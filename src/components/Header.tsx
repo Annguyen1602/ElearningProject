@@ -1,7 +1,7 @@
 import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import Dropdown from "react-bootstrap/Dropdown";
-import { Profile } from "../redux/reducers/userReducer";
+import { Profile, userCheck } from "../redux/reducers/userReducer";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/configStore";
@@ -80,6 +80,7 @@ export default function Header({}: Props) {
                   email: "",
                 };
                 dispatch(getProfileAction(user));
+                dispatch(userCheck(''))
               }}
             >
               Đăng xuất
@@ -142,7 +143,7 @@ export default function Header({}: Props) {
                   className="form-control me-1"
                   type="text"
                   placeholder="Tìm khoá học"
-                  onChange={handleChange}
+                  onChange={handleChange} 
                 />
                 <Button
                   className="d-none d-md-inline btn-light rounded-circle"
