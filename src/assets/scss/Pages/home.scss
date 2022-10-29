@@ -1,8 +1,12 @@
 .carousel {
   .carousel-item {
     .video_carousel {
-      height: 400px;
+      height: auto;
       position: relative;
+      .img-fluid {
+        // width: 100%;
+        // height: 100%;
+      }
       .gray_overlay {
         position: absolute;
         width: 100%;
@@ -16,23 +20,22 @@
     .carousel-caption {
       top: 0;
       bottom: 0;
-      padding-left: 30px;
-      display: flex;
+      flex-direction: row-reverse;
       justify-content: space-between;
       .caption-left {
-        display: flex;
         align-items: flex-end;
         .animation {
           .circle-gif {
             position: relative;
-            top: 120px;
-            left: -100px;
+            // top: 40px;
+            left: -120px;
             width: 300px;
             height: 300px;
           }
           .circle {
             position: relative;
-            bottom: 50px;
+            right:20px;
+            top:-170px;
             width: 140px;
             height: 140px;
             background-color: transparent;
@@ -74,6 +77,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        padding: 0 0;
         .btn-hover {
           &:hover {
             border: 1px solid white;

@@ -15,7 +15,7 @@ export default function Footer({}: Props) {
             </p>
           </div>
           <div>
-            <h4 className="">Nhận tin sự kiện & khuyến mãi</h4>
+            <h4 className="text-white">Nhận tin sự kiện & khuyến mãi</h4>
             <p>
               Cybersoft sẽ gửi các khoá học trực tuyến và các chương tình
               CyberLive hoàn toàn miễn phí và các chương trình khuyến mãi hấp
@@ -37,7 +37,7 @@ export default function Footer({}: Props) {
           </div>
         </div>
         <div className="col-12 col-lg-4 d-flex flex-column justify-content-between mt-3">
-          <h4> Đăng ký tư vấn</h4>
+          <h4 className="text-white"> Đăng ký tư vấn</h4>
           <form>
             <input className="mt-2 form-control" placeholder="Họ và tên *" />
             <input
@@ -126,7 +126,7 @@ export default function Footer({}: Props) {
             code dạo | Học lập trình trực tuyến
           </p>
         </div>
-        <div className="col-12 col-lg-4">
+        <div className="mt-3 mt-lg-0 col-12 col-lg-4">
           <p>
             Anh ngữ giao tiếp Khởi động anh ngữ giao tiếp Lấy đà anh ngữ giao
             tiếp Bật nhảy anh ngữ giao tiếp

@@ -61,10 +61,9 @@ export default function Home({}: Props) {
       >
         {/* Inner */}
         <div className="carousel-inner">
-          {/* Single item */}
           <div className="carousel-item active">
             <div className="video_carousel">
-              <video className="img-fluid " autoPlay loop muted>
+              <video className="img-fluid" autoPlay loop muted>
                 <source
                   src="https://mdbcdn.b-cdn.net/img/video/Tropical.mp4"
                   type="video/mp4"
@@ -72,8 +71,30 @@ export default function Home({}: Props) {
               </video>
               <div className="gray_overlay"></div>
             </div>
-            <div className="carousel-caption">
-              <div className="caption-left w-50">
+            <div className="carousel-caption row d-block d-md-flex">
+              <div className="caption-right col-12 col-md-8 ms-0 ms-md-4">
+                <h2 className="text-start text-uppercase fs-1 fw-bold text-warning mb-1 mb-sm-4">
+                  Khởi đầu sự nghiệp của bạn
+                </h2>
+                <h5 className="text-start mb-1 mb-sm-4 text-white">
+                  Trở thành lập trình viên chuyên nghiệp tại Cybersoft
+                </h5>
+                <div className="d-flex">
+                  <button
+                    className="btn btn-warning me-4 px-0 px-sm-4 btn-hover"
+                    onClick={handleClick}
+                  >
+                    Xem khoá học
+                  </button>
+                  <button
+                    className="btn btn-light px-0 px-sm-4 btn-hover"
+                    onClick={handleClickConsult}
+                  >
+                    Tư vấn học
+                  </button>
+                </div>
+              </div>
+              <div className="caption-left col-3 d-none d-sm-flex">
                 <div className="animation">
                   <div className="circle-gif">
                     <img
@@ -81,7 +102,6 @@ export default function Home({}: Props) {
                       alt="circle"
                     />
                   </div>
-
                   <div className="circle">
                     <div className="circle-button">
                       <Button
@@ -112,32 +132,9 @@ export default function Home({}: Props) {
                   </div>
                 </div>
               </div>
-              <div className="caption-right w-50">
-                <h1 className="text-start text-uppercase fs-1 fw-bold text-warning mb-4">
-                  Khởi đầu sự nghiệp của bạn
-                </h1>
-                <h4 className="text-start mb-4">
-                  Trở thành lập trình viên chuyên nghiệp tại Cybersoft
-                </h4>
-                <div className="d-flex">
-                  <button
-                    className="btn btn-warning me-4 px-4 btn-hover"
-                    onClick={handleClick}
-                  >
-                    Xem khoá học
-                  </button>
-                  <button
-                    className="btn btn-light px-4 btn-hover"
-                    onClick={handleClickConsult}
-                  >
-                    Tư vấn học
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
         </div>
-        {/* Inner */}
       </div>
       {/* Carousel wrapper */}
 
@@ -147,7 +144,10 @@ export default function Home({}: Props) {
         <div className="row">
           {showingCourses?.map((item: KhoaHoc, index: number) => {
             return (
-              <div className="col-12 col-sm-6 col-md-4 col-lg-3 mt-5" key={index}>
+              <div
+                className="col-12 col-sm-6 col-md-4 col-lg-3 mt-5"
+                key={index}
+              >
                 <div className="card h-100">
                   <img src={item.hinhAnh} alt="" className="h-50" />
                   <div className="card-body pt-2 pb-0">

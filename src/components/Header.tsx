@@ -99,14 +99,14 @@ export default function Header({}: Props) {
               </form>
             </li>
             <li className="nav-item ">
-              <NavLink className="nav-link text-center" to="/register">
+              <NavLink className="nav-link text-center" to="/dangky">
                 <button className="btn btn-outline-dark text-sm">
                   Đăng ký
                 </button>
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link text-center" to="/login">
+              <NavLink className="nav-link text-center" to="/dangnhap">
                 <button className="btn btn-outline-dark text-sm">
                   Đăng nhập
                 </button>
