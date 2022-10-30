@@ -87,5 +87,5 @@ export default function TableCourse ({}: Props) {
     dispatch(getListUserApi())
   }, [])
 
-  return <Table columns={columns} dataSource={data} />
+  return <Table columns={columns} dataSource={data} className="animate__animated animate__fadeIn animate__delay-2s"/>
 }

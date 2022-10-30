@@ -3,6 +3,9 @@
   min-height: 100vh;
   background-color: $admin-color-secondary;
   color: $admin-color-text;
+  ul {
+    padding: 0;
+  }
   .bi {
     font-size: $text-big;
     margin-right: 10px;

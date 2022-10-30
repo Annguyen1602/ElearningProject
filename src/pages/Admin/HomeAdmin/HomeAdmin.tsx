@@ -3,7 +3,10 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { AppDispatch, RootState } from '../../../redux/configStore'
-import { getCourseDirectoryApi, getListCoursesApi } from '../../../redux/reducers/listCoursesReducer'
+import {
+  getCourseDirectoryApi,
+  getListCoursesApi
+} from '../../../redux/reducers/listCoursesReducer'
 import {
   getListUserApi,
   logoutAction
@@ -16,8 +19,9 @@ import {
   USER_LOGIN
 } from '../../../util/setting'
 import ModalUser from '../UserAdmin/ModalUser'
+import ChartCourse from './ChartCourse'
 import ChartUser from './ChartUser'
-// import imageUser from '../../../'
+import CountUp from 'react-countup';
 
 export default function HomeAdmin () {
   const { userLogin, arrUser } = useSelector(
@@ -57,22 +61,23 @@ export default function HomeAdmin () {
           </button>
         </div>
       </div>
-      <div className='admin-member admin-item animate__animated animate__fadeIn'>
+      <div className='admin-member admin-item d-flex align-items-center justify-content-around animate__animated animate__fadeIn animate__delay-1s'>
+        <div className='number-data'>
+          <h3>Thành viên:</h3>
+          <CountUp end={arrUser.length}/>
+        </div>
         <ChartUser />
-        <p>Thành viên: {arrUser.length}</p>
       </div>
-      <div className='admin-member admin-item paper animate__animated animate__fadeIn'>
-        <p>Khóa học</p>
-      </div>
-      {/* <div className='admin-member admin-item paper animate__animated animate__fadeIn animate__delay-1s'>
+      <div className='admin-todo m-0 admin-item paper animate__animated animate__fadeIn animate__delay-3s'>
         <p>todo</p>
       </div>
-      <div className='admin-member admin-item paper animate__animated animate__fadeIn animate__delay-1s'>
-        <p>calendar</p>
+      <div className='admin-course d-flex align-items-center justify-content-around  m-0 admin-item animate__animated animate__fadeIn animate__delay-2s'>
+        <div className='number-data'>
+          <h3>Khóa học: </h3>
+          <CountUp end={arrayListCourses.length}/>
+        </div>
+        <ChartCourse />
       </div>
-      <div className='admin-member admin-item paper animate__animated animate__fadeIn animate__delay-1s'>
-        <p>notification</p>
-      </div> */}
     </div>
   )
 }

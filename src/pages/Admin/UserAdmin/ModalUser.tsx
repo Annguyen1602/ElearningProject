@@ -93,7 +93,7 @@ export default function ModalUser ({ user }: Props) {
         </Button>
       ) : (
         <Button
-          className='green-button fs-4 py-4 h-100 w-25'
+          className='green-button fs-4 py-4 h-100 w-25 animate__animated animate__fadeIn'
           type='primary'
           onClick={showModal}
         >

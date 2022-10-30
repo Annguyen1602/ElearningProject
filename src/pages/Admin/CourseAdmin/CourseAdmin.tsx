@@ -12,7 +12,7 @@ export default function CourseAdmin () {
     <div id='courseAdmin'>
       <div className='d-flex flex-column'>
         <ModalCourse />
-        <div className='paper my-4'>
+        <div className='paper my-4 animate__animated animate__fadeIn animate__delay-1s'>
           <p className='fs-3'>Tìm kiếm khóa học</p>
           <input
             className='mb-4 w-100'
