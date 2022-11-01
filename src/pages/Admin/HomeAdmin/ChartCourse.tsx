@@ -1,5 +1,5 @@
 import React from 'react'
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+import { Chart as ChartJS, ArcElement, Tooltip } from 'chart.js'
 import { Doughnut, Pie } from 'react-chartjs-2'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../redux/configStore'
@@ -60,15 +60,9 @@ export default function ChartCourse () {
     ]
   }
 
-  const config = {
-    animation: {
-      delay: 3000
-    }
-  }
-
   return (
     <div className='user-chart paper'>
-      <Doughnut data={data} options={config} />
+      <Doughnut data={data}  />
     </div>
   )
 }

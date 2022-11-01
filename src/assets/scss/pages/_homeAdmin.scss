@@ -3,8 +3,18 @@
     margin-bottom: 10vh;
     height: 40vh;
   }
+  .number-data {
+    min-width: 40%;
+    height: 70%;
+    padding: 20px;
+    color: white;
+    font-weight: bold;
+    background: rgba(26, 161, 136, 0.9);
+    box-shadow: 0 0 0.5em rgba(26, 161, 136, 0.7), 0 0 transparent, inset 0 -5px 0 rgb(0 0 0 / 5%), inset 0 2px 0 rgb(255 255 255 / 20%);
+    border-radius: 6px 6px 8px 8px;
+  }
   .user-chart {
-    width: 15vw;
+    width: 20vw;
     border-radius: 100%;
   }
   .admin-profile {
@@ -15,6 +25,7 @@
   }
   .admin-todo {
     width: 30%;
+    overflow-y: scroll;
   }
   .admin-course {
     width: 60%;

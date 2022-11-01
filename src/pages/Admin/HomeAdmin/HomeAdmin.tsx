@@ -21,7 +21,8 @@ import {
 import ModalUser from '../UserAdmin/ModalUser'
 import ChartCourse from './ChartCourse'
 import ChartUser from './ChartUser'
-import CountUp from 'react-countup';
+import CountUp from 'react-countup'
+import Todo from './Todo'
 
 export default function HomeAdmin () {
   const { userLogin, arrUser } = useSelector(
@@ -43,11 +44,10 @@ export default function HomeAdmin () {
       <div className='admin-profile text-center admin-item paper animate__animated animate__fadeIn'>
         <img src='/img/avatar.png' alt='' className='w-50 m-3' />
         <p className='fs-4 m-3'>Xin chào {userLogin.hoTen}</p>
-        <div className='admin-profile-button d-flex justify-content-between'>
+        <div className='admin-profile-button'>
           <ModalUser user={userLogin} />
           <button
-            className='red-button w-50 mx-2
-          '
+            className='red-button p-2 mx-2 h-100'
             onClick={() => {
               deleteCookie(ACCESS_TOKEN)
               deleteStore(ACCESS_TOKEN)
@@ -57,26 +57,26 @@ export default function HomeAdmin () {
               message.success('Đăng xuất thành công')
             }}
           >
-            Đăng xuất
+            <i className="bi bi-box-arrow-left m-0 p-2"></i>
           </button>
         </div>
       </div>
-      <div className='admin-member admin-item d-flex align-items-center justify-content-around animate__animated animate__fadeIn animate__delay-1s'>
+      <div className='admin-course d-flex align-items-center justify-content-around  m-0 admin-item animate__animated animate__fadeIn animate__delay-1s'>
         <div className='number-data'>
-          <h3>Thành viên:</h3>
-          <CountUp end={arrUser.length}/>
-        </div>
-        <ChartUser />
-      </div>
-      <div className='admin-todo m-0 admin-item paper animate__animated animate__fadeIn animate__delay-3s'>
-        <p>todo</p>
-      </div>
-      <div className='admin-course d-flex align-items-center justify-content-around  m-0 admin-item animate__animated animate__fadeIn animate__delay-2s'>
-        <div className='number-data'>
-          <h3>Khóa học: </h3>
-          <CountUp end={arrayListCourses.length}/>
+          <h4 className='text-white'>Khóa học: </h4>
+          <CountUp end={arrayListCourses.length} className="fs-1"/>
         </div>
         <ChartCourse />
+      </div>
+      <div className='admin-todo m-0 admin-item paper animate__animated animate__fadeIn animate__delay-3s'>
+        <Todo />
+      </div>
+      <div className='admin-member m-0 admin-item d-flex align-items-center justify-content-around animate__animated animate__fadeIn animate__delay-2s'>
+        <div className='number-data'>
+          <h4 className='text-white'>Thành viên:</h4>
+          <CountUp end={arrUser.length} className="fs-1" />
+        </div>
+        <ChartUser />
       </div>
     </div>
   )

@@ -50,18 +50,12 @@ export default function ChartUser () {
     ],
   }
 
-  const config = {
-    animation: {
-      delay: 2000
-    }
-  }
-
   useEffect(() => {
     dispatch(getUserTypeApi())
   },[])
   return (
     <div className='user-chart paper'>
-      <Doughnut data={data} options={config}/>
+      <Doughnut data={data} />
     </div>
   )
 }
