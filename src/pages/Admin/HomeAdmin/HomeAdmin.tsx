@@ -68,15 +68,16 @@ export default function HomeAdmin () {
         </div>
         <ChartCourse />
       </div>
-      <div className='admin-todo m-0 admin-item paper animate__animated animate__fadeIn animate__delay-3s'>
-        <Todo />
-      </div>
+      
       <div className='admin-member m-0 admin-item d-flex align-items-center justify-content-around animate__animated animate__fadeIn animate__delay-2s'>
         <div className='number-data'>
           <h4 className='text-white'>Thành viên:</h4>
           <CountUp end={arrUser.length} className="fs-1" />
         </div>
         <ChartUser />
+      </div>
+      <div className='admin-todo m-0 admin-item paper animate__animated animate__fadeIn animate__delay-3s'>
+        <Todo />
       </div>
     </div>
   )

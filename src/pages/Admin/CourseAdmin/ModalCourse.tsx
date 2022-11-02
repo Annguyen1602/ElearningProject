@@ -108,9 +108,10 @@ export default function ModalCourse ({ course }: Props) {
         </Button>
       ) : (
         <Button
-          className='green-button fs-4 py-4 h-100 w-25 animate__animated animate__fadeIn'
+          className='green-button fs-4 py-4 h-100 animate__animated animate__fadeIn'
           type='primary'
           onClick={showModal}
+          style={{width: "fit-content"}}
         >
           {' '}
           Thêm khóa học

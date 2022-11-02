@@ -1,23 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 type Props = {}
 
 type dataTodo = {
   tenCongViec: string
-
 }
 
 export default function Todo ({}: Props) {
-  const dataTodo: dataTodo[] = [{tenCongViec: "them sinh vien"},{tenCongViec: "them khoa hoc"},{tenCongViec: "them sinh vien"}]
+  let dataTodo: dataTodo[] = [
+    { tenCongViec: 'thêm học viên' },
+    { tenCongViec: 'thêm khóa học' },
+    { tenCongViec: 'sửa khóa học' }
+  ]
+
+  const renderListTodo = () => {
+    return dataTodo.map((item, index) => {
+      return (
+        <tr key={index}>
+          <td>{item.tenCongViec}</td>
+          <td>
+            <input type='checkbox'/>
+            <button className='px-3 text-danger mx-2'>X</button>
+          </td>
+        </tr>
+      )
+    })
+  }
+
   return (
     <div className='todo'>
       <p className='fs-3'>Việc làm hôm nay</p>
-      <input type="text" placeholder='Thêm công việc' onKeyDown={(e) => {
-        if(e.key === "Enter") {
-
-          console.log(1111)
-        }
-      }}/>
       <table className='table'>
         <thead>
           <tr>
@@ -25,53 +37,7 @@ export default function Todo ({}: Props) {
             <td>Trạng thái</td>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>Thêm học viên</td>
-            <td>
-              <input type='checkbox' placeholder='x'/>
-              <button className='px-3 text-danger mx-2'>X</button>
-            </td>
-          </tr>
-
-          <tr>
-            <td>Thêm học viên</td>
-            <td>
-              <input type='checkbox' placeholder='x'/>
-              <button className='px-3 text-danger mx-2'>X</button>
-            </td>
-          </tr>
-
-          <tr>
-            <td>Thêm học viên</td>
-            <td>
-              <input type='checkbox' placeholder='x'/>
-              <button className='px-3 text-danger mx-2'>X</button>
-            </td>
-          </tr>
-
-          <tr>
-            <td>Thêm học viên</td>
-            <td>
-              <input type='checkbox' placeholder='x'/>
-              <button className='px-3 text-danger mx-2'>X</button>
-            </td>
-          </tr>
-
-          <tr>
-            <td>Thêm khóa học</td>
-            <td>
-              <input type='checkbox' name='' id='' />
-            </td>
-          </tr>
-
-          <tr>
-            <td>Ghi danh khóa học</td>
-            <td>
-              <input type='checkbox' name='' id='' />
-            </td>
-          </tr>
-        </tbody>
+        <tbody>{renderListTodo()}</tbody>
       </table>
     </div>
   )

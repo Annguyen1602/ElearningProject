@@ -7,6 +7,23 @@
     padding: 20px;
     border-radius: 20px;
     background-color: $admin-color-secondary;
+    @media screen and (max-width: 991px) {
+      width: 90vw;
+      position: sticky;
+      left: 5vw;
+      right: 5vw;
+      .ant-modal-body {
+        .row {
+          flex-direction: column;
+          .form-item {
+            width: 100%;
+            input {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
     .ant-modal-header {
       background-color: $admin-color-secondary;
       border: 0;
@@ -41,7 +58,18 @@
 }
 //antd table
 .ant-spin-container {
+  .ant-table {
+    background-color: transparent;
+    &-container {
+      &::after, &::before {
+        box-shadow: none !important;
+      }
+    }
+  }
   .ant-table-content {
+    @media screen and (max-width: 991px) {
+      overflow: scroll;
+    }
     @extend .paper;
     .ant-table-thead > tr > th {
       background-color: transparent;

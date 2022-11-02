@@ -193,20 +193,6 @@ export const searchCourseAdminApi = (key: string) => {
   }
 }
 
-// --------------upload image----------------
-export const addCourseUploadImg = (file: any) => {
-  return async (dispatch: AppDispatch) => {
-    try {
-      let result = await http.post(
-        'QuanLyKhoaHoc/ThemKhoaHocUploadHinh',
-        file,
-        { headers: { 'Content-Type': 'multipart/form-data' } }
-      )
-    } catch (err) {
-      console.log(err)
-    }
-  }
-}
 //--------------lấy danh sách học viên chưa đăng ký khóa học-------
 export const getListUserNotReigsterCourseApi = (maKhoaHoc: string) => {
   return async (dispatch: AppDispatch) => {
