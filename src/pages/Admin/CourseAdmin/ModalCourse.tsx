@@ -48,14 +48,14 @@ export default function ModalCourse ({ course }: Props) {
       tenKhoaHoc: Yup.string().required('Tên khóa học không được bỏ trống'),
       moTa: Yup.string().required('Mô tả không được để trống'),
       ngayTao: Yup.string().required('Ngày tạo không được để trống'),
-      image:Yup.string().required("Hình ảnh không được bỏ trống")
+      image: Yup.string().required('Hình ảnh không được bỏ trống')
     }),
 
     onSubmit: values => {
       console.log(values)
       const data = new FormData()
       data.append('file', values.image)
-      data.append("tenKhoaHoc", values.tenKhoaHoc)
+      data.append('tenKhoaHoc', values.tenKhoaHoc)
       let formData = {
         maKhoaHoc: values.maKhoaHoc,
         biDanh: values.biDanh,
@@ -111,7 +111,7 @@ export default function ModalCourse ({ course }: Props) {
           className='green-button fs-4 py-4 h-100 animate__animated animate__fadeIn'
           type='primary'
           onClick={showModal}
-          style={{width: "fit-content"}}
+          style={{ width: 'fit-content' }}
         >
           {' '}
           Thêm khóa học
@@ -291,7 +291,14 @@ export default function ModalCourse ({ course }: Props) {
             </div>
             <div className='form-item col-12 mb-4'>
               <p>Mô tả</p>
-              <textarea name="moTa" id="moTa" rows={20} className="w-100"></textarea>
+              <textarea
+                name='moTa'
+                id='moTa'
+                rows={20}
+                className='w-100'
+                onChange={form.handleChange}
+                onBlur={form.handleBlur}
+              ></textarea>
               {form.errors.moTa && form.touched.moTa ? (
                 <div className='text-danger position-absolute'>
                   {form.errors.moTa}
