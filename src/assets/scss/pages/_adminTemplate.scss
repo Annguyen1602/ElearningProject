@@ -25,6 +25,7 @@
     position: sticky;
     top: 0;
     left: 0;
+    z-index: 99;
     @media screen and (max-width: 991px) {
       display: none !important;
     }
@@ -81,10 +82,14 @@
       }
     }
     &-brand {
+      width: fit-content;
       padding: 20px;
       border-radius: 20px;
       background: #f2d388;
       box-shadow: inset 5px 5px 10px #ceb374, inset -5px -5px 10px #fff39c;
+      img {
+        width: 180px;
+      }
       @media screen and (max-width:991px) {
         padding: 10px;
         img {

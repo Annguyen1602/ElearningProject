@@ -38,7 +38,7 @@
     }
   }
   .admin-profile {
-    width: 30%;
+    width: 38%;
     height: fit-content;
     @media screen and (max-width: 991px) {
       width: 50%; 
@@ -59,7 +59,7 @@
     }
   }
   .admin-todo {
-    width: 30%;
+    width: 38%;
     height: fit-content;
     overflow-y: scroll;
     &::-webkit-scrollbar {
