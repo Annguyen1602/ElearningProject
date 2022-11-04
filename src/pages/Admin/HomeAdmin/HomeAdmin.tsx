@@ -40,17 +40,17 @@ export default function HomeAdmin () {
     dispatch(getCourseDirectoryApi())
   }, [])
   useEffect(() => {
-    if (userToken !== '') {
+    if (userLogin !== null && Object.keys(userLogin).length !== 0 ) {
       if (userLogin?.maLoaiNguoiDung === 'HV') {
         navigate('/profile')
-      } else if (userLogin?.maLoaiNguoiDung === "GV") {
-        navigate("/admin/index")
+      } else if (userLogin?.maLoaiNguoiDung === 'GV') {
+        navigate('/admin/index')
       }
     } else {
-      navigate("/admin")
-      message.error("Bạn phải đăng nhập tài khoản admin trước")
+      navigate('/admin')
+      message.error('Bạn phải đăng nhập tài khoản admin trước')
     }
-  }, [userToken])
+  }, [])
   return (
     <div id='homeAdmin' className='d-flex flex-wrap justify-content-between'>
       <div className='admin-profile text-center admin-item paper animate__animated animate__fadeIn'>

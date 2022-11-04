@@ -15,18 +15,17 @@ export default function CourseAdmin () {
   )
 
   useEffect(() => {
-    if (userToken !== '') {
+    if (userLogin !== null && Object.keys(userLogin).length !== 0 ) {
       if (userLogin?.maLoaiNguoiDung === 'HV') {
         navigate('/profile')
       } else if (userLogin?.maLoaiNguoiDung === 'GV') {
-        navigate('/admin/index')
-        message.success('Đăng nhập thành công')
+        navigate('/admin/course')
       }
     } else {
       navigate('/admin')
       message.error('Bạn phải đăng nhập tài khoản admin trước')
     }
-  }, [userToken])
+  }, [])
   return (
     <div id='courseAdmin'>
       <div className='d-flex flex-column'>
