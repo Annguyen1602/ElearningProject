@@ -25,7 +25,7 @@ import CountUp from 'react-countup'
 import Todo from './Todo'
 
 export default function HomeAdmin () {
-  const { userLogin, arrUser } = useSelector(
+  const { userLogin, arrUser, userToken } = useSelector(
     (state: RootState) => state.userReducer
   )
   const { arrayListCourses } = useSelector(
@@ -39,6 +39,18 @@ export default function HomeAdmin () {
     dispatch(getListCoursesApi())
     dispatch(getCourseDirectoryApi())
   }, [])
+  useEffect(() => {
+    if (userToken !== '') {
+      if (userLogin?.maLoaiNguoiDung === 'HV') {
+        navigate('/profile')
+      } else if (userLogin?.maLoaiNguoiDung === "GV") {
+        navigate("/admin/index")
+      }
+    } else {
+      navigate("/admin")
+      message.error("Bạn phải đăng nhập tài khoản admin trước")
+    }
+  }, [userToken])
   return (
     <div id='homeAdmin' className='d-flex flex-wrap justify-content-between'>
       <div className='admin-profile text-center admin-item paper animate__animated animate__fadeIn'>

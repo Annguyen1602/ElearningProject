@@ -122,7 +122,6 @@ export const getCourseDirectoryApi = () => {
   return async (dispatch: AppDispatch) => {
     try {
       const result = await http.get('/QuanLyKhoaHoc/LayDanhMucKhoaHoc')
-      console.log(result)
       let arrCoursesDirectory: DanhMucKhoaHoc[] = result.data
       const action = getAllCoursesDirectory(arrCoursesDirectory)
       dispatch(action)
@@ -135,12 +134,9 @@ export const getCourseDirectoryApi = () => {
 //------------Add course api------------------
 export const addCourseAdminApi = (course: CourseAdmin, file: FormData) => {
   return async (dispatch: AppDispatch) => {
+    await http.post('/QuanLyKhoaHoc/ThemKhoaHoc', course)
     try {
-      let result = await http
-        .post('/QuanLyKhoaHoc/ThemKhoaHoc', course)
-        .then(() => {
-          http.post('QuanLyKhoaHoc/UploadHinhAnhKhoaHoc', file)
-        })
+      await http.post('QuanLyKhoaHoc/UploadHinhAnhKhoaHoc', file)
       dispatch(getListCoursesApi())
       message.success('Thêm khoá học thành công')
     } catch (err:any) {

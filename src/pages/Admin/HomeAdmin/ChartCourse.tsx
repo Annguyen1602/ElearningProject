@@ -31,7 +31,6 @@ export default function ChartCourse () {
       )
       dataArrNew.push(found.length)
     })
-    console.log(dataArrNew)
     return dataArrNew
   }
   const data = {
